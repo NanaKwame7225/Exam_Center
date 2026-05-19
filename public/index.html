@@ -987,11 +987,54 @@ const DEFAULT={
 
 let S={}, currentUser=null, currentExam=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200;
 
+/* ── Cross-device sync (jsonblob.com, no API key) ── */
+const REMOTE_URL='https://jsonblob.com/api/jsonBlob/019e40b7-74af-790a-ab0d-0424212889f5';
+let _saveTimer=null, _saving=false, _lastSerialized='';
+async function _remoteGet(){
+  try{ const r=await fetch(REMOTE_URL,{cache:'no-store',headers:{'Accept':'application/json'}});
+    if(!r.ok) return null; return await r.json();
+  }catch(e){ return null; }
+}
+async function _remotePut(data){
+  try{ await fetch(REMOTE_URL,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)}); }catch(e){}
+}
 function loadState(){
   try{ const r=localStorage.getItem(STORE_KEY); S=r?JSON.parse(r):JSON.parse(JSON.stringify(DEFAULT)); }
   catch(e){ S=JSON.parse(JSON.stringify(DEFAULT)); }
 }
-function saveState(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){} }
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){}
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(async()=>{
+    if(_saving) return;
+    _saving=true;
+    const payload=JSON.stringify(S);
+    if(payload!==_lastSerialized){ await _remotePut(S); _lastSerialized=payload; }
+    _saving=false;
+  },400);
+}
+async function _bootstrapSync(){
+  loadState();
+  const remote=await _remoteGet();
+  if(remote && typeof remote==='object' && Array.isArray(remote.students) && Array.isArray(remote.questions)){
+    S=remote;
+    try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){}
+    _lastSerialized=JSON.stringify(S);
+  } else {
+    // seed remote with whatever we have locally
+    _lastSerialized=JSON.stringify(S);
+    await _remotePut(S);
+  }
+  setInterval(async()=>{
+    if(_saving) return;
+    const r=await _remoteGet();
+    if(!r||typeof r!=='object'||!Array.isArray(r.students)) return;
+    const ser=JSON.stringify(r);
+    if(ser===_lastSerialized) return;
+    S=r; _lastSerialized=ser;
+    try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){}
+  },8000);
+}
 
 function goto(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1506,7 +1549,7 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 });
 
 // Init
-loadState();
+_bootstrapSync();
 // Show scenario wrap correctly on load
 document.getElementById('scenario-wrap').classList.add('hidden');
 </script>
