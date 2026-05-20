@@ -1153,7 +1153,10 @@ async function loadState(){
   showSyncBanner('🔄 Syncing data across devices...');
   if(USE_GAS){
     try{
-      const resp = await fetch(APPS_SCRIPT_URL + '?action=load', {method:'GET', cache:'no-store'});
+      const controller = new AbortController();
+      const fetchTimeout = setTimeout(()=>controller.abort(), 4000);
+      const resp = await fetch(APPS_SCRIPT_URL + '?action=load', {method:'GET', cache:'no-store', signal:controller.signal});
+      clearTimeout(fetchTimeout);
       if(resp.ok){
         const raw = await resp.json();
         S = mergeWithDefaults(raw);
@@ -2000,26 +2003,31 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 });
 
 // ── INIT ──
+// ── INIT ──
 (async function(){
-  // Show loading screen
-  document.body.innerHTML += `<div id="app-loader" style="position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:'DM Sans',sans-serif">
+  // Create loader using createElement (not innerHTML +=) to preserve event listeners
+  const loader = document.createElement('div');
+  loader.id = 'app-loader';
+  loader.style.cssText = "position:fixed;inset:0;background:#0F2744;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:'DM Sans',sans-serif";
+  loader.innerHTML = `
     <div style="width:52px;height:52px;background:linear-gradient(135deg,#C49A2A,#E8B84B);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#0F2744;margin-bottom:20px">N</div>
     <div style="font-family:'Playfair Display',serif;font-size:20px;color:white;font-weight:700;margin-bottom:6px">NkaySolutions Tech Academy</div>
     <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:28px">Loading exam platform...</div>
     <div style="width:200px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden">
       <div id="loader-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#C49A2A,#E8B84B);border-radius:2px;transition:width 0.4s ease"></div>
-    </div>
-  </div>`;
+    </div>`;
+  document.body.appendChild(loader);
 
-  // Animate loader bar
-  setTimeout(()=>{ const b=document.getElementById('loader-bar'); if(b)b.style.width='60%'; },200);
+  setTimeout(()=>{ const b=document.getElementById('loader-bar'); if(b)b.style.width='60%'; },100);
 
-  await loadState();
+  // Set a hard timeout — if sync takes too long, proceed anyway
+  const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));
+  await Promise.race([loadState(), timeoutPromise]);
 
   setTimeout(()=>{ const b=document.getElementById('loader-bar'); if(b)b.style.width='100%'; },100);
-  setTimeout(()=>{ const loader=document.getElementById('app-loader'); if(loader)loader.remove(); },600);
+  setTimeout(()=>{ const l=document.getElementById('app-loader'); if(l)l.remove(); },400);
 
-  // Show scenario wrap correctly on load
+  // Init UI state
   const sw=document.getElementById('scenario-wrap');
   if(sw) sw.classList.add('hidden');
 })();
