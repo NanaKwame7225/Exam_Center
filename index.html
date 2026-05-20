@@ -1231,214 +1231,82 @@ function renderStudentDash(){
   document.getElementById('m-code').textContent=u.code;
   const myR=S.results.filter(r=>r.studentCode===u.code);
   document.getElementById('m-done').textContent=myR.length;
-  const scores=myR.filter(r=>r.released).map(r=>r.pct);
-  document.getElementById('m-best').textContent=scores.length?Math.max(...scores)+'%':'—';
+  const relScores=myR.filter(r=>r.released).map(r=>r.pct);
+  document.getElementById('m-best').textContent=relScores.length?Math.max(...relScores)+'%':'—';
 
   const list=document.getElementById('exam-list');
   list.innerHTML='';
 
-  // Course card (the student is enrolled in one course)
-  const courseCard=document.createElement('div');
-  courseCard.style.cssText='background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);border-radius:var(--radius-xl);padding:24px 28px;margin-bottom:20px;color:white;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap';
-  const completedExams=myR.length;
-  const passedExams=myR.filter(r=>r.released&&r.pct>=S.settings.gradePass).length;
-  courseCard.innerHTML=`
-    <div style="display:flex;align-items:center;gap:16px">
-      <div style="width:52px;height:52px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🎓</div>
-      <div>
-        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700">${u.course}</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:3px">Your enrolled programme · Code: <span style="font-family:'JetBrains Mono',monospace;background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px">${u.code}</span></div>
-      </div>
-    </div>
-    <div style="display:flex;gap:16px">
-      <div style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700">${completedExams}</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Submitted</div></div>
-      <div style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700">${passedExams}</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Passed</div></div>
-    </div>`;
-  list.appendChild(courseCard);
+  // ── Course banner ──
+  const banner=document.createElement('div');
+  banner.style.cssText='background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:14px;padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:white';
+  banner.innerHTML='<div style="display:flex;align-items:center;gap:14px"><div style="width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px">&#127891;</div><div><div style="font-family:Playfair Display,serif;font-size:17px;font-weight:700">'+u.course+'</div><div style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px">Code: '+u.code+'</div></div></div><div style="display:flex;gap:20px"><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700">'+myR.length+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Submitted</div></div><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700">'+myR.filter(function(r){return r.released&&r.pct>=S.settings.gradePass;}).length+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Passed</div></div></div>';
+  list.appendChild(banner);
 
-  // Section label
+  // ── Section label ──
   const label=document.createElement('div');
   label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px';
   label.textContent='Exam Modules';
   list.appendChild(label);
 
-  // Exam module cards
-  const modules=[
-    {name:'Mock 1',icon:'📋',desc:'Practice Examination',color:'#1E40AF',badge:'Practice'},
-    {name:'Mock 2',icon:'📝',desc:'Second Practice Examination',color:'#6B21A8',badge:'Practice'},
-    {name:'Main Exam',icon:'🎯',desc:'Final Assessment',color:'#0F2744',badge:'Final'}
+  // ── Module cards ──
+  var moduleInfo=[
+    {name:'Mock 1',icon:'&#128203;',color:'#1E40AF',badge:'Practice Exam'},
+    {name:'Mock 2',icon:'&#128221;',color:'#6B21A8',badge:'Second Practice'},
+    {name:'Main Exam',icon:'&#127919;',color:'#0F2744',badge:'Final Assessment'}
   ];
 
-  modules.forEach((mod,idx)=>{
-    const examName=mod.name;
-    const qs=S.questions.filter(q=>q.course===u.course&&q.exam===examName);
+  moduleInfo.forEach(function(mod,idx){
+    var examName=mod.name;
+    var qs=S.questions.filter(function(q){return q.course===u.course&&q.exam===examName;});
     if(!qs.length) return;
-    const done=myR.find(r=>r.exam===examName&&r.course===u.course);
-    const isMain=examName==='Main Exam';
-    const qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
-    const timeLimit=isMain?S.settings.mainTime:S.settings.mockTime;
-    const locked=isMain&&!myR.find(r=>r.exam==='Mock 1'&&r.course===u.course);
-    const passKey=u.course+'|'+examName;
-    const hasPassword=S.settings.examPasswords&&S.settings.examPasswords[passKey];
+    var done=myR.find(function(r){return r.exam===examName&&r.course===u.course;});
+    var isMain=examName==='Main Exam';
+    var qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
+    var timeLimit=isMain?S.settings.mainTime:S.settings.mockTime;
+    var locked=isMain&&!myR.find(function(r){return r.exam==='Mock 1'&&r.course===u.course;});
+    var passKey=u.course+'|'+examName;
+    var hasPass=S.settings.examPasswords&&S.settings.examPasswords[passKey];
 
-    const card=document.createElement('div');
-    card.style.cssText='background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow);transition:box-shadow 0.15s';
-
-    // Status
-    let statusBadge='',statusColor='var(--text-muted)';
+    // Status badge
+    var statusHtml='';
     if(done){
       if(done.released){
-        const pass=done.pct>=S.settings.gradePass;
-        statusBadge=`<span style="background:${pass?'var(--success-bg)':'var(--danger-bg)'};color:${pass?'var(--success)':'var(--danger)'};padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700">${pass?'✓ PASSED':'✗ FAILED'} · ${done.pct}%</span>`;
+        var pass=done.pct>=S.settings.gradePass;
+        statusHtml='<span style="background:'+(pass?'var(--success-bg)':'var(--danger-bg)')+';color:'+(pass?'var(--success)':'var(--danger)')+';padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700">'+(pass?'PASSED':'FAILED')+' '+done.pct+'%</span>';
       } else {
-        statusBadge=`<span style="background:var(--warning-bg);color:var(--warning);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">⏳ Awaiting Release</span>`;
+        statusHtml='<span style="background:var(--warning-bg);color:var(--warning);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">Awaiting Release</span>';
       }
     } else if(locked){
-      statusBadge=`<span style="background:var(--cream2);color:var(--text-muted);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border)">🔒 Locked</span>`;
-    } else if(hasPassword){
-      statusBadge=`<span style="background:var(--info-bg);color:var(--info);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">🔐 Code Required</span>`;
+      statusHtml='<span style="background:var(--cream2);color:var(--text-muted);padding:5px 14px;border-radius:20px;font-size:12px;border:1px solid var(--border)">Locked</span>';
+    } else if(hasPass){
+      statusHtml='<span style="background:var(--info-bg);color:var(--info);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">Code Required</span>';
     } else {
-      statusBadge=`<span style="background:var(--success-bg);color:var(--success);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">● Available</span>`;
+      statusHtml='<span style="background:var(--success-bg);color:var(--success);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">Available</span>';
     }
 
-    card.innerHTML=`
-      <div style="background:${mod.color};padding:16px 22px;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:14px">
-          <div style="width:42px;height:42px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">${mod.icon}</div>
-          <div>
-            <div style="font-family:'Playfair Display',serif;font-size:16px;color:white;font-weight:700">Module ${idx+1}: ${examName}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">${mod.desc} · <span style="background:rgba(255,255,255,0.15);padding:1px 8px;border-radius:10px">${mod.badge}</span></div>
-          </div>
-        </div>
-        ${statusBadge}
-      </div>
-      <div style="padding:18px 22px">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
-          <div style="text-align:center;padding:12px 8px;background:var(--cream);border-radius:10px">
-            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy)">${Math.min(qs.length,qCount)}</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Questions</div>
-          </div>
-          <div style="text-align:center;padding:12px 8px;background:var(--cream);border-radius:10px">
-            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy)">${timeLimit}<span style="font-size:13px;font-family:'DM Sans',sans-serif;font-weight:400"> min</span></div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Time Limit</div>
-          </div>
-          <div style="text-align:center;padding:12px 8px;background:var(--cream);border-radius:10px">
-            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy)">${S.settings.gradePass}<span style="font-size:13px;font-family:'DM Sans',sans-serif;font-weight:400">%</span></div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Pass Mark</div>
-          </div>
-        </div>
-        ${done&&done.released?`
-        <div style="background:${done.pct>=S.settings.gradePass?'var(--success-bg)':'var(--danger-bg)'};border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-          <div style="font-size:13px;color:${done.pct>=S.settings.gradePass?'var(--success)':'var(--danger)'}">
-            <strong>${done.grade} — ${done.gradeLabel}</strong> &nbsp;·&nbsp; ${done.earned}/${done.total} marks &nbsp;·&nbsp; ${done.pct}%
-          </div>
-          <div style="font-size:11px;color:var(--text-muted)">${done.date}</div>
-        </div>`:''}
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-          <div style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:8px">
-            ${locked?'<span>🔒 Complete Mock 1 first to unlock this module</span>':''}
-            ${hasPassword&&!done?'<span>🔐 Trainer access code required to start</span>':''}
-            ${qs.filter(q=>q.type==='word').length&&!locked?'<span style="background:var(--info-bg);color:var(--info);padding:2px 8px;border-radius:10px;font-weight:500">📊 Includes real-world scenarios</span>':''}
-          </div>
-          <div style="display:flex;gap:8px">
-            ${done&&done.released?`<button class="btn btn-sm" style="background:var(--info-bg);color:var(--info);border-color:var(--info-border)" onclick="viewScript('${done.id}')">📄 Review Script</button>`:''}
-            ${!done&&!locked?`<button class="btn btn-primary" onclick="startExam('${examName}')" style="height:40px;font-size:14px;padding:0 22px;font-weight:600">
-              ${hasPassword?'🔐 Enter Code & Start':'▶ Start Exam'}
-            </button>`:''}
-            ${done&&!done.released?`<span style="font-size:12px;color:var(--text-muted);padding:10px 0">Results will appear once your trainer releases them</span>`:''}
-            ${locked?`<span style="font-size:12px;color:var(--text-muted);padding:10px 0">Module locked</span>`:''}
-          </div>
-        </div>
-      </div>`;
-    list.appendChild(card);
-  });
-}</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px">Your enrolled course · ${myR.length} exam${myR.length!==1?'s':''} completed</div>
-    </div>`;
-  list.appendChild(moduleHeader);
+    // Result bar
+    var resultBar='';
+    if(done&&done.released){
+      var p2=done.pct>=S.settings.gradePass;
+      resultBar='<div style="background:'+(p2?'var(--success-bg)':'var(--danger-bg)')+';border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px;color:'+(p2?'var(--success)':'var(--danger)')+'"><strong>'+done.grade+' - '+done.gradeLabel+'</strong> &nbsp;'+done.earned+'/'+done.total+' marks &nbsp; '+done.pct+'%<span style="color:var(--text-muted);font-size:11px">'+done.date+'</span></div>';
+    }
 
-  // Exam modules
-  ['Mock 1','Mock 2','Main Exam'].forEach((examName,idx)=>{
-    const qs=S.questions.filter(q=>q.course===u.course&&q.exam===examName);
-    if(!qs.length) return;
-    const done=myR.find(r=>r.exam===examName&&r.course===u.course);
-    const isMain=examName==='Main Exam';
-    const qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
-    const timeLimit=isMain?S.settings.mainTime:S.settings.mockTime;
-    const locked=isMain&&!myR.find(r=>r.exam==='Mock 1'&&r.course===u.course);
-    const passKey=u.course+'|'+examName;
-    const hasPassword=S.settings.examPasswords&&S.settings.examPasswords[passKey];
-
-    const card=document.createElement('div');
-    card.style.cssText='background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:10px;box-shadow:var(--shadow)';
-
-    // Module top bar
-    const colors={0:'#1E40AF',1:'#6B21A8',2:'#0F2744'};
-    const icons={0:'📋',1:'📝',2:'🎯'};
-    let statusHtml='';
-    if(done){
-      if(done.released){
-        const pass=done.pct>=S.settings.gradePass;
-        statusHtml=`<span style="background:${pass?'var(--success-bg)':'var(--danger-bg)'};color:${pass?'var(--success)':'var(--danger)'};padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700">${pass?'✓ PASSED':'✗ FAILED'} · ${done.pct}%</span>`;
-      } else {
-        statusHtml=`<span style="background:var(--warning-bg);color:var(--warning);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600">⏳ Pending Release</span>`;
-      }
+    // Action button
+    var actionBtn='';
+    if(!done&&!locked){
+      actionBtn='<button class="btn btn-primary" onclick="startExam(''+examName+'')" style="height:40px;padding:0 22px;font-size:14px;font-weight:600">'+(hasPass?'Enter Code & Start':'Start Exam')+'</button>';
+    } else if(done&&done.released){
+      actionBtn='<button class="btn btn-sm" style="background:var(--info-bg);color:var(--info);border-color:var(--info-border)" onclick="viewScript(''+done.id+'')">Review Script</button>';
+    } else if(done&&!done.released){
+      actionBtn='<span style="font-size:12px;color:var(--text-muted)">Results pending trainer release</span>';
     } else if(locked){
-      statusHtml=`<span style="background:var(--cream2);color:var(--text-muted);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border)">🔒 Locked</span>`;
-    } else if(hasPassword){
-      statusHtml=`<span style="background:var(--info-bg);color:var(--info);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600">🔐 Password Required</span>`;
-    } else {
-      statusHtml=`<span style="background:var(--success-bg);color:var(--success);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600">● Available</span>`;
+      actionBtn='<span style="font-size:12px;color:var(--text-muted)">Complete Mock 1 to unlock</span>';
     }
 
-    card.innerHTML=`
-      <div style="background:${colors[idx]};padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span style="font-size:22px">${icons[idx]}</span>
-          <div>
-            <div style="font-family:'Playfair Display',serif;font-size:16px;color:white;font-weight:700">Module ${idx+1}: ${examName}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">${isMain?'Final Assessment':'Practice Exam'}</div>
-          </div>
-        </div>
-        ${statusHtml}
-      </div>
-      <div style="padding:16px 20px">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
-          <div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px">
-            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy)">${Math.min(qs.length,qCount)}</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Questions</div>
-          </div>
-          <div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px">
-            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy)">${timeLimit}</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Minutes</div>
-          </div>
-          <div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px">
-            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy)">${S.settings.gradePass}%</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Pass Mark</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-          <div style="font-size:12px;color:var(--text-muted)">
-            ${hasPassword?'🔐 Access code required · ':''}${qs.filter(q=>q.type==='word').length?' 📝 Includes word problems':''}
-            ${locked?'Complete Mock 1 first to unlock this exam':''}
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            ${done&&done.released?`<button class="btn btn-sm" style="background:var(--info-bg);color:var(--info);border-color:var(--info-border)" onclick="viewScript('${done.id}')">📄 View Script</button>`:''}
-            ${!done&&!locked?`<button class="btn btn-primary" onclick="startExam('${examName}')" style="height:40px;padding:0 20px">
-              ${hasPassword?'🔐 Enter Code & Start':'▶ Start Exam'}
-            </button>`:''}
-            ${done&&!done.released?`<span style="font-size:12px;color:var(--text-muted)">Results will appear here once released</span>`:''}
-            ${locked?`<span style="font-size:12px;color:var(--text-muted)">🔒 Locked</span>`:''}
-          </div>
-        </div>
-        ${done&&done.released?`
-        <div style="margin-top:12px;padding:12px;background:${done.pct>=S.settings.gradePass?'var(--success-bg)':'var(--danger-bg)'};border-radius:8px;display:flex;align-items:center;justify-content:space-between">
-          <div style="font-size:13px;color:${done.pct>=S.settings.gradePass?'var(--success)':'var(--danger)'}">
-            <strong>${done.grade} — ${done.gradeLabel}</strong> · ${done.earned}/${done.total} marks · ${done.pct}%
-          </div>
-          <div style="font-size:11px;color:var(--text-muted)">${done.date}</div>
-        </div>`:''}
-      </div>`;
+    var card=document.createElement('div');
+    card.style.cssText='background:white;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow)';
+    card.innerHTML='<div style="background:'+mod.color+';padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;background:rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">'+mod.icon+'</div><div><div style="font-family:Playfair Display,serif;font-size:15px;color:white;font-weight:700">Module '+(idx+1)+': '+examName+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">'+mod.badge+'</div></div></div>'+statusHtml+'</div><div style="padding:16px 20px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px"><div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--navy)">'+Math.min(qs.length,qCount)+'</div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Questions</div></div><div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--navy)">'+timeLimit+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">m</span></div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Time</div></div><div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--navy)">'+S.settings.gradePass+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">%</span></div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Pass</div></div></div>'+resultBar+'<div style="display:flex;justify-content:flex-end">'+actionBtn+'</div></div>';
     list.appendChild(card);
   });
 }
