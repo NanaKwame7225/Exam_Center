@@ -179,6 +179,27 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .ec-score.fail{background:var(--danger-bg);color:var(--danger)}
 .ec-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
 
+/* EXAM PASSWORD MODAL */
+.exam-pass-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:300;padding:24px;backdrop-filter:blur(4px)}
+.exam-pass-box{background:white;border-radius:20px;padding:32px;width:100%;max-width:420px;box-shadow:0 24px 64px rgba(0,0,0,0.2);border:1.5px solid var(--border)}
+.exam-pass-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+.exam-pass-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.exam-pass-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px;line-height:1.6}
+.exam-pass-input-wrap{position:relative;margin-bottom:8px}
+.exam-pass-input{width:100%;border:2px solid var(--border);border-radius:var(--radius);padding:14px 48px 14px 16px;font-size:18px;font-family:'JetBrains Mono',monospace;letter-spacing:4px;text-align:center;color:var(--navy);outline:none;transition:border-color 0.15s;background:var(--cream)}
+.exam-pass-input:focus{border-color:var(--navy)}
+.exam-pass-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:18px;padding:4px}
+.exam-pass-err{font-size:12px;color:var(--danger);padding:8px 12px;background:var(--danger-bg);border-radius:8px;border:1px solid var(--danger-border);margin-bottom:12px;display:none}
+.exam-pass-hint{font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px}
+.trainer-pass-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.trainer-pass-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.pass-display{display:flex;align-items:center;gap:12px;margin:12px 0}
+.pass-code{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--navy);letter-spacing:6px;background:var(--cream2);padding:12px 20px;border-radius:var(--radius);border:1.5px solid var(--border);flex:1;text-align:center}
+.pass-exam-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.pass-exam-row:last-child{border-bottom:none}
+.pass-exam-name{flex:1;color:var(--text-muted)}
+.pass-exam-code{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--navy);letter-spacing:2px;background:var(--cream2);padding:4px 10px;border-radius:6px}
+
 /* EXAM TAKING */
 .exam-shell{background:var(--cream2);min-height:calc(100vh - 58px)}
 .exam-topbar{background:white;border-bottom:1.5px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:58px;z-index:50}
@@ -673,6 +694,16 @@ tbody tr:hover td{background:var(--cream)}
           <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:12px">💾 Save Settings</button>
         </div>
         <div class="settings-section">
+          <h3>🔐 Exam Access Passwords</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
+            Set a password that students must enter before starting each exam. Leave blank to allow free access. Passwords are shared across all devices instantly.
+          </p>
+          <div id="exam-passwords-list"></div>
+          <button class="btn btn-primary btn-sm" onclick="saveExamPasswords()" style="margin-top:8px">💾 Save Passwords</button>
+          <div id="pass-save-alert" style="margin-top:10px"></div>
+        </div>
+
+        <div class="settings-section">
           <h3>Trainer Credentials</h3>
           <div class="two-col">
             <div class="field"><label>New Username</label><input id="s-t-user" placeholder="trainer"></div>
@@ -705,6 +736,25 @@ tbody tr:hover td{background:var(--cream)}
   </div>
 </div>
 
+<!-- EXAM PASSWORD MODAL -->
+<div class="exam-pass-overlay hidden" id="modal-exam-pass">
+  <div class="exam-pass-box">
+    <div class="exam-pass-icon">🔐</div>
+    <div class="exam-pass-title">Exam Access Code</div>
+    <div class="exam-pass-sub">Your trainer has set an access code for this exam. Enter it below to begin. You have 3 attempts.</div>
+    <div class="exam-pass-input-wrap">
+      <input class="exam-pass-input" type="password" id="ep-input" placeholder="· · · · · ·" maxlength="10" onkeydown="if(event.key==='Enter')verifyExamPass()" autocomplete="off">
+      <button class="exam-pass-toggle" onclick="togglePassVis()" id="ep-toggle">👁</button>
+    </div>
+    <div class="exam-pass-err" id="ep-err"></div>
+    <button class="btn btn-primary btn-full" onclick="verifyExamPass()" style="height:46px;font-size:15px;margin-bottom:8px">
+      🔓 Unlock Exam
+    </button>
+    <button class="btn btn-full" onclick="cancelExamPass()">Cancel</button>
+    <div class="exam-pass-hint">Contact your trainer if you have not received the access code.</div>
+  </div>
+</div>
+
 <div class="modal-overlay hidden" id="modal-confirm-submit">
   <div class="modal-box">
     <h3>Submit Exam?</h3>
@@ -719,9 +769,17 @@ tbody tr:hover td{background:var(--cream)}
 <script>
 const STORE_KEY='nta_v3';
 
+// ── SHARED DATABASE via GitHub Gist ──
+// Paste your Google Apps Script Web App URL below after setup
+// ── SHARED DATABASE via Google Apps Script ──
+// Paste your deployed Apps Script Web App URL below after setup
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHaM8VCDQ_-HSQ4kqHi4V44iHTPOFzqsSQ3nN23gH2oNK-bb-AM8aYsOXtnwB_UvZx/exec';
+let syncInProgress = false;
+let pendingSave = false;
+
 const DEFAULT={
   trainer:{username:'trainer',password:'NkaySolutions2025'},
-  settings:{gradeDist:80,gradeMerit:70,gradePass:60,mockTime:20,mainTime:50,mockQCount:20,mainQCount:50,autoRelease:true},
+  settings:{gradeDist:80,gradeMerit:70,gradePass:60,mockTime:20,mainTime:50,mockQCount:20,mainQCount:50,autoRelease:true,examPasswords:{}},
   students:[
     {code:'NTA-2025-001',name:'Kwame Mensah',course:'Basic Computer Literacy',registered:'01/05/2025'},
     {code:'NTA-2025-002',name:'Abena Asante',course:'MS Office Suite',registered:'03/05/2025'},
@@ -1021,11 +1079,71 @@ const DEFAULT={
 
 let S={}, currentUser=null, currentExam=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200;
 
-function loadState(){
+// ── STATE MANAGEMENT WITH SHARED SYNC ──
+function showSyncBanner(msg, type='info'){
+  let banner = document.getElementById('sync-banner');
+  if(!banner){ banner=document.createElement('div'); banner.id='sync-banner';
+    banner.style.cssText='position:fixed;top:58px;left:0;right:0;z-index:9999;padding:9px 20px;font-size:13px;font-weight:600;text-align:center;transition:all 0.3s;font-family:DM Sans,sans-serif';
+    document.body.appendChild(banner); }
+  banner.textContent = msg;
+  banner.style.background = type==='error'?'#FEE2E2':type==='success'?'#DCFCE7':'#DBEAFE';
+  banner.style.color = type==='error'?'#991B1B':type==='success'?'#166534':'#1E40AF';
+  banner.style.display='block';
+  if(type==='success') setTimeout(()=>{ banner.style.display='none'; }, 2500);
+}
+
+const USE_GAS = APPS_SCRIPT_URL !== 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+async function loadState(){
+  showSyncBanner('🔄 Syncing data across devices...');
+  if(USE_GAS){
+    try{
+      const resp = await fetch(APPS_SCRIPT_URL + '?action=load', {method:'GET'});
+      if(resp.ok){
+        const data = await resp.json();
+        if(data && data.students){
+          S = data;
+          localStorage.setItem(STORE_KEY, JSON.stringify(S));
+          showSyncBanner('✓ All devices synced', 'success');
+          return;
+        }
+      }
+      throw new Error('Load failed');
+    } catch(e){
+      console.warn('GAS load failed, falling back:', e);
+    }
+  }
+  // Fallback: localStorage or defaults
   try{ const r=localStorage.getItem(STORE_KEY); S=r?JSON.parse(r):JSON.parse(JSON.stringify(DEFAULT)); }
   catch(e){ S=JSON.parse(JSON.stringify(DEFAULT)); }
+  if(!USE_GAS){
+    showSyncBanner('⚠️ Sync not configured yet — data is local only', 'error');
+    setTimeout(()=>{ const b=document.getElementById('sync-banner'); if(b)b.style.display='none'; }, 5000);
+  } else {
+    showSyncBanner('⚠️ Offline — using local data', 'error');
+    setTimeout(()=>{ const b=document.getElementById('sync-banner'); if(b)b.style.display='none'; }, 4000);
+  }
 }
-function saveState(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){} }
+
+async function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch(e){}
+  if(!USE_GAS) return;
+  if(syncInProgress){ pendingSave=true; return; }
+  syncInProgress = true;
+  try{
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({action:'save', data: S})
+    });
+    if(pendingSave){ pendingSave=false; syncInProgress=false; await saveState(); return; }
+    showSyncBanner('✓ Saved & synced to all devices', 'success');
+  } catch(e){
+    showSyncBanner('⚠️ Sync failed — saved locally only', 'error');
+    setTimeout(()=>{ const b=document.getElementById('sync-banner'); if(b)b.style.display='none'; }, 4000);
+  }
+  syncInProgress = false;
+}
 
 function goto(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1112,11 +1230,66 @@ function viewScript(resultId){
 }
 
 // ── EXAM ──
+let pendingExamName = null;
+let examPassAttempts = 0;
+
 function startExam(examName){
+  // Check if trainer has set an access password for this exam
+  const passKey = currentUser.course + '|' + examName;
+  const examPass = S.settings.examPasswords && S.settings.examPasswords[passKey];
+  if(examPass){
+    pendingExamName = examName;
+    examPassAttempts = 0;
+    document.getElementById('ep-input').value='';
+    document.getElementById('ep-err').style.display='none';
+    document.getElementById('modal-exam-pass').classList.remove('hidden');
+    setTimeout(()=>document.getElementById('ep-input').focus(), 100);
+  } else {
+    launchExam(examName);
+  }
+}
+
+function verifyExamPass(){
+  const input = document.getElementById('ep-input').value.trim();
+  const passKey = currentUser.course + '|' + pendingExamName;
+  const correct = S.settings.examPasswords[passKey];
+  examPassAttempts++;
+  if(input === correct){
+    document.getElementById('modal-exam-pass').classList.add('hidden');
+    launchExam(pendingExamName);
+  } else {
+    const remaining = 3 - examPassAttempts;
+    const errEl = document.getElementById('ep-err');
+    if(remaining <= 0){
+      errEl.textContent = 'Too many incorrect attempts. Contact your trainer.';
+      errEl.style.display='block';
+      document.getElementById('ep-input').disabled=true;
+      setTimeout(()=>document.getElementById('modal-exam-pass').classList.add('hidden'), 3000);
+    } else {
+      errEl.textContent = `Incorrect code. ${remaining} attempt${remaining>1?'s':''} remaining.`;
+      errEl.style.display='block';
+      document.getElementById('ep-input').value='';
+      document.getElementById('ep-input').focus();
+    }
+  }
+}
+
+function cancelExamPass(){
+  document.getElementById('modal-exam-pass').classList.add('hidden');
+  pendingExamName=null;
+}
+
+function togglePassVis(){
+  const inp=document.getElementById('ep-input');
+  const btn=document.getElementById('ep-toggle');
+  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
+  else{inp.type='password';btn.textContent='👁';}
+}
+
+function launchExam(examName){
   const isMain=examName==='Main Exam';
   const allQs=S.questions.filter(q=>q.course===currentUser.course&&q.exam===examName);
   const qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
-  // shuffle and pick
   const shuffled=[...allQs].sort(()=>Math.random()-0.5);
   examQs=shuffled.slice(0,Math.min(qCount,shuffled.length));
   if(!examQs.length){alert('No questions available for this exam.');return;}
@@ -1509,6 +1682,63 @@ function loadSettingsForm(){
   document.getElementById('s-mock-q').value=s.mockQCount;
   document.getElementById('s-main-q').value=s.mainQCount;
   document.getElementById('s-autorelease').checked=s.autoRelease;
+  renderExamPasswordsForm();
+}
+
+function renderExamPasswordsForm(){
+  const courses=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
+  const exams=['Mock 1','Mock 2','Main Exam'];
+  const passwords=S.settings.examPasswords||{};
+  const cont=document.getElementById('exam-passwords-list');
+  if(!cont) return;
+  let html='<div style="display:flex;flex-direction:column;gap:10px">';
+  courses.forEach(course=>{
+    exams.forEach(exam=>{
+      const key=course+'|'+exam;
+      const val=passwords[key]||'';
+      const hasQ=S.questions.some(q=>q.course===course&&q.exam===exam);
+      if(!hasQ) return;
+      html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;color:var(--navy)">${exam}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${course}</div>
+        </div>
+        <div style="position:relative">
+          <input type="text" data-key="${key}" value="${val}"
+            placeholder="No password set"
+            style="border:1.5px solid var(--border);border-radius:8px;padding:8px 36px 8px 12px;font-size:13px;font-family:'JetBrains Mono',monospace;width:160px;outline:none;letter-spacing:1px"
+            maxlength="10">
+          <button onclick="genPass('${key}')" title="Generate random password"
+            style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:14px">🎲</button>
+        </div>
+      </div>`;
+    });
+  });
+  html+='</div>';
+  cont.innerHTML=html;
+}
+
+function genPass(key){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let pass='';
+  for(let i=0;i<6;i++) pass+=chars[Math.floor(Math.random()*chars.length)];
+  const inp=document.querySelector(`input[data-key="${key}"]`);
+  if(inp) inp.value=pass;
+}
+
+async function saveExamPasswords(){
+  const inputs=document.querySelectorAll('#exam-passwords-list input[data-key]');
+  if(!S.settings.examPasswords) S.settings.examPasswords={};
+  inputs.forEach(inp=>{
+    const key=inp.getAttribute('data-key');
+    const val=inp.value.trim();
+    if(val) S.settings.examPasswords[key]=val;
+    else delete S.settings.examPasswords[key];
+  });
+  await saveState();
+  const alertEl=document.getElementById('pass-save-alert');
+  alertEl.innerHTML=`<div class="alert alert-success">✓ Exam passwords saved and synced to all devices.</div>`;
+  setTimeout(()=>{alertEl.innerHTML='';},3000);
 }
 
 function saveSettings(){
@@ -1539,10 +1769,30 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
   el.addEventListener('click',e=>{if(e.target===el)el.classList.add('hidden');});
 });
 
-// Init
-loadState();
-// Show scenario wrap correctly on load
-document.getElementById('scenario-wrap').classList.add('hidden');
+// ── INIT ──
+(async function(){
+  // Show loading screen
+  document.body.innerHTML += `<div id="app-loader" style="position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:'DM Sans',sans-serif">
+    <div style="width:52px;height:52px;background:linear-gradient(135deg,#C49A2A,#E8B84B);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#0F2744;margin-bottom:20px">N</div>
+    <div style="font-family:'Playfair Display',serif;font-size:20px;color:white;font-weight:700;margin-bottom:6px">NkaySolutions Tech Academy</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:28px">Loading exam platform...</div>
+    <div style="width:200px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden">
+      <div id="loader-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#C49A2A,#E8B84B);border-radius:2px;transition:width 0.4s ease"></div>
+    </div>
+  </div>`;
+
+  // Animate loader bar
+  setTimeout(()=>{ const b=document.getElementById('loader-bar'); if(b)b.style.width='60%'; },200);
+
+  await loadState();
+
+  setTimeout(()=>{ const b=document.getElementById('loader-bar'); if(b)b.style.width='100%'; },100);
+  setTimeout(()=>{ const loader=document.getElementById('app-loader'); if(loader)loader.remove(); },600);
+
+  // Show scenario wrap correctly on load
+  const sw=document.getElementById('scenario-wrap');
+  if(sw) sw.classList.add('hidden');
+})();
 </script>
 </body>
 </html>
