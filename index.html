@@ -3,757 +3,521 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NkaySolutions Tech Academy — Exam Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>NkaySolutions Tech Academy - Exam Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#0F2744;--navy-mid:#1A3A5C;--navy-light:#243E62;
-  --gold:#C49A2A;--gold-light:#E8B84B;--gold-pale:#F5E5B0;
-  --cream:#FFFDF5;--cream2:#F7F3E8;
-  --white:#FFFFFF;
-  --text:#1A1A2E;--text-muted:#6B7280;--text-light:#9CA3AF;
-  --border:#E5E0D5;--border-dark:#D1CBBB;
-  --success:#166534;--success-bg:#DCFCE7;--success-border:#BBF7D0;
-  --danger:#991B1B;--danger-bg:#FEE2E2;--danger-border:#FECACA;
-  --warning:#92400E;--warning-bg:#FEF3C7;--warning-border:#FDE68A;
-  --info:#1E40AF;--info-bg:#DBEAFE;--info-border:#BFDBFE;
-  --shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.06);
-  --shadow-lg:0 8px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.08);
-  --radius:10px;--radius-lg:14px;--radius-xl:20px;
-}
-html{font-size:15px;scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);min-height:100vh;line-height:1.6}
-input,select,textarea,button{font-family:'DM Sans',sans-serif;font-size:14px}
-button{cursor:pointer}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:#f5f5f5;color:#1a1a2e;min-height:100vh}
 .hidden{display:none!important}
-code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--cream2);padding:2px 6px;border-radius:4px;border:1px solid var(--border)}
 .page{display:none;min-height:100vh}
 .page.active{display:block}
 
 /* NAV */
-.nav{background:var(--navy);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
-.nav-brand{display:flex;align-items:center;gap:12px}
-.nav-logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:var(--navy)}
-.nav-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--white);font-weight:700}
-.nav-title span{color:var(--gold-light)}
-.nav-right{display:flex;align-items:center;gap:10px}
-.nav-user-pill{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.85);font-weight:500}
-.btn-logout{background:transparent;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);padding:6px 14px;border-radius:8px;font-size:12px;display:flex;align-items:center;gap:6px;transition:all 0.15s}
-.btn-logout:hover{background:rgba(255,255,255,0.1);color:white}
+nav{background:#0F2744;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:2px solid #C49A2A;position:sticky;top:0;z-index:100}
+.nav-brand{font-family:"Playfair Display",serif;color:#fff;font-size:16px}.nav-brand span{color:#E8B84B}
+.nav-right{display:flex;gap:10px;align-items:center}
+.nav-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.85)}
+.nav-btn{background:transparent;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer}
+.nav-btn:hover{background:rgba(255,255,255,.1);color:#fff}
 
-/* LOGIN PAGE */
-.login-shell{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
-.login-left{background:var(--navy);position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:48px;overflow:hidden}
-.login-left-bg{position:absolute;inset:0;background:radial-gradient(ellipse 100% 80% at 20% 50%,rgba(196,154,42,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 100%,rgba(26,58,92,0.8) 0%,transparent 60%)}
-.login-left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:48px 48px}
+/* LOGIN */
+.login-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.login-left{background:#0F2744;display:flex;flex-direction:column;justify-content:center;padding:60px 50px;position:relative;overflow:hidden}
+.login-left::before{content:"";position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(196,154,42,.15),transparent 70%);border-radius:50%}
 .login-left-content{position:relative;z-index:1}
-.login-brand{display:flex;align-items:center;gap:14px;margin-bottom:64px}
-.login-brand-mark{width:44px;height:44px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--navy);flex-shrink:0}
-.login-brand-name{font-family:'Playfair Display',serif;font-size:18px;color:white;font-weight:700;line-height:1.2}
-.login-brand-name span{color:var(--gold-light)}
-.login-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);border-radius:20px;padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-light);margin-bottom:24px}
-.login-hero-h1{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;color:white;line-height:1.1;margin-bottom:16px}
-.login-hero-h1 span{color:var(--gold-light);display:block}
-.login-hero-p{font-size:15px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8;max-width:380px;margin-bottom:48px}
-.login-features{display:flex;flex-direction:column;gap:16px}
-.login-feature{display:flex;align-items:center;gap:14px}
-.login-feature-icon{width:36px;height:36px;background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.login-feature-text{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.4}
-.login-feature-text strong{color:rgba(255,255,255,0.85);display:block;font-size:13px;margin-bottom:2px}
-.login-left-footer{position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:1.5px;text-transform:uppercase;font-style:italic}
-.login-right{background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 56px;overflow-y:auto}
-.login-right-inner{width:100%;max-width:400px}
-.login-tab-row{display:flex;background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:4px;gap:4px;margin-bottom:32px}
-.login-tab{flex:1;padding:10px;border-radius:10px;border:none;background:transparent;font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif}
-.login-tab.active{background:var(--navy);color:white;box-shadow:0 2px 8px rgba(15,39,68,0.25)}
-.login-form{display:none}
-.login-form.active{display:block}
-.login-form-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.login-form-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px;line-height:1.6}
-.login-divider{display:flex;align-items:center;gap:12px;margin:20px 0}
-.login-divider-line{flex:1;height:1px;background:var(--border)}
-.login-divider-text{font-size:11px;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:1px}
-.login-right-footer{margin-top:32px;text-align:center;font-size:11px;color:var(--text-muted);line-height:1.8}
-/* ── MOBILE & TABLET LOGIN FIX ── */
-@media(max-width:900px){
-  .login-shell{
-    display:flex;flex-direction:column;
-    min-height:100vh;
-    background:var(--navy);
-  }
+.login-academy{font-family:"Playfair Display",serif;font-size:34px;color:#fff;margin-bottom:12px;line-height:1.1}
+.login-academy span{color:#E8B84B}
+.login-tagline{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:32px}
+.login-motto{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:2px;text-transform:uppercase;font-style:italic;margin-top:auto;padding-top:40px}
+.login-right{background:#fff;display:flex;align-items:center;justify-content:center;padding:40px 32px}
+.login-box{width:100%;max-width:380px}
+.tab-row{display:flex;background:#f5f5f5;border-radius:10px;padding:4px;gap:4px;margin-bottom:28px}
+.tab-btn{flex:1;padding:10px;border-radius:8px;border:none;background:transparent;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .15s}
+.tab-btn.active{background:#0F2744;color:#fff}
+.form-panel{display:none}
+.form-panel.active{display:block}
+.form-title{font-family:"Playfair Display",serif;font-size:24px;color:#0F2744;margin-bottom:6px}
+.form-sub{font-size:13px;color:#6b7280;margin-bottom:24px;line-height:1.6}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6b7280;margin-bottom:6px}
+.field input{width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:12px 14px;font-size:16px;font-family:"DM Sans",sans-serif;outline:none;color:#1a1a2e;transition:border-color .15s}
+.field input:focus{border-color:#0F2744}
+.err-box{background:#fee2e2;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;font-size:13px;color:#991b1b;margin-bottom:12px;display:none}
+.btn-login{width:100%;background:#0F2744;color:#fff;border:none;border-radius:8px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif;margin-top:4px;transition:background .15s}
+.btn-login:hover{background:#1A3A5C}
+.login-note{background:#dbeafe;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;font-size:12px;color:#1e40af;margin-top:16px;line-height:1.7}
+@media(max-width:768px){
+  .login-wrap{grid-template-columns:1fr}
   .login-left{display:none}
-  .login-right{
-    flex:1;
-    background:var(--navy);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:32px 20px;
-    min-height:100vh;
-  }
-  .login-right-inner{
-    background:white;
-    border-radius:20px;
-    padding:32px 24px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3);
-    width:100%;
-    max-width:420px;
-  }
-  .login-right-footer{
-    color:rgba(255,255,255,0.4) !important;
-    background:transparent;
-    margin-top:20px;
-  }
-  .login-form-title{font-size:22px}
+  .login-right{background:#0F2744;min-height:100vh;padding:32px 20px}
+  .login-box{background:#fff;border-radius:16px;padding:28px 22px}
 }
-@media(max-width:480px){
-  .login-right{padding:20px 14px}
-  .login-right-inner{padding:24px 18px;border-radius:16px}
-  .login-tab{font-size:13px;padding:9px 6px}
-  .login-form-title{font-size:20px}
-  .field input{font-size:16px}
-}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px}
-.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--radius);padding:11px 14px;font-size:16px;color:var(--text);background:white;transition:border-color 0.15s;outline:none;-webkit-appearance:none;appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy)}
-.field textarea{height:90px;resize:vertical;line-height:1.5}
-.field input[readonly]{background:var(--cream2);color:var(--text-muted)}
-.err-msg{font-size:12px;color:var(--danger);margin-top:8px;padding:8px 12px;background:var(--danger-bg);border-radius:8px;border:1px solid var(--danger-border);display:none}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:var(--radius);border:1.5px solid var(--border);background:white;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.btn:hover{background:var(--cream2);border-color:var(--border-dark)}
-.btn svg{width:15px;height:15px;flex-shrink:0}
-.btn-primary{background:var(--navy);color:white;border-color:var(--navy)}
-.btn-primary:hover{background:var(--navy-mid);border-color:var(--navy-mid)}
-.btn-gold{background:var(--gold);color:white;border-color:var(--gold)}
-.btn-gold:hover{background:#B08820}
-.btn-danger{background:var(--danger-bg);color:var(--danger);border-color:var(--danger-border)}
-.btn-success{background:var(--success-bg);color:var(--success);border-color:var(--success-border)}
-.btn-info{background:var(--info-bg);color:var(--info);border-color:var(--info-border)}
-.btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
-.btn-full{width:100%}
-.btn-icon{width:32px;height:32px;padding:0;border-radius:8px}
-
-/* ALERTS & BADGES */
-.alert{padding:10px 14px;border-radius:var(--radius);font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.alert-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border)}
-.alert-danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border)}
-.alert-info{background:var(--info-bg);color:var(--info);border:1px solid var(--info-border)}
-.alert-warning{background:var(--warning-bg);color:var(--warning);border:1px solid var(--warning-border)}
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.badge-mock{background:var(--info-bg);color:var(--info)}
-.badge-main{background:var(--warning-bg);color:var(--warning)}
-.badge-done{background:var(--success-bg);color:var(--success)}
-.badge-locked{background:var(--cream2);color:var(--text-muted);border:1px solid var(--border)}
-.badge-pending{background:var(--warning-bg);color:var(--warning)}
-.badge-mcq{background:#EDE9FE;color:#5B21B6}
-.badge-tf{background:#E0F2FE;color:#0369A1}
-.badge-short{background:#FEF9C3;color:#854D0E}
-.badge-word{background:#FCE7F3;color:#9D174D}
+/* STUDENT DASH */
+.dash-hero{background:linear-gradient(135deg,#0F2744,#1A3A5C);padding:28px 32px 32px;border-bottom:2px solid #C49A2A}
+.dash-hero h2{font-family:"Playfair Display",serif;font-size:22px;color:#fff;margin-bottom:4px}
+.dash-hero p{font-size:13px;color:rgba(255,255,255,.5)}
+.dash-stats{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.stat-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 18px;min-width:110px}
+.stat-pill .sl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
+.stat-pill .sv{font-family:"Playfair Display",serif;font-size:20px;color:#fff}
+.stat-pill .sv.sm{font-size:13px;font-family:"DM Sans",sans-serif;padding-top:3px}
+.dash-body{padding:24px 32px;max-width:860px}
+.sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6b7280;margin-bottom:12px}
 
 /* MODULE CARDS */
-.course-umbrella{background:white;border:1.5px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:24px}
-.course-umbrella-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:22px 28px;display:flex;align-items:center;gap:16px;border-bottom:3px solid var(--gold)}
-.course-umbrella-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 4px 12px rgba(196,154,42,0.3)}
-.course-umbrella-info{flex:1}
-.course-umbrella-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;line-height:1.2;margin-bottom:4px}
-.course-umbrella-meta{font-size:12px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.course-umbrella-meta span{display:inline-flex;align-items:center;gap:4px}
-.course-umbrella-progress{display:flex;align-items:center;gap:10px;margin-top:14px}
-.cup-progress-bar{flex:1;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;overflow:hidden}
-.cup-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width 0.5s ease}
-.cup-progress-label{font-size:11px;color:rgba(255,255,255,0.5);white-space:nowrap}
-.modules-grid{padding:20px 24px;display:flex;flex-direction:column;gap:14px}
-.module-card{border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow 0.15s,transform 0.15s;cursor:default}
-.module-card:hover{box-shadow:0 6px 20px rgba(0,0,0,0.08)}
-.module-card-header{padding:14px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)}
-.module-number{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:white;flex-shrink:0}
-.module-title-area{flex:1}
-.module-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:2px}
-.module-type{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)}
-.module-status-badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
-.msb-available{background:linear-gradient(135deg,#DCFCE7,#BBF7D0);color:var(--success)}
-.msb-password{background:linear-gradient(135deg,#DBEAFE,#BFDBFE);color:var(--info)}
-.msb-locked{background:var(--cream2);color:var(--text-muted);border:1px solid var(--border)}
-.msb-done{background:linear-gradient(135deg,#DCFCE7,#BBF7D0);color:var(--success)}
-.msb-failed{background:linear-gradient(135deg,#FEE2E2,#FECACA);color:var(--danger)}
-.msb-pending{background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:var(--warning)}
-.module-card-body{padding:16px 20px;background:var(--cream)}
-.module-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.module-stat{background:white;border-radius:8px;padding:10px;text-align:center;border:1px solid var(--border)}
-.module-stat-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);line-height:1}
-.module-stat-label{font-size:10px;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
-.module-card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.module-tags{display:flex;gap:6px;flex-wrap:wrap}
-.module-tag{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600;background:var(--cream2);color:var(--text-muted);border:1px solid var(--border)}
-.module-result-strip{margin-top:12px;padding:12px 16px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.mrs-pass{background:var(--success-bg);border:1px solid var(--success-border)}
-.mrs-fail{background:var(--danger-bg);border:1px solid var(--danger-border)}
-.mrs-score{font-family:'Playfair Display',serif;font-size:22px;font-weight:700}
-.mrs-score.pass{color:var(--success)}
-.mrs-score.fail{color:var(--danger)}
-.mrs-detail{font-size:12px;color:var(--text-muted)}
+.course-banner{background:linear-gradient(135deg,#0F2744,#1A3A5C);border-radius:12px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#fff}
+.mod-card{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.mod-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.mod-title{font-family:"Playfair Display",serif;font-size:15px;color:#fff;font-weight:700}
+.mod-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.mod-body{padding:16px 18px}
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.mod-stat{text-align:center;background:#fffdf5;border-radius:8px;padding:10px 6px}
+.mod-stat .ms-val{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:#0F2744}
+.mod-stat .ms-label{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:.4px}
+.mod-foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-ok{background:#dcfce7;color:#166534}
+.badge-fail{background:#fee2e2;color:#991b1b}
+.badge-wait{background:#fef3c7;color:#92400e}
+.badge-lock{background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb}
+.badge-code{background:#dbeafe;color:#1e40af}
+.badge-avail{background:#dcfce7;color:#166534}
+.res-bar{border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;border-radius:8px;border:1.5px solid #e5e0d5;background:#fff;font-size:13px;font-weight:500;color:#1a1a2e;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .15s}
+.btn:hover{background:#f7f3e8}
+.btn-primary{background:#0F2744;color:#fff;border-color:#0F2744}
+.btn-primary:hover{background:#1A3A5C}
+.btn-gold{background:#C49A2A;color:#fff;border-color:#C49A2A}
+.btn-info{background:#dbeafe;color:#1e40af;border-color:#bfdbfe}
+.btn-danger{background:#fee2e2;color:#991b1b;border-color:#fecaca}
+.btn-sm{padding:6px 12px;font-size:12px}
 
-/* STUDENT DASHBOARD */
-.dash-shell{background:var(--cream);min-height:calc(100vh - 58px)}
-.dash-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:36px 40px 40px;border-bottom:2px solid var(--gold)}
-.dash-hero h2{font-family:'Playfair Display',serif;font-size:26px;color:white;font-weight:700;margin-bottom:4px}
-.dash-hero p{font-size:14px;color:rgba(255,255,255,0.55)}
-.dash-metrics{display:flex;gap:16px;margin-top:24px;flex-wrap:wrap}
-.metric-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-lg);padding:14px 20px;min-width:130px}
-.metric-pill .mlabel{font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
-.metric-pill .mval{font-family:'Playfair Display',serif;font-size:22px;color:white;line-height:1}
-.metric-pill .mval.small{font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;padding-top:3px}
-.dash-body{padding:32px 40px;max-width:900px}
-.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px}
-.exam-list{display:flex;flex-direction:column;gap:12px}
-.exam-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color 0.15s,box-shadow 0.15s}
-.exam-card:hover{border-color:var(--border-dark);box-shadow:var(--shadow)}
-.exam-card.done{border-left:4px solid var(--success)}
-.exam-card.locked{opacity:0.6}
-.ec-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px}
-.ec-meta{font-size:12px;color:var(--text-muted);margin-bottom:8px}
-.ec-badges{display:flex;gap:6px;flex-wrap:wrap}
-.ec-score{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;padding:8px 18px;border-radius:var(--radius)}
-.ec-score.pass{background:var(--success-bg);color:var(--success)}
-.ec-score.fail{background:var(--danger-bg);color:var(--danger)}
-.ec-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-
-/* EXAM PASSWORD MODAL */
-.exam-pass-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:300;padding:24px;backdrop-filter:blur(4px)}
-.exam-pass-box{background:white;border-radius:20px;padding:32px;width:100%;max-width:420px;box-shadow:0 24px 64px rgba(0,0,0,0.2);border:1.5px solid var(--border)}
-.exam-pass-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
-.exam-pass-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.exam-pass-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px;line-height:1.6}
-.exam-pass-input-wrap{position:relative;margin-bottom:8px}
-.exam-pass-input{width:100%;border:2px solid var(--border);border-radius:var(--radius);padding:14px 48px 14px 16px;font-size:18px;font-family:'JetBrains Mono',monospace;letter-spacing:4px;text-align:center;color:var(--navy);outline:none;transition:border-color 0.15s;background:var(--cream)}
-.exam-pass-input:focus{border-color:var(--navy)}
-.exam-pass-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:18px;padding:4px}
-.exam-pass-err{font-size:12px;color:var(--danger);padding:8px 12px;background:var(--danger-bg);border-radius:8px;border:1px solid var(--danger-border);margin-bottom:12px;display:none}
-.exam-pass-hint{font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px}
-.trainer-pass-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
-.trainer-pass-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.pass-display{display:flex;align-items:center;gap:12px;margin:12px 0}
-.pass-code{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--navy);letter-spacing:6px;background:var(--cream2);padding:12px 20px;border-radius:var(--radius);border:1.5px solid var(--border);flex:1;text-align:center}
-.pass-exam-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
-.pass-exam-row:last-child{border-bottom:none}
-.pass-exam-name{flex:1;color:var(--text-muted)}
-.pass-exam-code{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--navy);letter-spacing:2px;background:var(--cream2);padding:4px 10px;border-radius:6px}
-
-/* EXAM TAKING */
-.exam-shell{background:var(--cream2);min-height:calc(100vh - 58px)}
-.exam-topbar{background:white;border-bottom:1.5px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:58px;z-index:50}
-.exam-name{font-size:15px;font-weight:600;color:var(--navy)}
-.exam-course-sub{font-size:12px;color:var(--text-muted);margin-top:2px}
-.timer-box{background:var(--navy);color:white;padding:8px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;letter-spacing:2px;min-width:100px;text-align:center}
-.timer-box.urgent{background:#991B1B;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
-.progress-track{height:3px;background:var(--border);position:sticky;top:107px;z-index:49}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));transition:width 0.4s ease}
-.exam-body{max-width:760px;margin:0 auto;padding:28px 24px}
-.q-nav-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
-.q-dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;color:var(--text-muted)}
-.q-dot:hover{border-color:var(--navy);color:var(--navy)}
-.q-dot.answered{background:var(--navy);color:white;border-color:var(--navy)}
-.q-dot.current{border-color:var(--gold);color:var(--gold);border-width:2px}
-.q-dot.answered.current{background:var(--navy);color:var(--gold-light);border-color:var(--gold)}
-.q-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;box-shadow:var(--shadow)}
-.q-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.q-num-text{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)}
-.q-right-tags{display:flex;gap:6px;align-items:center}
-.q-marks-pill{background:var(--gold-pale);color:#7C5A00;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
-.q-scenario{background:var(--info-bg);border:1px solid var(--info-border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--info);line-height:1.7}
+/* EXAM */
+.exam-shell{background:#f7f3e8;min-height:calc(100vh - 54px)}
+.exam-bar{background:#fff;border-bottom:1.5px solid #e5e0d5;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:54px;z-index:50}
+.exam-title-txt{font-size:15px;font-weight:600;color:#0F2744}
+.exam-course-txt{font-size:12px;color:#6b7280}
+.timer{background:#0F2744;color:#fff;padding:8px 18px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:500;letter-spacing:2px;min-width:90px;text-align:center}
+.timer.urgent{background:#991b1b;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.prog-track{height:3px;background:#e5e0d5}
+.prog-fill{height:100%;background:linear-gradient(90deg,#0F2744,#C49A2A);transition:width .3s}
+.exam-body{max-width:720px;margin:0 auto;padding:24px 20px}
+.q-dots{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.q-dot{width:30px;height:30px;border-radius:50%;border:1.5px solid #e5e0d5;background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;cursor:pointer;color:#6b7280;transition:all .12s}
+.q-dot.ans{background:#0F2744;color:#fff;border-color:#0F2744}
+.q-dot.cur{border-color:#C49A2A;color:#C49A2A;border-width:2px}
+.q-dot.ans.cur{background:#0F2744;color:#E8B84B;border-color:#C49A2A}
+.q-card{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.q-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.q-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280}
+.q-marks{background:#f5e5b0;color:#7c5a00;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.q-scenario{background:#dbeafe;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#1e40af;line-height:1.6}
 .q-scenario strong{font-weight:600;display:block;margin-bottom:4px}
-.q-text{font-size:15px;font-weight:500;color:var(--navy);line-height:1.6;margin-bottom:20px}
-.q-opts{display:flex;flex-direction:column;gap:10px}
-.q-opt{display:flex;align-items:center;gap:12px;padding:13px 16px;border:1.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all 0.12s;background:var(--cream)}
-.q-opt:hover{border-color:var(--navy-mid);background:var(--cream2)}
-.q-opt.sel{border-color:var(--navy);background:rgba(15,39,68,0.04)}
-.q-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--border);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all 0.12s}
-.q-opt.sel .q-opt-letter{background:var(--navy);color:white}
-.q-opt-text{font-size:14px;color:var(--text)}
-.tf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tf-btn{padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:center;background:var(--cream);transition:all 0.12s}
-.tf-btn:hover{border-color:var(--navy-mid)}
-.tf-btn.sel{border-color:var(--navy);background:rgba(15,39,68,0.04)}
-.tf-btn .tf-icon{font-size:24px;margin-bottom:6px;display:block}
-.tf-btn .tf-label{font-size:15px;font-weight:600;color:var(--navy)}
-.short-field{width:100%;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;font-size:14px;line-height:1.6;color:var(--text);resize:vertical;min-height:120px;outline:none;transition:border-color 0.15s}
-.short-field:focus{border-color:var(--navy)}
-.exam-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.q-text{font-size:15px;font-weight:500;color:#0F2744;line-height:1.6;margin-bottom:18px}
+.q-opts{display:flex;flex-direction:column;gap:8px}
+.q-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #e5e0d5;border-radius:8px;cursor:pointer;background:#fffdf5;transition:all .1s}
+.q-opt:hover{border-color:#0F2744;background:#f7f3e8}
+.q-opt.sel{border-color:#0F2744;background:rgba(15,39,68,.04)}
+.q-opt-letter{width:26px;height:26px;border-radius:50%;background:#e5e0d5;color:#6b7280;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .1s}
+.q-opt.sel .q-opt-letter{background:#0F2744;color:#fff}
+.q-opt-text{font-size:14px;color:#1a1a2e}
+.tf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tf-btn{padding:14px;border:1.5px solid #e5e0d5;border-radius:8px;cursor:pointer;text-align:center;background:#fffdf5;transition:all .1s}
+.tf-btn:hover{border-color:#0F2744}
+.tf-btn.sel{border-color:#0F2744;background:rgba(15,39,68,.04)}
+.tf-icon{font-size:22px;display:block;margin-bottom:4px}
+.tf-label{font-size:14px;font-weight:600;color:#0F2744}
+.short-field{width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:12px;font-size:14px;font-family:"DM Sans",sans-serif;resize:vertical;min-height:100px;outline:none;transition:border-color .15s;color:#1a1a2e}
+.short-field:focus{border-color:#0F2744}
+.exam-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
 /* RESULTS */
-.results-shell{background:var(--cream);min-height:calc(100vh - 58px)}
-.result-hero{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:40px;border-bottom:2px solid var(--gold);text-align:center}
-.result-grade-big{font-family:'Playfair Display',serif;font-size:80px;font-weight:900;line-height:1;margin-bottom:8px}
-.result-grade-big.pass{color:var(--gold-light)}
-.result-grade-big.fail{color:#FCA5A5}
-.result-score-line{font-size:18px;color:rgba(255,255,255,0.7);margin-bottom:8px}
-.result-label{display:inline-block;font-size:13px;font-weight:600;padding:6px 20px;border-radius:20px;margin-top:8px}
-.result-label.pass{background:var(--success-bg);color:var(--success)}
-.result-label.fail{background:var(--danger-bg);color:var(--danger)}
-.result-body{max-width:760px;margin:0 auto;padding:32px 24px}
-.result-breakdown{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:24px}
-.rb-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:14px}
-.rb-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}
+.res-hero{background:linear-gradient(135deg,#0F2744,#1A3A5C);padding:36px;border-bottom:2px solid #C49A2A;text-align:center}
+.res-grade{font-family:"Playfair Display",serif;font-size:72px;font-weight:700;line-height:1;margin-bottom:6px}
+.res-grade.pass{color:#E8B84B}
+.res-grade.fail{color:#fca5a5}
+.res-score-line{font-size:16px;color:rgba(255,255,255,.6)}
+.res-label{display:inline-block;padding:5px 18px;border-radius:20px;font-size:13px;font-weight:600;margin-top:8px}
+.res-body{max-width:700px;margin:0 auto;padding:28px 20px}
+.res-summary{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;padding:18px;margin-bottom:20px}
+.rb-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #e5e0d5;font-size:13px}
 .rb-row:last-child{border-bottom:none}
-.rb-key{color:var(--text-muted)}
-.rb-val{font-weight:500;color:var(--navy)}
-.review-list{display:flex;flex-direction:column;gap:12px}
-.rev-item{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
-.rev-item.correct{border-left:4px solid #16A34A}
-.rev-item.wrong{border-left:4px solid #DC2626}
-.rev-item.pending{border-left:4px solid #D97706}
-.rev-scenario{background:var(--info-bg);border:1px solid var(--info-border);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--info);line-height:1.6}
-.rev-q{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;line-height:1.5}
-.rev-ans{font-size:13px;color:var(--text-muted);margin-bottom:4px}
-.rev-result-correct{font-size:12px;font-weight:600;color:var(--success);display:flex;align-items:center;gap:4px}
-.rev-result-wrong{font-size:12px;font-weight:600;color:var(--danger);display:flex;align-items:center;gap:4px}
-.rev-result-pending{font-size:12px;font-weight:600;color:var(--warning)}
-.pending-notice{background:var(--warning-bg);border:1px solid var(--warning-border);border-radius:var(--radius);padding:14px 18px;margin:12px 0;font-size:13px;color:var(--warning);line-height:1.6}
-.locked-notice{background:var(--cream2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;color:var(--text-muted);font-size:14px}
+.rb-key{color:#6b7280}
+.rb-val{font-weight:500;color:#0F2744}
+.rev-item{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;padding:16px;margin-bottom:10px}
+.rev-item.correct{border-left:4px solid #16a34a}
+.rev-item.wrong{border-left:4px solid #dc2626}
+.rev-item.pending{border-left:4px solid #d97706}
+.rev-q{font-size:13px;font-weight:600;color:#0F2744;margin-bottom:5px;line-height:1.5}
+.rev-ans{font-size:12px;color:#6b7280;margin-bottom:4px}
+.rev-ok{font-size:12px;font-weight:600;color:#166534}
+.rev-no{font-size:12px;font-weight:600;color:#991b1b}
+.rev-pend{font-size:12px;font-weight:600;color:#92400e}
+.rev-scenario{background:#dbeafe;border:1px solid #bfdbfe;border-radius:6px;padding:8px 12px;margin-bottom:8px;font-size:12px;color:#1e40af;line-height:1.5}
+.pending-note{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:13px;color:#92400e;margin:12px 0;line-height:1.6}
+.locked-note{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:24px;text-align:center;color:#6b7280;font-size:14px}
 
-/* TRAINER PANEL */
-.trainer-shell{background:var(--cream2);min-height:calc(100vh - 58px)}
-.trainer-sidebar{width:220px;background:var(--navy);min-height:calc(100vh - 58px);position:fixed;top:58px;left:0;padding:20px 0;border-right:2px solid var(--gold)}
-.sidebar-section{padding:8px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:8px}
-.sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;transition:all 0.12s;font-size:13px;font-weight:500;color:rgba(255,255,255,0.6)}
-.sidebar-item:hover{background:rgba(255,255,255,0.06);color:white}
-.sidebar-item.active{background:rgba(196,154,42,0.15);color:var(--gold-light);border-right:3px solid var(--gold)}
-.sidebar-item svg{width:16px;height:16px;flex-shrink:0}
-.trainer-main{margin-left:220px;padding:32px 36px;min-height:calc(100vh - 58px)}
+/* TRAINER */
+.trainer-layout{display:flex;min-height:calc(100vh - 54px)}
+.sidebar{width:210px;background:#0F2744;flex-shrink:0;padding:16px 0;border-right:2px solid #C49A2A}
+.sb-section{padding:6px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-top:8px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);transition:all .12s}
+.sb-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.sb-item.active{background:rgba(196,154,42,.15);color:#E8B84B;border-right:3px solid #C49A2A}
+.trainer-main{flex:1;padding:28px 32px;background:#f7f3e8;overflow-y:auto}
 .t-panel{display:none}
 .t-panel.active{display:block}
-.t-page-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.t-page-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px}
-.t-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
-.t-filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.t-filter-row select{border:1.5px solid var(--border);border-radius:var(--radius);padding:7px 12px;font-size:13px;color:var(--text);background:white;outline:none;cursor:pointer}
-.card-table{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
+.t-title{font-family:"Playfair Display",serif;font-size:22px;color:#0F2744;margin-bottom:4px}
+.t-sub{font-size:13px;color:#6b7280;margin-bottom:20px}
+.t-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.card-table{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:13px}
-thead{background:var(--cream2)}
-th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);border-bottom:1.5px solid var(--border)}
-td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text)}
+th{background:#f7f3e8;padding:10px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#6b7280;border-bottom:1.5px solid #e5e0d5}
+td{padding:11px 14px;border-bottom:1px solid #e5e0d5;color:#1a1a2e}
 tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:var(--cream)}
-.td-code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--cream2);padding:3px 8px;border-radius:6px;border:1px solid var(--border)}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px}
-.stat-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;box-shadow:var(--shadow)}
-.stat-card .s-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px}
-.stat-card .s-val{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy)}
-.stat-card .s-sub{font-size:12px;color:var(--text-muted);margin-top:4px}
-
-/* QUESTION REVIEW (Trainer) */
-.q-review-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
-.q-review-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
-.q-review-text{font-size:14px;font-weight:500;color:var(--navy);line-height:1.5;flex:1}
-.q-review-tags{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
-.q-review-scenario{background:var(--info-bg);border:1px solid var(--info-border);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--info);line-height:1.6}
-.q-review-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.q-review-opt{padding:8px 12px;border-radius:8px;font-size:13px;border:1px solid var(--border);background:var(--cream)}
-.q-review-opt.correct-opt{background:var(--success-bg);border-color:var(--success-border);color:var(--success);font-weight:600}
-.q-review-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-
-/* QUESTION BUILDER */
-.q-builder-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
-.q-builder-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:#fffdf5}
+.code-pill{font-family:"JetBrains Mono",monospace;font-size:12px;background:#f7f3e8;padding:2px 8px;border-radius:6px;border:1px solid #e5e0d5}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+.stat-box{background:#fff;border:1.5px solid #e5e0d5;border-radius:10px;padding:18px 20px}
+.stat-box .sl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:4px}
+.stat-box .sv{font-family:"Playfair Display",serif;font-size:28px;font-weight:700;color:#0F2744}
+.stat-box .ss{font-size:12px;color:#6b7280;margin-top:2px}
+.form-card{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;padding:22px;margin-bottom:14px}
+.form-card h3{font-size:14px;font-weight:600;color:#0F2744;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #e5e0d5}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.opt-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.opt-letter{width:26px;height:26px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-muted);flex-shrink:0}
-.opt-row input[type=radio]{width:16px;height:16px;accent-color:var(--navy);flex-shrink:0}
-.opt-row input[type=text]{flex:1;border:1.5px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;outline:none;transition:border-color 0.15s}
-.opt-row input[type=text]:focus{border-color:var(--navy)}
-.correct-hint{font-size:10px;color:var(--success);font-weight:600;white-space:nowrap}
-.upload-zone{border:2px dashed var(--border-dark);border-radius:var(--radius-lg);padding:32px;text-align:center;cursor:pointer;transition:all 0.15s;background:var(--cream)}
-.upload-zone:hover{border-color:var(--navy);background:var(--cream2)}
-.upload-zone p{font-size:13px;color:var(--text-muted);margin-top:10px;line-height:1.6}
-.settings-section{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:16px;box-shadow:var(--shadow)}
-.settings-section h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-.toggle-row label{font-size:14px;color:var(--text)}
-.toggle-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--navy);cursor:pointer}
+.opt-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.opt-row input[type=radio]{width:16px;height:16px;accent-color:#0F2744;flex-shrink:0}
+.opt-row input[type=text]{flex:1;border:1.5px solid #e5e0d5;border-radius:8px;padding:8px 10px;font-size:13px;outline:none;font-family:"DM Sans",sans-serif}
+.opt-row input[type=text]:focus{border-color:#0F2744}
+.opt-ltr{width:24px;height:24px;border-radius:50%;background:#f7f3e8;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#6b7280;flex-shrink:0}
+.correct-hint{font-size:10px;color:#166534;font-weight:600;white-space:nowrap}
+.upload-zone{border:2px dashed #d1cbbb;border-radius:12px;padding:28px;text-align:center;cursor:pointer;background:#fffdf5;transition:all .15s}
+.upload-zone:hover{border-color:#0F2744;background:#f7f3e8}
+.upload-zone p{font-size:13px;color:#6b7280;margin-top:8px;line-height:1.6}
+.alert{padding:9px 14px;border-radius:8px;font-size:13px;margin-bottom:10px}
+.alert-ok{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+.alert-err{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.alert-info{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.toggle-row label{font-size:14px;color:#1a1a2e}
+.pass-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #e5e0d5;font-size:13px}
+.pass-row:last-child{border-bottom:none}
+.pass-row .pr-name{flex:1}
+.pass-row .pr-name strong{display:block;font-size:13px;color:#0F2744}
+.pass-row .pr-name span{font-size:11px;color:#6b7280}
+.pass-row input[type=text]{border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;font-family:"JetBrains Mono",monospace;width:150px;outline:none;letter-spacing:1px}
+.pass-row input[type=text]:focus{border-color:#0F2744}
+.dice-btn{background:none;border:none;cursor:pointer;font-size:16px;padding:4px}
 
 /* MODALS */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:24px;animation:fadeIn 0.15s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal-box{background:white;border-radius:var(--radius-xl);padding:28px;width:100%;max-width:520px;box-shadow:var(--shadow-lg);border:1.5px solid var(--border);animation:slideUp 0.2s ease;max-height:90vh;overflow-y:auto}
-@keyframes slideUp{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-box h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.modal-box p{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6}
-.modal-actions{display:flex;gap:10px;margin-top:16px}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px}
+.modal{background:#fff;border-radius:16px;padding:26px;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal h3{font-family:"Playfair Display",serif;font-size:18px;color:#0F2744;margin-bottom:8px}
+.modal p{font-size:13px;color:#6b7280;margin-bottom:18px;line-height:1.6}
+.modal-actions{display:flex;gap:10px}
 
-@media(max-width:768px){
-  .trainer-sidebar{display:none}
-  .trainer-main{margin-left:0;padding:20px 16px}
-  .landing-h1{font-size:36px}
-  .portal-row{grid-template-columns:1fr}
-  .dash-hero{padding:24px 20px 28px}
-  .dash-body{padding:20px 16px}
+@media(max-width:680px){
+  .sidebar{display:none}
+  .trainer-main{padding:16px}
+  .dash-hero{padding:20px 16px 24px}
+  .dash-body{padding:16px}
   .two-col,.three-col{grid-template-columns:1fr}
-  .q-review-opts{grid-template-columns:1fr}
+  .exam-body,.res-body{padding:16px}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav hidden" id="main-nav">
-  <div class="nav-brand">
-    <div class="nav-logo-mark">N</div>
-    <div class="nav-title"><span>NkaySolutions</span> Tech Academy</div>
-  </div>
+<nav id="main-nav" class="hidden">
+  <div class="nav-brand"><span>NkaySolutions</span> Tech Academy</div>
   <div class="nav-right">
-    <div class="nav-user-pill hidden" id="nav-user"></div>
-    <button class="btn-logout hidden" id="nav-logout-btn" onclick="logout()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-      Logout
-    </button>
+    <span class="nav-pill hidden" id="nav-user"></span>
+    <button class="nav-btn hidden" id="nav-logout" onclick="logout()">Logout</button>
   </div>
 </nav>
 
-<!-- LOGIN PAGE (unified) -->
-<div class="page active" id="page-landing">
-  <div class="login-shell">
-
-    <!-- LEFT PANEL -->
+<!-- LOGIN PAGE -->
+<div class="page active" id="pg-login">
+  <div class="login-wrap">
     <div class="login-left">
-      <div class="login-left-bg"></div>
-      <div class="login-left-grid"></div>
       <div class="login-left-content">
-        <div class="login-brand">
-          <div class="login-brand-mark">N</div>
-          <div class="login-brand-name"><span>NkaySolutions</span>Tech Academy</div>
-        </div>
-        <div class="login-hero-tag">● Online Exam Portal</div>
-        <h1 class="login-hero-h1">Digital Skills<span>Examination Centre</span></h1>
-        <p class="login-hero-p">Accredited online examinations for Basic Computer Literacy, MS Office Suite, and Data Analytics. Access your portal using the tabs on the right.</p>
-
+        <div class="login-academy">NkaySolutions<br><span>Tech Academy</span></div>
+        <p class="login-tagline">Accredited online examinations for Basic Computer Literacy, MS Office Suite, and Data Analytics with Excel.</p>
       </div>
-      <div class="login-left-footer">Scientia Est Potestas · Knowledge is Power. Skills are Freedom.</div>
+      <div class="login-motto">Scientia Est Potestas &mdash; Knowledge is Power. Skills are Freedom.</div>
     </div>
-
-    <!-- RIGHT PANEL -->
     <div class="login-right">
-      <div class="login-right-inner">
-
-        <!-- Tab switcher -->
-        <div class="login-tab-row">
-          <button class="login-tab active" id="tab-btn-student" onclick="switchLoginTab('student')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Student
-          </button>
-          <button class="login-tab" id="tab-btn-trainer" onclick="switchLoginTab('trainer')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Trainer
-          </button>
+      <div class="login-box">
+        <div class="tab-row">
+          <button class="tab-btn active" id="tab-s" onclick="switchTab('s')">&#128100; Student</button>
+          <button class="tab-btn" id="tab-t" onclick="switchTab('t')">&#128737; Trainer</button>
         </div>
 
         <!-- STUDENT FORM -->
-        <div class="login-form active" id="form-student">
-          <div class="login-form-title">Student Login</div>
-          <div class="login-form-sub">Enter your unique student code and your full name to access your exams and results.</div>
+        <div class="form-panel active" id="fp-s">
+          <div class="form-title">Student Login</div>
+          <div class="form-sub">Enter your student code and full name to access your exams.</div>
           <div class="field">
             <label>Student Code</label>
-            <input id="s-code" placeholder="e.g. NTA-2025-001" style="text-transform:uppercase;font-family:'JetBrains Mono',monospace;letter-spacing:1px" onkeydown="if(event.key==='Enter')studentLogin()">
+            <input type="text" id="s-code" placeholder="e.g. NTA-2025-001" style="text-transform:uppercase;font-family:JetBrains Mono,monospace;letter-spacing:1px" onkeydown="if(event.key==='Enter')doStudentLogin()">
           </div>
           <div class="field">
-            <label>Your Full Name</label>
-            <input id="s-name" placeholder="e.g. Kwame Mensah" onkeydown="if(event.key==='Enter')studentLogin()">
+            <label>Full Name</label>
+            <input type="text" id="s-name" placeholder="e.g. Kwame Mensah" onkeydown="if(event.key==='Enter')doStudentLogin()">
           </div>
-          <div class="err-msg" id="s-err">Invalid student code. Please check with your trainer.</div>
-          <button class="btn btn-primary btn-full" onclick="studentLogin()" style="margin-top:8px;height:46px;font-size:15px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-            Enter Exam Portal
-          </button>
-          <div class="login-divider"><div class="login-divider-line"></div><div class="login-divider-text">note</div><div class="login-divider-line"></div></div>
-          <div style="background:var(--info-bg);border:1px solid var(--info-border);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--info);line-height:1.7">
-            Your student code was issued by your trainer upon registration.<br>
-            Format: <code>NTA-YYYY-###</code> e.g. <code>NTA-2025-001</code>
-          </div>
+          <div class="err-box" id="s-err">Invalid student code. Please check with your trainer.</div>
+          <button class="btn-login" onclick="doStudentLogin()">Enter Exam Portal &rarr;</button>
+          <div class="login-note">Your student code was issued by your trainer upon registration.<br>Format: <strong>NTA-YYYY-###</strong> &mdash; e.g. NTA-2025-001</div>
         </div>
 
         <!-- TRAINER FORM -->
-        <div class="login-form" id="form-trainer">
-          <div class="login-form-title">Trainer Login</div>
-          <div class="login-form-sub">Enter your administrator credentials to access the trainer panel.</div>
+        <div class="form-panel" id="fp-t">
+          <div class="form-title">Trainer Login</div>
+          <div class="form-sub">Enter your administrator credentials to access the trainer panel.</div>
           <div class="field">
             <label>Username</label>
-            <input id="t-user" placeholder="trainer" onkeydown="if(event.key==='Enter')trainerLogin()">
+            <input type="text" id="t-user" placeholder="trainer" onkeydown="if(event.key==='Enter')doTrainerLogin()">
           </div>
           <div class="field">
             <label>Password</label>
-            <input id="t-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')trainerLogin()">
+            <input type="password" id="t-pass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key==='Enter')doTrainerLogin()">
           </div>
-          <div class="err-msg" id="t-err">Incorrect username or password.</div>
-          <button class="btn btn-primary btn-full" onclick="trainerLogin()" style="margin-top:8px;height:46px;font-size:15px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Login to Admin Panel
-          </button>
-          <div class="login-divider"><div class="login-divider-line"></div><div class="login-divider-text">default</div><div class="login-divider-line"></div></div>
-          <div style="background:var(--warning-bg);border:1px solid var(--warning-border);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--warning);line-height:1.7">
-            Default credentials: <code>trainer</code> / <code>NkaySolutions2025</code><br>
-            Change your password in Settings after first login.
-          </div>
-        </div>
-
-        <div class="login-right-footer">
-          NkaySolutions Tech Academy · Ablekuma Afuaman, Accra<br>
-          © 2025 · All rights reserved
+          <div class="err-box" id="t-err">Incorrect username or password.</div>
+          <button class="btn-login" onclick="doTrainerLogin()">Login to Admin Panel &rarr;</button>
+          <div class="login-note">Default: <strong>trainer</strong> / <strong>NkaySolutions2025</strong><br>Change your password in Settings after first login.</div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- STUDENT DASHBOARD -->
-<div class="page" id="page-student-dash">
-  <div class="dash-shell">
-    <div class="dash-hero">
-      <h2 id="dash-greeting">Welcome back</h2>
-      <p id="dash-sub">Select an exam to begin</p>
-      <div class="dash-metrics">
-        <div class="metric-pill"><div class="mlabel">Exams Done</div><div class="mval" id="m-done">0</div></div>
-        <div class="metric-pill"><div class="mlabel">Best Score</div><div class="mval" id="m-best">—</div></div>
-        <div class="metric-pill"><div class="mlabel">Course</div><div class="mval small" id="m-course">—</div></div>
-        <div class="metric-pill"><div class="mlabel">Student Code</div><div class="mval small" id="m-code" style="font-family:'JetBrains Mono',monospace;font-size:12px;padding-top:4px">—</div></div>
-      </div>
+<div class="page" id="pg-dash">
+  <div class="dash-hero">
+    <h2 id="dh-name">Welcome</h2>
+    <p id="dh-sub"></p>
+    <div class="dash-stats">
+      <div class="stat-pill"><div class="sl">Exams Done</div><div class="sv" id="ds-done">0</div></div>
+      <div class="stat-pill"><div class="sl">Best Score</div><div class="sv" id="ds-best">-</div></div>
+      <div class="stat-pill"><div class="sl">Student Code</div><div class="sv sm" id="ds-code" style="font-family:JetBrains Mono,monospace;font-size:12px;padding-top:4px">-</div></div>
     </div>
-    <div class="dash-body">
-      <div class="section-head">Your Exams</div>
-      <div class="exam-list" id="exam-list"></div>
-    </div>
+  </div>
+  <div class="dash-body">
+    <div class="sec-label">Your Course Modules</div>
+    <div id="module-list"></div>
   </div>
 </div>
 
 <!-- EXAM PAGE -->
-<div class="page" id="page-exam">
+<div class="page" id="pg-exam">
   <div class="exam-shell">
-    <div class="exam-topbar">
-      <div><div class="exam-name" id="ex-name"></div><div class="exam-course-sub" id="ex-course"></div></div>
-      <div class="timer-box" id="ex-timer">20:00</div>
+    <div class="exam-bar">
+      <div>
+        <div class="exam-title-txt" id="ex-name"></div>
+        <div class="exam-course-txt" id="ex-course"></div>
+      </div>
+      <div class="timer" id="ex-timer">20:00</div>
     </div>
-    <div class="progress-track"><div class="progress-fill" id="ex-progress" style="width:0%"></div></div>
+    <div class="prog-track"><div class="prog-fill" id="ex-prog" style="width:0%"></div></div>
     <div class="exam-body">
-      <div class="q-nav-row" id="q-dots"></div>
-      <div id="q-container"></div>
+      <div class="q-dots" id="q-dots"></div>
+      <div id="q-cont"></div>
       <div class="exam-nav">
-        <button class="btn" id="btn-prev" onclick="prevQ()">← Previous</button>
-        <span id="q-counter" style="font-size:13px;color:var(--text-muted)"></span>
-        <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
-        <button class="btn btn-gold" id="btn-submit" onclick="confirmSubmit()" style="display:none">✓ Submit Exam</button>
+        <button class="btn" id="btn-prev" onclick="prevQ()">&#8592; Prev</button>
+        <span id="q-count" style="font-size:13px;color:#6b7280"></span>
+        <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next &#8594;</button>
+        <button class="btn btn-gold" id="btn-submit" onclick="confirmSubmit()" style="display:none">&#10003; Submit</button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- RESULTS PAGE -->
-<div class="page" id="page-results">
-  <div class="results-shell">
-    <div class="result-hero">
-      <div class="result-grade-big" id="res-grade-big">A</div>
-      <div class="result-score-line" id="res-score-line"></div>
-      <div class="result-label" id="res-label"></div>
+<div class="page" id="pg-results">
+  <div style="background:#fffdf5;min-height:calc(100vh - 54px)">
+    <div class="res-hero">
+      <div class="res-grade" id="rg"></div>
+      <div class="res-score-line" id="rs"></div>
+      <div class="res-label" id="rl"></div>
     </div>
-    <div class="result-body">
-      <div id="res-pending-notice"></div>
-      <div class="result-breakdown"><div class="rb-title">Exam Summary</div><div id="res-breakdown-rows"></div></div>
-      <div class="section-head" style="margin-bottom:14px">Question Review</div>
-      <div id="review-list"></div>
-      <div style="margin-top:24px;display:flex;gap:10px">
-        <button class="btn" onclick="goto('page-student-dash');renderStudentDash()">← Back to Dashboard</button>
-      </div>
+    <div class="res-body">
+      <div id="r-pending"></div>
+      <div class="res-summary"><div class="rb-row" style="font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px"><span>Summary</span></div><div id="r-summary"></div></div>
+      <div class="sec-label" style="margin-bottom:12px">Question Review</div>
+      <div id="r-review"></div>
+      <div style="margin-top:20px"><button class="btn" onclick="showPage('pg-dash');renderDash()">&#8592; Back to Dashboard</button></div>
     </div>
   </div>
 </div>
 
 <!-- TRAINER PANEL -->
-<div class="page" id="page-trainer">
-  <div class="trainer-shell">
-    <aside class="trainer-sidebar">
-      <div class="sidebar-section">Overview</div>
-      <div class="sidebar-item active" onclick="showTab('overview')" id="si-overview">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Overview
-      </div>
-      <div class="sidebar-section">Management</div>
-      <div class="sidebar-item" onclick="showTab('students')" id="si-students">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Students
-      </div>
-      <div class="sidebar-item" onclick="showTab('results')" id="si-results">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Results
-      </div>
-      <div class="sidebar-section">Exams</div>
-      <div class="sidebar-item" onclick="showTab('review-q')" id="si-review-q">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v3M11 14h.01"/></svg>Review Questions
-      </div>
-      <div class="sidebar-item" onclick="showTab('addq')" id="si-addq">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add Questions
-      </div>
-      <div class="sidebar-item" onclick="showTab('upload')" id="si-upload">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload CSV
-      </div>
-      <div class="sidebar-section">System</div>
-      <div class="sidebar-item" onclick="showTab('settings')" id="si-settings">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings
-      </div>
+<div class="page" id="pg-trainer">
+  <div class="trainer-layout">
+    <aside class="sidebar">
+      <div class="sb-section">Overview</div>
+      <div class="sb-item active" id="si-overview" onclick="showTrainerTab('overview')">&#9632; Overview</div>
+      <div class="sb-section">Manage</div>
+      <div class="sb-item" id="si-students" onclick="showTrainerTab('students')">&#128100; Students</div>
+      <div class="sb-item" id="si-results" onclick="showTrainerTab('results')">&#128200; Results</div>
+      <div class="sb-section">Exams</div>
+      <div class="sb-item" id="si-questions" onclick="showTrainerTab('questions')">&#10067; Question Bank</div>
+      <div class="sb-item" id="si-addq" onclick="showTrainerTab('addq')">&#43; Add Question</div>
+      <div class="sb-item" id="si-upload" onclick="showTrainerTab('upload')">&#8679; Upload CSV</div>
+      <div class="sb-section">System</div>
+      <div class="sb-item" id="si-settings" onclick="showTrainerTab('settings')">&#9881; Settings</div>
     </aside>
     <main class="trainer-main">
 
       <!-- OVERVIEW -->
-      <div class="t-panel active" id="tab-overview">
-        <div class="t-page-title">Dashboard</div>
-        <div class="t-page-sub">Platform snapshot</div>
-        <div class="stat-grid" id="overview-stats"></div>
-        <div class="section-head" style="margin-bottom:12px">Recent Results</div>
-        <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Date</th><th>Status</th></tr></thead><tbody id="recent-results-table"></tbody></table></div>
+      <div class="t-panel active" id="tp-overview">
+        <div class="t-title">Dashboard</div>
+        <div class="t-sub">Platform at a glance</div>
+        <div class="stat-grid" id="ov-stats"></div>
+        <div class="sec-label" style="margin-bottom:10px">Recent Results</div>
+        <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Date</th><th>Action</th></tr></thead><tbody id="ov-results"></tbody></table></div>
       </div>
 
       <!-- STUDENTS -->
-      <div class="t-panel" id="tab-students">
+      <div class="t-panel" id="tp-students">
         <div class="t-toolbar">
-          <div><div class="t-page-title">Students</div><div class="t-page-sub">Manage registered students</div></div>
-          <button class="btn btn-primary" onclick="openAddStudentModal()">+ Add Student</button>
+          <div><div class="t-title">Students</div><div class="t-sub">Manage registered students and access codes</div></div>
+          <button class="btn btn-primary" onclick="openAddStudent()">+ Add Student</button>
         </div>
-        <div class="card-table"><table><thead><tr><th>Code</th><th>Name</th><th>Course</th><th>Registered</th><th>Exams</th><th>Del</th></tr></thead><tbody id="students-tbody"></tbody></table></div>
+        <div class="card-table"><table><thead><tr><th>Code</th><th>Name</th><th>Course</th><th>Registered</th><th>Exams</th><th>Del</th></tr></thead><tbody id="tb-students"></tbody></table></div>
       </div>
 
       <!-- RESULTS -->
-      <div class="t-panel" id="tab-results">
-        <div class="t-page-title">Exam Results</div>
-        <div class="t-page-sub">View, filter and release student results</div>
-        <div class="t-filter-row" style="margin-bottom:16px">
-          <select id="rf-course" onchange="renderResultsTable()"><option value="">All Courses</option><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
-          <select id="rf-exam" onchange="renderResultsTable()"><option value="">All Exams</option><option>Mock 1</option><option>Mock 2</option><option>Main Exam</option></select>
-          <select id="rf-status" onchange="renderResultsTable()"><option value="">All Status</option><option value="released">Released</option><option value="pending">Pending</option></select>
+      <div class="t-panel" id="tp-results">
+        <div class="t-title">Exam Results</div>
+        <div class="t-sub">View, filter and release student results</div>
+        <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+          <select id="rf-course" onchange="renderResults()" style="border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;font-family:DM Sans,sans-serif"><option value="">All Courses</option><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
+          <select id="rf-exam" onchange="renderResults()" style="border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;font-family:DM Sans,sans-serif"><option value="">All Exams</option><option>Mock 1</option><option>Mock 2</option><option>Main Exam</option></select>
+          <select id="rf-status" onchange="renderResults()" style="border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;font-family:DM Sans,sans-serif"><option value="">All Status</option><option value="released">Released</option><option value="pending">Pending</option></select>
         </div>
-        <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Grade</th><th>Date</th><th>Action</th></tr></thead><tbody id="results-tbody"></tbody></table></div>
+        <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Grade</th><th>Date</th><th>Action</th></tr></thead><tbody id="tb-results"></tbody></table></div>
       </div>
 
-      <!-- REVIEW QUESTIONS -->
-      <div class="t-panel" id="tab-review-q">
-        <div class="t-page-title">Review Questions</div>
-        <div class="t-page-sub">Browse, inspect and delete questions in the bank</div>
-        <div class="t-filter-row" style="margin-bottom:20px">
-          <select id="rqf-course" onchange="renderReviewQ()"><option value="">All Courses</option><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
-          <select id="rqf-exam" onchange="renderReviewQ()"><option value="">All Exams</option><option>Mock 1</option><option>Mock 2</option><option>Main Exam</option></select>
-          <select id="rqf-type" onchange="renderReviewQ()"><option value="">All Types</option><option value="mcq">MCQ</option><option value="tf">True/False</option><option value="short">Short Answer</option><option value="word">Word Problem</option></select>
+      <!-- QUESTION BANK -->
+      <div class="t-panel" id="tp-questions">
+        <div class="t-toolbar">
+          <div><div class="t-title">Question Bank</div><div class="t-sub">All exam questions</div></div>
+          <div style="display:flex;gap:8px">
+            <select id="qf-course" onchange="renderQBank()" style="border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;font-family:DM Sans,sans-serif"><option value="">All Courses</option><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
+            <select id="qf-exam" onchange="renderQBank()" style="border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;font-family:DM Sans,sans-serif"><option value="">All Exams</option><option>Mock 1</option><option>Mock 2</option><option>Main Exam</option></select>
+          </div>
         </div>
-        <div id="review-q-count" style="font-size:13px;color:var(--text-muted);margin-bottom:14px"></div>
-        <div id="review-q-list"></div>
+        <div class="card-table"><table><thead><tr><th>#</th><th>Question</th><th>Type</th><th>Course</th><th>Exam</th><th>Del</th></tr></thead><tbody id="tb-questions"></tbody></table></div>
       </div>
 
       <!-- ADD QUESTION -->
-      <div class="t-panel" id="tab-addq">
-        <div class="t-page-title">Add Question</div>
-        <div class="t-page-sub">Add a question to the bank manually</div>
-        <div class="q-builder-card">
+      <div class="t-panel" id="tp-addq">
+        <div class="t-title">Add Question</div>
+        <div class="t-sub">Add a question to the bank manually</div>
+        <div class="form-card">
           <h3>Question Details</h3>
           <div class="three-col">
             <div class="field"><label>Course</label>
-              <select id="nq-course" onchange="checkNewCourse()">
+              <select id="nq-course" onchange="checkNewCourse()" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none">
                 <option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option><option value="__new__">+ New Course</option>
               </select>
             </div>
-            <div class="field"><label>Exam Type</label><select id="nq-exam"><option>Mock 1</option><option>Mock 2</option><option>Main Exam</option></select></div>
-            <div class="field"><label>Question Type</label>
-              <select id="nq-type" onchange="toggleQType()">
-                <option value="mcq">Multiple Choice</option><option value="tf">True / False</option><option value="short">Short Answer</option><option value="word">Word Problem (MCQ)</option>
+            <div class="field"><label>Exam</label>
+              <select id="nq-exam" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none">
+                <option>Mock 1</option><option>Mock 2</option><option>Main Exam</option>
+              </select>
+            </div>
+            <div class="field"><label>Type</label>
+              <select id="nq-type" onchange="toggleQType()" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none">
+                <option value="mcq">Multiple Choice</option><option value="tf">True / False</option><option value="short">Short Answer</option><option value="word">Word Problem</option>
               </select>
             </div>
           </div>
-          <div class="field hidden" id="new-course-wrap"><label>New Course Name</label><input id="nq-course-custom" placeholder="Enter new course name"></div>
-          <div class="field" id="scenario-wrap">
-            <label>Scenario / Word Problem Context <span style="color:var(--text-muted);font-weight:400">(for Word Problem type)</span></label>
-            <textarea id="nq-scenario" placeholder="Describe the real-world scenario or case study the question is based on..."></textarea>
+          <div class="field hidden" id="nq-new-course-wrap"><label>New Course Name</label><input type="text" id="nq-course-custom" placeholder="Enter course name" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+          <div class="field" id="nq-scenario-wrap" style="display:none"><label>Scenario (for Word Problem)</label><textarea id="nq-scenario" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;min-height:80px;outline:none;resize:vertical" placeholder="Describe the real-world scenario..."></textarea></div>
+          <div class="field"><label>Question Text</label><textarea id="nq-question" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;min-height:80px;outline:none;resize:vertical" placeholder="Type the question here..."></textarea></div>
+          <div id="nq-mcq-opts">
+            <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6b7280;margin-bottom:8px">Options &mdash; select the correct answer</p>
+            <div class="opt-row"><input type="radio" name="corr" value="0"><div class="opt-ltr">A</div><input type="text" id="opt-a" placeholder="Option A"><span class="correct-hint">&larr; if selected</span></div>
+            <div class="opt-row"><input type="radio" name="corr" value="1"><div class="opt-ltr">B</div><input type="text" id="opt-b" placeholder="Option B"></div>
+            <div class="opt-row"><input type="radio" name="corr" value="2"><div class="opt-ltr">C</div><input type="text" id="opt-c" placeholder="Option C"></div>
+            <div class="opt-row"><input type="radio" name="corr" value="3"><div class="opt-ltr">D</div><input type="text" id="opt-d" placeholder="Option D"></div>
           </div>
-          <div class="field"><label>Question Text</label><textarea id="nq-question" placeholder="Type the question here..."></textarea></div>
-          <div id="mcq-section">
-            <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:10px">Answer Options — select the correct one</div>
-            <div class="opt-row"><input type="radio" name="corr" value="0"><div class="opt-letter">A</div><input type="text" id="opt-a" placeholder="Option A"><span class="correct-hint">← correct if selected</span></div>
-            <div class="opt-row"><input type="radio" name="corr" value="1"><div class="opt-letter">B</div><input type="text" id="opt-b" placeholder="Option B"></div>
-            <div class="opt-row"><input type="radio" name="corr" value="2"><div class="opt-letter">C</div><input type="text" id="opt-c" placeholder="Option C"></div>
-            <div class="opt-row"><input type="radio" name="corr" value="3"><div class="opt-letter">D</div><input type="text" id="opt-d" placeholder="Option D"></div>
+          <div id="nq-tf-opts" style="display:none">
+            <div class="field"><label>Correct Answer</label>
+              <select id="nq-tf-ans" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none"><option value="true">True</option><option value="false">False</option></select>
+            </div>
           </div>
-          <div id="tf-section" class="hidden"><div class="field"><label>Correct Answer</label><select id="tf-ans"><option value="true">True</option><option value="false">False</option></select></div></div>
-          <div id="short-section" class="hidden"><div class="field"><label>Model Answer</label><textarea id="short-ans" placeholder="Expected answer keywords or model answer..."></textarea></div></div>
-          <div class="field" style="margin-top:12px"><label>Marks</label><input type="number" id="nq-marks" value="2" min="1" max="20" style="width:100px"></div>
+          <div id="nq-short-opts" style="display:none">
+            <div class="field"><label>Model Answer</label><textarea id="nq-short-ans" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;min-height:60px;outline:none;resize:vertical" placeholder="Expected answer keywords..."></textarea></div>
+          </div>
+          <div class="field"><label>Marks</label><input type="number" id="nq-marks" value="1" min="1" max="20" style="width:80px;border:1.5px solid #e5e0d5;border-radius:8px;padding:8px 10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
           <div id="addq-alert"></div>
-          <button class="btn btn-primary" onclick="addQuestion()" style="margin-top:4px">+ Add to Question Bank</button>
+          <button class="btn btn-primary" onclick="addQuestion()" style="margin-top:4px">+ Add to Bank</button>
         </div>
       </div>
 
-      <!-- UPLOAD CSV -->
-      <div class="t-panel" id="tab-upload">
-        <div class="t-page-title">Upload Questions via CSV</div>
-        <div class="t-page-sub">Bulk-import questions from a spreadsheet</div>
-        <div class="q-builder-card">
+      <!-- UPLOAD -->
+      <div class="t-panel" id="tp-upload">
+        <div class="t-title">Upload Questions via CSV</div>
+        <div class="t-sub">Bulk import questions from a spreadsheet</div>
+        <div class="form-card">
           <h3>CSV Format</h3>
-          <p style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:12px">
-            Columns: <code>course, exam_type, question, type, scenario, option_a, option_b, option_c, option_d, correct_answer, marks</code><br>
-            <strong>type</strong>: <code>mcq</code>, <code>tf</code>, <code>short</code>, or <code>word</code><br>
-            <strong>scenario</strong>: leave empty for non-word problems<br>
-            <strong>correct_answer</strong>: <code>a/b/c/d</code> for MCQ/word, <code>true/false</code> for TF, model answer for short
-          </p>
-          <div class="upload-zone" onclick="document.getElementById('csv-input').click()">
-            <div style="font-size:36px">📂</div>
+          <p style="font-size:13px;color:#6b7280;line-height:1.8;margin-bottom:14px">Columns: <code style="background:#f7f3e8;padding:1px 6px;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:12px">course, exam_type, question, type, scenario, option_a, option_b, option_c, option_d, correct_answer, marks</code><br>type values: mcq, tf, short, word &mdash; correct_answer: a/b/c/d for mcq, true/false for tf</p>
+          <div class="upload-zone" onclick="document.getElementById('csv-file').click()">
+            <div style="font-size:32px">&#128193;</div>
             <p><strong>Click to select CSV file</strong></p>
-            <input type="file" id="csv-input" accept=".csv,.txt" style="display:none" onchange="handleCSV(this)">
+            <input type="file" id="csv-file" accept=".csv" style="display:none" onchange="handleCSV(this)">
           </div>
-          <div id="upload-alert" style="margin-top:12px"></div>
+          <div id="upload-alert" style="margin-top:10px"></div>
         </div>
       </div>
 
       <!-- SETTINGS -->
-      <div class="t-panel" id="tab-settings">
-        <div class="t-page-title">System Settings</div>
-        <div class="t-page-sub">Configure grading, timing and credentials</div>
-        <div class="settings-section">
-          <h3>Grading Scale</h3>
+      <div class="t-panel" id="tp-settings">
+        <div class="t-title">Settings</div>
+        <div class="t-sub">Configure grading, timing and exam passwords</div>
+        <div class="form-card">
+          <h3>Exam Access Passwords</h3>
+          <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.6">Set a password students must enter before starting each exam. Leave blank for open access. Click &#127922; to generate a random code.</p>
+          <div id="pass-list"></div>
+          <div id="pass-alert" style="margin-top:10px"></div>
+          <button class="btn btn-primary" onclick="savePasswords()" style="margin-top:8px">Save Passwords</button>
+        </div>
+        <div class="form-card">
+          <h3>Grading &amp; Timing</h3>
           <div class="two-col">
-            <div class="field"><label>Distinction — min %</label><input type="number" id="s-dist" min="0" max="100"></div>
-            <div class="field"><label>Merit — min %</label><input type="number" id="s-merit" min="0" max="100"></div>
+            <div class="field"><label>Distinction (%)</label><input type="number" id="s-dist" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+            <div class="field"><label>Merit (%)</label><input type="number" id="s-merit" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
           </div>
           <div class="two-col">
-            <div class="field"><label>Pass — min %</label><input type="number" id="s-pass" min="0" max="100"></div>
-            <div class="field"><label>Mock time limit (minutes)</label><input type="number" id="s-mock-time" min="5" max="60"></div>
+            <div class="field"><label>Pass (%)</label><input type="number" id="s-pass" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+            <div class="field"><label>Mock Time (mins)</label><input type="number" id="s-mtime" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
           </div>
           <div class="two-col">
-            <div class="field"><label>Main Exam time limit (minutes)</label><input type="number" id="s-main-time" min="10" max="180"></div>
-            <div class="field"><label>Mock questions per exam</label><input type="number" id="s-mock-q" min="5" max="50"></div>
+            <div class="field"><label>Main Exam Time (mins)</label><input type="number" id="s-etime" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+            <div class="field"><label>Questions per Mock</label><input type="number" id="s-mq" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
           </div>
-          <div class="two-col">
-            <div class="field"><label>Main Exam questions</label><input type="number" id="s-main-q" min="10" max="100"></div>
-            <div class="field"></div>
-          </div>
+          <div class="field"><label>Questions per Main Exam</label><input type="number" id="s-eq" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
           <div class="toggle-row">
-            <label for="s-autorelease">Auto-release results immediately after submission</label>
-            <input type="checkbox" id="s-autorelease">
+            <label>Auto-release results after submission</label>
+            <input type="checkbox" id="s-auto" style="width:18px;height:18px;accent-color:#0F2744;cursor:pointer">
           </div>
-          <div id="settings-alert" style="margin-top:12px"></div>
-          <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:12px">💾 Save Settings</button>
+          <div id="settings-alert" style="margin-top:10px"></div>
+          <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:10px">Save Settings</button>
         </div>
-        <div class="settings-section">
-          <h3>🔐 Exam Access Passwords</h3>
-          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
-            Set a password that students must enter before starting each exam. Leave blank to allow free access. Passwords are shared across all devices instantly.
-          </p>
-          <div id="exam-passwords-list"></div>
-          <button class="btn btn-primary btn-sm" onclick="saveExamPasswords()" style="margin-top:8px">💾 Save Passwords</button>
-          <div id="pass-save-alert" style="margin-top:10px"></div>
-        </div>
-
-        <div class="settings-section">
+        <div class="form-card">
           <h3>Trainer Credentials</h3>
           <div class="two-col">
-            <div class="field"><label>New Username</label><input id="s-t-user" placeholder="trainer"></div>
-            <div class="field"><label>New Password</label><input type="password" id="s-t-pass" placeholder="new password"></div>
+            <div class="field"><label>New Username</label><input type="text" id="s-tuser" placeholder="trainer" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+            <div class="field"><label>New Password</label><input type="password" id="s-tpass" placeholder="new password" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
           </div>
           <div id="cred-alert" style="margin-top:4px"></div>
-          <button class="btn" onclick="saveCredentials()" style="margin-top:8px">🔒 Update Credentials</button>
+          <button class="btn" onclick="saveCreds()" style="margin-top:6px">Update Credentials</button>
         </div>
       </div>
 
@@ -762,75 +526,67 @@ tbody tr:hover td{background:var(--cream)}
 </div>
 
 <!-- MODALS -->
-<div class="modal-overlay hidden" id="modal-add-student">
-  <div class="modal-box">
+<div class="modal-bg hidden" id="modal-student">
+  <div class="modal">
     <h3>Add New Student</h3>
-    <p>Fill in the student's details. A unique code will be auto-generated.</p>
-    <div class="field"><label>Full Name</label><input id="ns-name" placeholder="Student full name"></div>
-    <div class="field"><label>Course Enrolled</label>
-      <select id="ns-course"><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
+    <p>Fill in the student details. A unique code will be generated.</p>
+    <div class="field"><label>Full Name</label><input type="text" id="ns-name" placeholder="Student full name" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+    <div class="field"><label>Course</label>
+      <select id="ns-course" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none"><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
     </div>
-    <div class="field"><label>Generated Code</label><input id="ns-code" readonly></div>
+    <div class="field"><label>Generated Code</label><input type="text" id="ns-code" readonly style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:JetBrains Mono,monospace;background:#f7f3e8;color:#6b7280;outline:none"></div>
     <div id="ns-alert" style="margin-bottom:8px"></div>
     <div class="modal-actions">
-      <button class="btn btn-primary" onclick="saveStudent()">✓ Save Student</button>
-      <button class="btn" onclick="closeModal('modal-add-student')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStudent()">Save Student</button>
+      <button class="btn" onclick="closeModal('modal-student')">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- EXAM PASSWORD MODAL -->
-<div class="exam-pass-overlay hidden" id="modal-exam-pass">
-  <div class="exam-pass-box">
-    <div class="exam-pass-icon">🔐</div>
-    <div class="exam-pass-title">Exam Access Code</div>
-    <div class="exam-pass-sub">Your trainer has set an access code for this exam. Enter it below to begin. You have 3 attempts.</div>
-    <div class="exam-pass-input-wrap">
-      <input class="exam-pass-input" type="password" id="ep-input" placeholder="· · · · · ·" maxlength="10" onkeydown="if(event.key==='Enter')verifyExamPass()" autocomplete="off">
-      <button class="exam-pass-toggle" onclick="togglePassVis()" id="ep-toggle">👁</button>
-    </div>
-    <div class="exam-pass-err" id="ep-err"></div>
-    <button class="btn btn-primary btn-full" onclick="verifyExamPass()" style="height:46px;font-size:15px;margin-bottom:8px">
-      🔓 Unlock Exam
-    </button>
-    <button class="btn btn-full" onclick="cancelExamPass()">Cancel</button>
-    <div class="exam-pass-hint">Contact your trainer if you have not received the access code.</div>
-  </div>
-</div>
-
-<div class="modal-overlay hidden" id="modal-confirm-submit">
-  <div class="modal-box">
+<div class="modal-bg hidden" id="modal-submit">
+  <div class="modal">
     <h3>Submit Exam?</h3>
-    <p id="submit-confirm-msg">Are you sure you want to submit?</p>
+    <p id="submit-msg">Are you sure you want to submit your exam?</p>
     <div class="modal-actions">
-      <button class="btn btn-gold" onclick="submitExam()">✓ Yes, Submit Now</button>
-      <button class="btn" onclick="closeModal('modal-confirm-submit')">Continue Exam</button>
+      <button class="btn btn-gold" onclick="doSubmit()">Yes, Submit Now</button>
+      <button class="btn" onclick="closeModal('modal-submit')">Continue Exam</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg hidden" id="modal-exampass">
+  <div class="modal">
+    <h3>&#128272; Exam Access Code</h3>
+    <p>Your trainer has set an access code for this exam. Enter it below to begin.</p>
+    <div class="field"><label>Access Code</label><input type="text" id="ep-input" placeholder="Enter code" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:12px;font-size:18px;font-family:JetBrains Mono,monospace;letter-spacing:4px;text-align:center;outline:none;text-transform:uppercase" onkeydown="if(event.key==='Enter')verifyPass()" maxlength="10"></div>
+    <div class="err-box" id="ep-err" style="display:none">Incorrect code. Please try again.</div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="verifyPass()">Unlock &amp; Start</button>
+      <button class="btn" onclick="closeModal('modal-exampass')">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
-const STORE_KEY='nta_v3';
+var STORE='nta_exam_v4';
+var GAS_URL='https://script.google.com/macros/s/AKfycbxHaM8VCDQ_-HSQ4kqHi4V44iHTPOFzqsSQ3nN23gH2oNK-bb-AM8aYsOXtnwB_UvZx/exec';
 
-// ── SHARED DATABASE via GitHub Gist ──
-// Paste your Google Apps Script Web App URL below after setup
-// ── SHARED DATABASE via Google Apps Script ──
-// Paste your deployed Apps Script Web App URL below after setup
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHaM8VCDQ_-HSQ4kqHi4V44iHTPOFzqsSQ3nN23gH2oNK-bb-AM8aYsOXtnwB_UvZx/exec';
-let syncInProgress = false;
-let pendingSave = false;
-
-const DEFAULT={
+// ── DEFAULT STATE ──
+var DEFAULT={
   trainer:{username:'trainer',password:'NkaySolutions2025'},
-  settings:{gradeDist:80,gradeMerit:70,gradePass:60,mockTime:20,mainTime:50,mockQCount:20,mainQCount:50,autoRelease:true,examPasswords:{}},
+  settings:{gradeDist:80,gradeMerit:70,gradePass:60,mockTime:20,mainTime:50,mockQ:20,mainQ:50,autoRelease:true,examPasswords:{}},
   students:[
     {code:'NTA-2025-001',name:'Kwame Mensah',course:'Basic Computer Literacy',registered:'01/05/2025'},
     {code:'NTA-2025-002',name:'Abena Asante',course:'MS Office Suite',registered:'03/05/2025'},
     {code:'NTA-2025-003',name:'Kofi Boateng',course:'Data Analytics with Excel',registered:'05/05/2025'},
-    {code:'NTA-2026-004',name:'Kingsley',course:'Basic Computer Literacy',registered:'20/05/2026'},
+    {code:'NTA-2026-004',name:'Kingsley',course:'Basic Computer Literacy',registered:'20/05/2026'}
   ],
   results:[],
-  questions:[
+  extraQ:[]
+};
+
+// ── BUILT-IN QUESTIONS ──
+var BUILTIN_Q=[
     {id:"bcl_m1_01",course:"Basic Computer Literacy",exam:"Mock 1",type:"mcq",question:"A financial analyst needs to find a specific value in a 10,000-row dataset immediately. Which keyboard shortcut opens the Find dialog in most applications?",options:["Ctrl+F", "Ctrl+H", "Ctrl+G", "Ctrl+R"],correct:0,marks:1},
     {id:"bcl_m1_02",course:"Basic Computer Literacy",exam:"Mock 1",type:"mcq",question:"A startup evaluates cloud vs. local storage for sensitive client data. Which attribute makes cloud storage fundamentally different from a local hard drive?",options:["Cloud storage is always faster", "Cloud data is accessible from any internet-connected device", "Cloud storage never fails", "Local drives cannot be shared"],correct:1,marks:1},
     {id:"bcl_m1_03",course:"Basic Computer Literacy",exam:"Mock 1",type:"tf",question:"A 64-bit operating system can address significantly more RAM than a 32-bit system, making it better suited for running enterprise applications.",correct:"true",marks:1},
@@ -923,7 +679,7 @@ const DEFAULT={
     {id:"bcl_me_50",course:"Basic Computer Literacy",exam:"Main Exam",type:"word",scenario:"A global investment bank must report trading data to regulators within 15 minutes of each trade. They process 5 million trades daily across 40 countries with different regulatory formats.",question:"Which technology architecture enables this real-time regulatory reporting at scale?",options:["Manual reporting by compliance staff", "A real-time streaming data pipeline with automated regulatory format transformation, validation, and submission \u2014 monitored by an exception-based human oversight layer", "Batch reporting at end of each trading day", "Email submission of trade confirmations"],correct:1,marks:2},
     {id:"off_m1_01",course:"MS Office Suite",exam:"Mock 1",type:"mcq",question:"A financial analyst builds a model where changing one input cell updates 50 calculated fields. Which Excel feature makes this possible?",options:["Manual data entry per cell", "Cell referencing with formulas that automatically recalculate when input values change", "Copy-paste of values", "Static text labels"],correct:1,marks:1},
     {id:"off_m1_02",course:"MS Office Suite",exam:"Mock 1",type:"word",scenario:"A McKinsey consultant prepares a 120-page strategy report for a Fortune 500 client. The document has 15 sections each requiring different headers and page numbering.",question:"Which combination of Word features handles this professional document requirement?",options:["Manual typing of section names on each page", "Section breaks with different headers/footers per section and linked page numbering", "One continuous document with no breaks", "Printing each section separately"],correct:1,marks:2},
-    {id:"off_m1_03",course:"MS Office Suite",exam:"Mock 1",type:"mcq",question:"A portfolio manager tracks 500 stocks and needs to count stocks where Price > $100 AND Volume > 1,000,000. Which Excel function handles multiple criteria?",options:["=IF() alone", "=SUMIF()", "=COUNTIFS() with multiple criteria ranges", "=VLOOKUP()"],correct:2,marks:1},
+    {id:"off_m1_03",course:"MS Office Suite",exam:"Mock 1",type:"mcq",question:"A portfolio manager tracks 500 stocks and needs to count stocks where Price above $100 AND Volume above 1,000,000. Which Excel function handles multiple criteria?",options:["=IF() alone", "=SUMIF()", "=COUNTIFS() with multiple criteria ranges", "=VLOOKUP()"],correct:2,marks:1},
     {id:"off_m1_04",course:"MS Office Suite",exam:"Mock 1",type:"tf",question:"In Excel, pressing F4 while editing a cell reference toggles between relative, mixed, and absolute references \u2014 critical for building professional financial models.",correct:"true",marks:1},
     {id:"off_m1_05",course:"MS Office Suite",exam:"Mock 1",type:"mcq",question:"An investment bank analyst builds a DCF model and needs to see how valuation changes when the discount rate varies from 8% to 15%. Which Excel feature does this?",options:["AutoSum", "Data Table (What-If Analysis)", "Conditional Formatting", "VLOOKUP"],correct:1,marks:1},
     {id:"off_m1_06",course:"MS Office Suite",exam:"Mock 1",type:"word",scenario:"A Big 4 accounting firm sends audit reports to 300 clients. Each report is identical except for client name, address, audit period, and key financial figures.",question:"Which Microsoft Office workflow automates personalised report generation at this scale?",options:["Manually editing each report individually", "Word Mail Merge connected to an Excel data source containing client-specific information", "Copy-pasting from a master document 300 times", "Emailing a blank template for clients to complete"],correct:1,marks:2},
@@ -950,7 +706,7 @@ const DEFAULT={
     {id:"off_m2_07",course:"MS Office Suite",exam:"Mock 2",type:"mcq",question:"A Big 4 partner reviews a Word document with inconsistent formatting \u2014 some paragraphs use 12pt Times New Roman, others 11pt Calibri. What is the most efficient fix?",options:["Manually reformat each paragraph", "Use Find & Replace with format options, or apply consistent paragraph styles throughout", "Delete and retype all paragraphs", "Print and rewrite by hand"],correct:1,marks:1},
     {id:"off_m2_08",course:"MS Office Suite",exam:"Mock 2",type:"tf",question:"In Excel, Power Pivot extends Pivot Table functionality by allowing relationships between multiple tables \u2014 similar to a relational database \u2014 enabling analysis of millions of rows.",correct:"true",marks:1},
     {id:"off_m2_09",course:"MS Office Suite",exam:"Mock 2",type:"mcq",question:"A financial controller builds a dynamic dashboard in Excel. To make a chart automatically update when new monthly data is added, which approach is most professional?",options:["Manually extending the chart range each month", "Using structured Excel Tables as the data source \u2014 charts linked to Tables expand automatically with new data", "Recreating the chart each month", "Using a static range with extra empty rows"],correct:1,marks:1},
-    {id:"off_m2_10",course:"MS Office Suite",exam:"Mock 2",type:"word",scenario:"A consulting team delivers a 150-slide PowerPoint deck to a client. The partner wants to export specific sections as PDFs for different stakeholder audiences.",question:"Which PowerPoint feature allows selective export of specific slide ranges to PDF?",options:["Print the whole deck and scan selected pages", "File > Export to PDF with custom slide range selection", "Copy slides to a new file then export", "Screenshot each slide individually"],correct:1,marks:2},
+    {id:"off_m2_10",course:"MS Office Suite",exam:"Mock 2",type:"word",scenario:"A consulting team delivers a 150-slide PowerPoint deck to a client. The partner wants to export specific sections as PDFs for different stakeholder audiences.",question:"Which PowerPoint feature allows selective export of specific slide ranges to PDF?",options:["Print the whole deck and scan selected pages", "File then Export to PDF with custom slide range selection", "Copy slides to a new file then export", "Screenshot each slide individually"],correct:1,marks:2},
     {id:"off_m2_11",course:"MS Office Suite",exam:"Mock 2",type:"mcq",question:"An analyst uses Excel's OFFSET function. What does OFFSET return?",options:["The difference between two cells", "A reference to a range offset from a given cell by specified rows and columns \u2014 useful for dynamic ranges", "The text offset from the left margin", "The difference in dates"],correct:1,marks:1},
     {id:"off_m2_12",course:"MS Office Suite",exam:"Mock 2",type:"tf",question:"In professional Excel modelling, hardcoded inputs should be in a dedicated assumption area clearly distinguished from formulas \u2014 typically by using a different cell colour or font.",correct:"true",marks:1},
     {id:"off_m2_13",course:"MS Office Suite",exam:"Mock 2",type:"mcq",question:"A project manager tracks milestones in PowerPoint. Which SmartArt layout best visualises a sequential 6-step process?",options:["Radial Cluster", "Process or Chevron Arrow layout", "Organisation Chart", "Pyramid"],correct:1,marks:1},
@@ -1000,7 +756,7 @@ const DEFAULT={
     {id:"off_me_37",course:"MS Office Suite",exam:"Main Exam",type:"mcq",question:"A credit analyst calculates a loan amortisation schedule in Excel. Which function returns the payment for a loan based on constant payments and a constant interest rate?",options:["=RATE()", "=PMT(rate, nper, pv)", "=NPV()", "=FV()"],correct:1,marks:1},
     {id:"off_me_38",course:"MS Office Suite",exam:"Main Exam",type:"mcq",question:"A financial analyst calculates compound annual growth rate (CAGR). Given start value in A1 and end value in B1 over 5 years, which formula is correct?",options:["=(B1-A1)/A1", "=(B1/A1)^(1/5)-1", "=AVERAGE(B1/A1)", "=B1/A1/5"],correct:1,marks:1},
     {id:"off_me_39",course:"MS Office Suite",exam:"Main Exam",type:"tf",question:"Circular references should be avoided in Excel financial models unless intentionally creating an iterative calculation \u2014 such as interest on a revolving credit facility \u2014 with iteration enabled in settings.",correct:"true",marks:1},
-    {id:"off_me_40",course:"MS Office Suite",exam:"Main Exam",type:"word",scenario:"A boutique investment bank produces monthly investor letters referencing 12 portfolio metrics that change monthly, displayed in formatted tables alongside narrative commentary.",question:"Which approach creates the most efficient, error-resistant monthly update workflow?",options:["Rewrite the entire letter each month", "Link the Word document tables directly to an Excel data file using Paste Special > Paste Link \u2014 update Excel monthly and refresh Word tables with one click", "Copy-paste numbers from Excel to Word manually each month", "Use a PDF form"],correct:1,marks:2},
+    {id:"off_me_40",course:"MS Office Suite",exam:"Main Exam",type:"word",scenario:"A boutique investment bank produces monthly investor letters referencing 12 portfolio metrics that change monthly, displayed in formatted tables alongside narrative commentary.",question:"Which approach creates the most efficient, error-resistant monthly update workflow?",options:["Rewrite the entire letter each month", "Link the Word document tables directly to an Excel data file using Paste Special then Paste Link \u2014 update Excel monthly and refresh Word tables with one click", "Copy-paste numbers from Excel to Word manually each month", "Use a PDF form"],correct:1,marks:2},
     {id:"off_me_41",course:"MS Office Suite",exam:"Main Exam",type:"mcq",question:"A data analyst uses Excel's AGGREGATE function. What advantage does AGGREGATE have over standard SUM or AVERAGE?",options:["It is faster", "It can ignore hidden rows, error values, and nested SUBTOTAL functions \u2014 ideal for filtered datasets", "It works on text values", "It automatically creates charts"],correct:1,marks:1},
     {id:"off_me_42",course:"MS Office Suite",exam:"Main Exam",type:"mcq",question:"A consultant creates a tornado chart in Excel to show sensitivity analysis results. What business insight does a tornado chart communicate?",options:["Historical trend of one variable", "Which input assumptions have the greatest impact on the output \u2014 ranked by magnitude of impact", "Geographic distribution of risk", "Timeline of project milestones"],correct:1,marks:1},
     {id:"off_me_43",course:"MS Office Suite",exam:"Main Exam",type:"tf",question:"In Word, building blocks and Quick Parts allow frequently used content (such as standard legal clauses) to be saved and inserted instantly \u2014 improving consistency and efficiency in document production.",correct:"true",marks:1},
@@ -1018,7 +774,7 @@ const DEFAULT={
     {id:"da_m1_05",course:"Data Analytics with Excel",exam:"Mock 1",type:"mcq",question:"A marketing analyst segments customers using RFM analysis. What do Recency, Frequency, and Monetary Value measure?",options:["Revenue, Forecasting, and Margins", "When a customer last purchased, how often they purchase, and how much they spend \u2014 used to identify best and at-risk customers", "Risk, Frequency, and Market value", "Return, Function, and Method"],correct:1,marks:1},
     {id:"da_m1_06",course:"Data Analytics with Excel",exam:"Mock 1",type:"word",scenario:"A SaaS company's monthly churn jumped from 2% to 5% in September. The CEO asks the data analyst to identify the root cause using data on subscription tier, signup date, support tickets, feature usage, and NPS.",question:"Which analytical approach is most appropriate for identifying root cause?",options:["Calculate total revenue lost and report to CEO", "Segment churned customers by all available dimensions, compare to retained customers to identify distinguishing characteristics, then correlate with September-specific events", "Survey all customers asking why they churned", "Calculate the average NPS of churned customers only"],correct:1,marks:2},
     {id:"da_m1_07",course:"Data Analytics with Excel",exam:"Mock 1",type:"mcq",question:"A financial analyst calculates z-scores to detect outliers in expense data. What does a z-score represent?",options:["The absolute value of an expense", "The number of standard deviations a data point is from the mean \u2014 values beyond \u00b13 are typically outliers", "The percentage change between periods", "The rank of a value within a dataset"],correct:1,marks:1},
-    {id:"da_m1_08",course:"Data Analytics with Excel",exam:"Mock 1",type:"tf",question:"In A/B testing, statistical significance at p < 0.05 means there is less than a 5% probability that the observed difference occurred by random chance.",correct:"true",marks:1},
+    {id:"da_m1_08",course:"Data Analytics with Excel",exam:"Mock 1",type:"tf",question:"In A/B testing, statistical significance at p-value below 0.05 means there is less than a 5% probability that the observed difference occurred by random chance.",correct:"true",marks:1},
     {id:"da_m1_09",course:"Data Analytics with Excel",exam:"Mock 1",type:"mcq",question:"A supply chain analyst tracks inventory turnover (COGS / Average Inventory). What does a high inventory turnover ratio indicate?",options:["The company is overstocked", "The company sells through inventory efficiently \u2014 products move quickly relative to stock held", "The company has high profit margins", "The company is losing sales due to stockouts"],correct:1,marks:1},
     {id:"da_m1_10",course:"Data Analytics with Excel",exam:"Mock 1",type:"word",scenario:"A bank's fraud analytics team has 100,000 transactions. The model flags 1,000 as suspicious, but only 400 are actually fraud. There are 500 actual fraud cases in total.",question:"What is the precision of this fraud detection model?",options:["40% \u2014 400 of the 1,000 flagged transactions are actual fraud", "80% \u2014 400 of the 500 actual fraud cases were caught (recall)", "50% \u2014 the model flagged 1,000 out of 100,000", "0.5% \u2014 the base fraud rate"],correct:0,marks:2},
     {id:"da_m1_11",course:"Data Analytics with Excel",exam:"Mock 1",type:"mcq",question:"A growth analyst tracks Month-on-Month revenue growth. January revenue was $800K; February was $920K. What is the MoM growth rate?",options:["12%", "13%", "15%", "$120K"],correct:2,marks:1},
@@ -1059,7 +815,7 @@ const DEFAULT={
     {id:"da_me_06",course:"Data Analytics with Excel",exam:"Main Exam",type:"mcq",question:"A revenue analyst decomposes a 12% revenue decline: Volume -8%, Price -5%, Mix +1%. Which analytical method is being used?",options:["Cohort analysis", "Price-Volume-Mix (PVM) analysis \u2014 separating revenue changes into underlying business drivers", "Regression analysis", "Market share analysis"],correct:1,marks:1},
     {id:"da_me_07",course:"Data Analytics with Excel",exam:"Main Exam",type:"mcq",question:"A data engineer designs a data warehouse using a star schema. What characterises a star schema?",options:["Multiple fact tables connected to each other", "One central fact table connected to multiple denormalised dimension tables \u2014 optimised for fast analytical query performance", "Equal numbers of fact and dimension tables", "No relationships between tables"],correct:1,marks:1},
     {id:"da_me_08",course:"Data Analytics with Excel",exam:"Main Exam",type:"tf",question:"A randomised controlled experiment (RCT) is considered the gold standard for establishing causality because random assignment ensures confounding variables are equally distributed across treatment and control groups.",correct:"true",marks:1},
-    {id:"da_me_09",course:"Data Analytics with Excel",exam:"Main Exam",type:"word",scenario:"A telecom company has 5 million customers. A model identifies 100,000 with >70% churn probability. The retention team can contact 20,000 customers with a $50 offer. The offer is 40% effective. ARPU is $45/month.",question:"Which 20,000 customers should the team prioritise to maximise ROI?",options:["Contact the 20,000 with the highest churn probability regardless of revenue", "Prioritise by expected value: rank by (churn probability \u00d7 ARPU \u00d7 retention offer effectiveness \u00d7 customer lifetime) \u2014 targeting high-value customers where retention investment yield exceeds its cost", "Contact the 20,000 longest-tenured customers", "Randomly select 20,000 from the at-risk list"],correct:1,marks:2},
+    {id:"da_me_09",course:"Data Analytics with Excel",exam:"Main Exam",type:"word",scenario:"A telecom company has 5 million customers. A model identifies 100,000 with above 70% churn probability. The retention team can contact 20,000 customers with a $50 offer. The offer is 40% effective. ARPU is $45/month.",question:"Which 20,000 customers should the team prioritise to maximise ROI?",options:["Contact the 20,000 with the highest churn probability regardless of revenue", "Prioritise by expected value: rank by (churn probability \u00d7 ARPU \u00d7 retention offer effectiveness \u00d7 customer lifetime) \u2014 targeting high-value customers where retention investment yield exceeds its cost", "Contact the 20,000 longest-tenured customers", "Randomly select 20,000 from the at-risk list"],correct:1,marks:2},
     {id:"da_me_10",course:"Data Analytics with Excel",exam:"Main Exam",type:"mcq",question:"A financial analyst builds a linear regression: Revenue = 2.3 \u00d7 Marketing_Spend + 450,000. If marketing spend is $100,000, what is the predicted revenue and what does the intercept represent?",options:["$230,000 \u2014 intercept has no meaning", "$680,000 \u2014 the intercept ($450,000) represents baseline revenue when marketing spend is zero", "$100,000 \u2014 only marketing determines revenue", "$2,300,000 \u2014 coefficient applied to intercept"],correct:1,marks:1},
     {id:"da_me_11",course:"Data Analytics with Excel",exam:"Main Exam",type:"mcq",question:"A data analyst detects heteroscedasticity in regression residuals. What does heteroscedasticity mean?",options:["The model has too many variables", "The variance of residuals is not constant across all levels of the independent variable \u2014 violating a key regression assumption", "The data has too many outliers", "The model has perfect predictive accuracy"],correct:1,marks:1},
     {id:"da_me_12",course:"Data Analytics with Excel",exam:"Main Exam",type:"word",scenario:"An asset manager uses factor analysis on 500 stocks. Five factors explain 73% of variance: Market Beta, Size, Value, Momentum, and Quality.",question:"What is the business application of this factor model?",options:["Simply report that 73% of variance is explained", "Construct factor-based portfolios, decompose returns into factor exposures, identify unintended factor bets, and build more intentionally designed portfolios that efficiently harvest factor risk premiums", "Use the factors to predict tomorrow's stock prices precisely", "Eliminate all stocks with high factor loadings"],correct:1,marks:2},
@@ -1101,806 +857,635 @@ const DEFAULT={
     {id:"da_me_48",course:"Data Analytics with Excel",exam:"Main Exam",type:"tf",question:"Unstructured data includes emails, images, and social media posts \u2014 accounting for approximately 80-90% of all data generated globally but requiring specialised tools to analyse.",correct:"true",marks:1},
     {id:"da_me_49",course:"Data Analytics with Excel",exam:"Main Exam",type:"word",scenario:"A global FMCG company operates in 80 countries. The global analytics team builds a single standardised revenue forecasting model applied uniformly across all markets.",question:"What is the fundamental modelling flaw in this approach?",options:["The model uses too many data points", "A single global model ignores country-specific drivers \u2014 different elasticities, competitive dynamics, distribution structures, and economic conditions require market-specific models or a hierarchical model capturing global patterns while allowing local calibration", "The model is too complex for local teams", "Revenue forecasting cannot be done globally"],correct:1,marks:2},
     {id:"da_me_50",course:"Data Analytics with Excel",exam:"Main Exam",type:"word",scenario:"A sovereign wealth fund with $500B AUM is building a next-generation investment analytics platform integrating alternative data, AI alpha signals, real-time risk management, and regulatory compliance across 40 countries.",question:"Which analytics architecture best supports this mission-critical, highly regulated platform?",options:["A simple Excel spreadsheet with manual updates", "A cloud-native data platform with governed data lake, ML feature store, model registry with full auditability, real-time streaming analytics, backtesting infrastructure with look-ahead bias controls, explainable AI for regulatory compliance, and tiered data access controls \u2014 governed by a model risk management framework with independent validation", "A single machine learning model applied to all decisions", "Open-source tools without enterprise governance"],correct:1,marks:2}
-  ]
-};
-
-let S={}, currentUser=null, currentExam=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200;
-
-// ── STATE MANAGEMENT WITH SHARED SYNC ──
-function showSyncBanner(msg, type='info'){
-  let banner = document.getElementById('sync-banner');
-  if(!banner){ banner=document.createElement('div'); banner.id='sync-banner';
-    banner.style.cssText='position:fixed;top:58px;left:0;right:0;z-index:9999;padding:9px 20px;font-size:13px;font-weight:600;text-align:center;transition:all 0.3s;font-family:DM Sans,sans-serif';
-    document.body.appendChild(banner); }
-  banner.textContent = msg;
-  banner.style.background = type==='error'?'#FEE2E2':type==='success'?'#DCFCE7':'#DBEAFE';
-  banner.style.color = type==='error'?'#991B1B':type==='success'?'#166534':'#1E40AF';
-  banner.style.display='block';
-  if(type==='success') setTimeout(()=>{ banner.style.display='none'; }, 2500);
-}
-
-const USE_GAS = APPS_SCRIPT_URL !== 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
-
-// Questions always stay in code — only students/results/settings/examPasswords sync
-function mergeWithDefaults(remote){
-  const base = JSON.parse(JSON.stringify(DEFAULT));
-  if(!remote) return base;
-  // Merge remote students, results, settings — keep code questions + any trainer-added ones
-  if(remote.trainer) base.trainer = remote.trainer;
-  if(remote.settings) base.settings = {...base.settings, ...remote.settings};
-  if(remote.students) base.students = remote.students;
-  if(remote.results) base.results = remote.results;
-  // Merge trainer-added questions on top of built-in ones
-  if(remote.extraQuestions && remote.extraQuestions.length){
-    base.questions = [...base.questions, ...remote.extraQuestions];
-  }
-  return base;
-}
-
-function getSyncPayload(){
-  // Only sync things that change — NOT the built-in question bank
-  const builtInIds = new Set(JSON.parse(JSON.stringify(DEFAULT)).questions.map(q=>q.id));
-  const extraQuestions = S.questions.filter(q=>!builtInIds.has(q.id));
-  return {
-    trainer: S.trainer,
-    settings: S.settings,
-    students: S.students,
-    results: S.results,
-    extraQuestions
-  };
-}
-
-async function loadState(){
-  // Reload fresh from GAS and update local state
-  if(!USE_GAS) return;
-  try{
-    const controller = new AbortController();
-    const fetchTimeout = setTimeout(()=>controller.abort(), 6000);
-    const resp = await fetch(APPS_SCRIPT_URL + '?action=load', {method:'GET', cache:'no-store', signal:controller.signal});
-    clearTimeout(fetchTimeout);
-    if(resp.ok){
-      const raw = await resp.json();
-      if(raw && raw.students){
-        S = mergeWithDefaults(raw);
-        localStorage.setItem(STORE_KEY, JSON.stringify(getSyncPayload()));
-        showSyncBanner('✓ Synced', 'success');
-      }
-    }
-  } catch(e){ console.warn('loadState failed:', e.message); }
-}
-
-async function saveState(){
-  const payload = getSyncPayload();
-  try{ localStorage.setItem(STORE_KEY, JSON.stringify(payload)); }catch(e){}
-  if(!USE_GAS) return;
-  if(syncInProgress){ pendingSave=true; return; }
-  syncInProgress = true;
-  try{
-    const resp = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: JSON.stringify({action:'save', data: payload})
-    });
-    if(!resp.ok) throw new Error('Save failed: '+resp.status);
-    if(pendingSave){ pendingSave=false; syncInProgress=false; await saveState(); return; }
-    showSyncBanner('✓ Saved & synced to all devices', 'success');
-  } catch(e){
-    showSyncBanner('⚠️ Sync failed — saved locally only', 'error');
-    setTimeout(()=>{ const b=document.getElementById('sync-banner'); if(b)b.style.display='none'; }, 4000);
-  }
-  syncInProgress = false;
-}
-
-function goto(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const isAuth=['page-landing'].includes(id);
-  document.getElementById('main-nav').classList.toggle('hidden',isAuth);
-}
-
-function switchLoginTab(tab){
-  document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('active'));
-  document.getElementById('tab-btn-'+tab).classList.add('active');
-  document.getElementById('form-'+tab).classList.add('active');
-}
-
-function logout(){ currentUser=null; clearTimer(); document.getElementById('nav-user').classList.add('hidden'); document.getElementById('nav-logout-btn').classList.add('hidden'); goto('page-landing'); }
-
-function showNav(name){ document.getElementById('nav-user').textContent=name; document.getElementById('nav-user').classList.remove('hidden'); document.getElementById('nav-logout-btn').classList.remove('hidden'); }
-
-// ── STUDENT LOGIN ──
-function studentLogin(){
-  const code=document.getElementById('s-code').value.trim().toUpperCase();
-  const name=document.getElementById('s-name').value.trim();
-  const err=document.getElementById('s-err');
-  const student=S.students.find(s=>s.code===code);
-  if(!student){err.style.display='block';return;}
-  err.style.display='none';
-  currentUser={...student,enteredName:name||student.name};
-  showNav(currentUser.name);
-  renderStudentDash();
-  goto('page-student-dash');
-}
-
-function renderStudentDash(){
-  const u=currentUser;
-  document.getElementById('dash-greeting').textContent='Welcome, '+u.name.split(' ')[0];
-  document.getElementById('dash-sub').textContent='Select your course module below to access your exams.';
-  document.getElementById('m-course').textContent=u.course;
-  document.getElementById('m-code').textContent=u.code;
-  const myR=S.results.filter(r=>r.studentCode===u.code);
-  document.getElementById('m-done').textContent=myR.length;
-  const relScores=myR.filter(r=>r.released).map(r=>r.pct);
-  document.getElementById('m-best').textContent=relScores.length?Math.max(...relScores)+'%':'—';
-
-  const list=document.getElementById('exam-list');
-  list.innerHTML='';
-
-  // ── Course banner ──
-  const banner=document.createElement('div');
-  banner.style.cssText='background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:14px;padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:white';
-  banner.innerHTML='<div style="display:flex;align-items:center;gap:14px"><div style="width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px">&#127891;</div><div><div style="font-family:Playfair Display,serif;font-size:17px;font-weight:700">'+u.course+'</div><div style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px">Code: '+u.code+'</div></div></div><div style="display:flex;gap:20px"><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700">'+myR.length+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Submitted</div></div><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700">'+myR.filter(function(r){return r.released&&r.pct>=S.settings.gradePass;}).length+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Passed</div></div></div>';
-  list.appendChild(banner);
-
-  // ── Section label ──
-  const label=document.createElement('div');
-  label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px';
-  label.textContent='Exam Modules';
-  list.appendChild(label);
-
-  // ── Module cards ──
-  var moduleInfo=[
-    {name:'Mock 1',icon:'&#128203;',color:'#1E40AF',badge:'Practice Exam'},
-    {name:'Mock 2',icon:'&#128221;',color:'#6B21A8',badge:'Second Practice'},
-    {name:'Main Exam',icon:'&#127919;',color:'#0F2744',badge:'Final Assessment'}
   ];
 
-  moduleInfo.forEach(function(mod,idx){
-    var examName=mod.name;
-    var qs=S.questions.filter(function(q){return q.course===u.course&&q.exam===examName;});
+// ── STATE ──
+var S={};
+var CU=null; // current user
+var CEX=null; // current exam name
+var EXQ=[]; // exam questions
+var ANS={}; // answers
+var CQ=0; // current question index
+var TI=null; // timer interval
+var TL=0; // time left
+var PA=0; // pass attempts
+var PEX=null; // pending exam for password
+
+function loadS(){
+  try{
+    var r=localStorage.getItem(STORE);
+    if(r){
+      var parsed=JSON.parse(r);
+      S=Object.assign({},JSON.parse(JSON.stringify(DEFAULT)));
+      if(parsed.trainer) S.trainer=parsed.trainer;
+      if(parsed.settings) S.settings=Object.assign({},S.settings,parsed.settings);
+      if(parsed.students) S.students=parsed.students;
+      if(parsed.results) S.results=parsed.results;
+      if(parsed.extraQ) S.extraQ=parsed.extraQ;
+    } else {
+      S=JSON.parse(JSON.stringify(DEFAULT));
+    }
+  }catch(e){S=JSON.parse(JSON.stringify(DEFAULT));}
+}
+
+function saveS(){
+  var payload={
+    trainer:S.trainer,settings:S.settings,
+    students:S.students,results:S.results,extraQ:S.extraQ
+  };
+  try{localStorage.setItem(STORE,JSON.stringify(payload));}catch(e){}
+  // Background GAS sync
+  setTimeout(function(){
+    fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',data:payload})}).catch(function(){});
+  },100);
+}
+
+function getAllQ(){return BUILTIN_Q.concat(S.extraQ||[]);}
+
+// ── NAVIGATION ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  var isLogin=(id==='pg-login');
+  document.getElementById('main-nav').className=isLogin?'hidden':'';
+}
+
+function openModal(id){document.getElementById(id).classList.remove('hidden');}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+
+function logout(){
+  CU=null; clearInterval(TI);
+  document.getElementById('nav-user').classList.add('hidden');
+  document.getElementById('nav-logout').classList.add('hidden');
+  showPage('pg-login');
+}
+
+// ── LOGIN ──
+function switchTab(t){
+  document.getElementById('tab-s').className='tab-btn'+(t==='s'?' active':'');
+  document.getElementById('tab-t').className='tab-btn'+(t==='t'?' active':'');
+  document.getElementById('fp-s').className='form-panel'+(t==='s'?' active':'');
+  document.getElementById('fp-t').className='form-panel'+(t==='t'?' active':'');
+}
+
+function doStudentLogin(){
+  var code=document.getElementById('s-code').value.trim().toUpperCase();
+  var name=document.getElementById('s-name').value.trim();
+  var err=document.getElementById('s-err');
+  // Reload latest sync first
+  loadS();
+  var st=S.students.find(function(x){return x.code===code;});
+  if(!st){err.style.display='block';return;}
+  err.style.display='none';
+  CU=Object.assign({},st);
+  document.getElementById('nav-user').textContent=CU.name;
+  document.getElementById('nav-user').classList.remove('hidden');
+  document.getElementById('nav-logout').classList.remove('hidden');
+  renderDash();
+  showPage('pg-dash');
+  // Background sync then refresh dash
+  syncFromGAS(function(){renderDash();});
+}
+
+function doTrainerLogin(){
+  var u=document.getElementById('t-user').value.trim();
+  var p=document.getElementById('t-pass').value.trim();
+  var err=document.getElementById('t-err');
+  loadS();
+  if(u!==S.trainer.username||p!==S.trainer.password){err.style.display='block';return;}
+  err.style.display='none';
+  document.getElementById('nav-user').textContent='Trainer: '+u;
+  document.getElementById('nav-user').classList.remove('hidden');
+  document.getElementById('nav-logout').classList.remove('hidden');
+  showPage('pg-trainer');
+  renderOverview();
+  syncFromGAS(function(){renderOverview();});
+}
+
+function syncFromGAS(cb){
+  fetch(GAS_URL+'?action=load',{method:'GET',cache:'no-store'})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(data){
+      if(data&&data.students){
+        S.trainer=data.trainer||S.trainer;
+        S.settings=Object.assign({},S.settings,data.settings||{});
+        S.students=data.students;
+        S.results=data.results||S.results;
+        S.extraQ=data.extraQ||S.extraQ;
+        try{localStorage.setItem(STORE,JSON.stringify({trainer:S.trainer,settings:S.settings,students:S.students,results:S.results,extraQ:S.extraQ}));}catch(e){}
+      }
+      if(cb) cb();
+    }).catch(function(){if(cb) cb();});
+}
+
+// ── STUDENT DASHBOARD ──
+function renderDash(){
+  var u=CU;
+  document.getElementById('dh-name').textContent='Welcome, '+u.name.split(' ')[0];
+  document.getElementById('dh-sub').textContent=u.course;
+  document.getElementById('ds-code').textContent=u.code;
+  var myR=S.results.filter(function(r){return r.sc===u.code;});
+  document.getElementById('ds-done').textContent=myR.length;
+  var scores=myR.filter(function(r){return r.released;}).map(function(r){return r.pct;});
+  document.getElementById('ds-best').textContent=scores.length?Math.max.apply(null,scores)+'%':'-';
+
+  var list=document.getElementById('module-list');
+  list.innerHTML='';
+
+  // Course banner
+  var b=document.createElement('div');
+  b.className='course-banner';
+  b.innerHTML='<div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;background:linear-gradient(135deg,#C49A2A,#E8B84B);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">&#127891;</div><div><div style="font-family:Playfair Display,serif;font-size:16px;font-weight:700">'+u.course+'</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">Enrolled Programme</div></div></div><div style="display:flex;gap:20px"><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700">'+myR.length+'</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Submitted</div></div><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700">'+myR.filter(function(r){return r.released&&r.pct>=S.settings.gradePass;}).length+'</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Passed</div></div></div>';
+  list.appendChild(b);
+
+  var modInfo=[
+    {name:'Mock 1',color:'#1E40AF',icon:'&#128203;',label:'Practice Exam'},
+    {name:'Mock 2',color:'#6B21A8',icon:'&#128221;',label:'Second Practice'},
+    {name:'Main Exam',color:'#0F2744',icon:'&#127919;',label:'Final Assessment'}
+  ];
+
+  modInfo.forEach(function(mod,idx){
+    var qs=getAllQ().filter(function(q){return q.course===u.course&&q.exam===mod.name;});
     if(!qs.length) return;
-    var done=myR.find(function(r){return r.exam===examName&&r.course===u.course;});
-    var isMain=examName==='Main Exam';
-    var qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
-    var timeLimit=isMain?S.settings.mainTime:S.settings.mockTime;
-    var locked=isMain&&!myR.find(function(r){return r.exam==='Mock 1'&&r.course===u.course;});
-    var passKey=u.course+'|'+examName;
+    var done=myR.find(function(r){return r.exam===mod.name;});
+    var isMain=mod.name==='Main Exam';
+    var qCount=isMain?S.settings.mainQ:S.settings.mockQ;
+    var time=isMain?S.settings.mainTime:S.settings.mockTime;
+    var locked=isMain&&!myR.find(function(r){return r.exam==='Mock 1';});
+    var passKey=u.course+'|'+mod.name;
     var hasPass=S.settings.examPasswords&&S.settings.examPasswords[passKey];
 
-    // Status badge
     var statusHtml='';
     if(done){
       if(done.released){
-        var pass=done.pct>=S.settings.gradePass;
-        statusHtml='<span style="background:'+(pass?'var(--success-bg)':'var(--danger-bg)')+';color:'+(pass?'var(--success)':'var(--danger)')+';padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700">'+(pass?'PASSED':'FAILED')+' '+done.pct+'%</span>';
-      } else {
-        statusHtml='<span style="background:var(--warning-bg);color:var(--warning);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">Awaiting Release</span>';
-      }
-    } else if(locked){
-      statusHtml='<span style="background:var(--cream2);color:var(--text-muted);padding:5px 14px;border-radius:20px;font-size:12px;border:1px solid var(--border)">Locked</span>';
-    } else if(hasPass){
-      statusHtml='<span style="background:var(--info-bg);color:var(--info);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">Code Required</span>';
-    } else {
-      statusHtml='<span style="background:var(--success-bg);color:var(--success);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">Available</span>';
-    }
+        var ok=done.pct>=S.settings.gradePass;
+        statusHtml='<span class="badge '+(ok?'badge-ok':'badge-fail')+'">'+(ok?'PASSED':'FAILED')+' '+done.pct+'%</span>';
+      }else{statusHtml='<span class="badge badge-wait">Awaiting Release</span>';}
+    }else if(locked){statusHtml='<span class="badge badge-lock">&#128274; Locked</span>';}
+    else if(hasPass){statusHtml='<span class="badge badge-code">&#128272; Code Required</span>';}
+    else{statusHtml='<span class="badge badge-avail">&#9679; Available</span>';}
 
-    // Result bar
-    var resultBar='';
+    var resBar='';
     if(done&&done.released){
-      var p2=done.pct>=S.settings.gradePass;
-      resultBar='<div style="background:'+(p2?'var(--success-bg)':'var(--danger-bg)')+';border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px;color:'+(p2?'var(--success)':'var(--danger)')+'"><strong>'+done.grade+' - '+done.gradeLabel+'</strong> &nbsp;'+done.earned+'/'+done.total+' marks &nbsp; '+done.pct+'%<span style="color:var(--text-muted);font-size:11px">'+done.date+'</span></div>';
+      var ok2=done.pct>=S.settings.gradePass;
+      resBar='<div class="res-bar" style="background:'+(ok2?'#dcfce7':'#fee2e2')+';color:'+(ok2?'#166534':'#991b1b')+';margin-bottom:12px"><strong>'+done.grade+' - '+done.gradeLabel+'</strong> &nbsp; '+done.earned+'/'+done.total+' marks &nbsp; '+done.pct+'%<span style="color:#6b7280;font-size:11px">'+done.date+'</span></div>';
     }
 
-    // Action button
     var actionBtn='';
     if(!done&&!locked){
-      actionBtn='<button class="btn btn-primary" onclick="startExam(''+examName+'')" style="height:40px;padding:0 22px;font-size:14px;font-weight:600">'+(hasPass?'Enter Code & Start':'Start Exam')+'</button>';
-    } else if(done&&done.released){
-      actionBtn='<button class="btn btn-sm" style="background:var(--info-bg);color:var(--info);border-color:var(--info-border)" onclick="viewScript(''+done.id+'')">Review Script</button>';
-    } else if(done&&!done.released){
-      actionBtn='<span style="font-size:12px;color:var(--text-muted)">Results pending trainer release</span>';
-    } else if(locked){
-      actionBtn='<span style="font-size:12px;color:var(--text-muted)">Complete Mock 1 to unlock</span>';
+      actionBtn='<button class="btn btn-primary" onclick="startExam(''+mod.name+'')">'+(hasPass?'&#128272; Enter Code':'&#9654; Start Exam')+'</button>';
+    }else if(done&&done.released){
+      actionBtn='<button class="btn btn-info btn-sm" onclick="viewScript(''+done.id+'')">&#128196; Review Script</button>';
+    }else if(done&&!done.released){
+      actionBtn='<span style="font-size:12px;color:#6b7280">Pending trainer release</span>';
+    }else if(locked){
+      actionBtn='<span style="font-size:12px;color:#6b7280">Complete Mock 1 first</span>';
     }
 
     var card=document.createElement('div');
-    card.style.cssText='background:white;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow)';
-    card.innerHTML='<div style="background:'+mod.color+';padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;background:rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">'+mod.icon+'</div><div><div style="font-family:Playfair Display,serif;font-size:15px;color:white;font-weight:700">Module '+(idx+1)+': '+examName+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">'+mod.badge+'</div></div></div>'+statusHtml+'</div><div style="padding:16px 20px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px"><div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--navy)">'+Math.min(qs.length,qCount)+'</div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Questions</div></div><div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--navy)">'+timeLimit+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">m</span></div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Time</div></div><div style="text-align:center;padding:10px;background:var(--cream);border-radius:8px"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:var(--navy)">'+S.settings.gradePass+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">%</span></div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Pass</div></div></div>'+resultBar+'<div style="display:flex;justify-content:flex-end">'+actionBtn+'</div></div>';
+    card.className='mod-card';
+    card.innerHTML='<div class="mod-head" style="background:'+mod.color+'"><div style="display:flex;align-items:center;gap:12px"><div style="width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">'+mod.icon+'</div><div><div class="mod-title">Module '+(idx+1)+': '+mod.name+'</div><div class="mod-sub">'+mod.label+'</div></div></div>'+statusHtml+'</div><div class="mod-body"><div class="mod-grid"><div class="mod-stat"><div class="ms-val">'+Math.min(qs.length,qCount)+'</div><div class="ms-label">Questions</div></div><div class="mod-stat"><div class="ms-val">'+time+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">m</span></div><div class="ms-label">Time</div></div><div class="mod-stat"><div class="ms-val">'+S.settings.gradePass+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">%</span></div><div class="ms-label">Pass</div></div></div>'+resBar+'<div class="mod-foot">'+actionBtn+'</div></div>';
     list.appendChild(card);
   });
 }
 
-function viewScript(resultId){
-  const result=S.results.find(r=>r.id===resultId);
-  if(!result||!result.released) return;
-  showResults(result,true);
-}
-
-// ── EXAM ──
-let pendingExamName = null;
-let examPassAttempts = 0;
-
+// ── START EXAM ──
 function startExam(examName){
-  // Check if trainer has set an access password for this exam
-  const passKey = currentUser.course + '|' + examName;
-  const examPass = S.settings.examPasswords && S.settings.examPasswords[passKey];
-  if(examPass){
-    pendingExamName = examName;
-    examPassAttempts = 0;
+  var passKey=CU.course+'|'+examName;
+  var pass=S.settings.examPasswords&&S.settings.examPasswords[passKey];
+  if(pass){
+    PEX=examName; PA=0;
     document.getElementById('ep-input').value='';
     document.getElementById('ep-err').style.display='none';
-    document.getElementById('modal-exam-pass').classList.remove('hidden');
-    setTimeout(()=>document.getElementById('ep-input').focus(), 100);
-  } else {
-    launchExam(examName);
+    openModal('modal-exampass');
+    setTimeout(function(){document.getElementById('ep-input').focus();},100);
+  }else{launchExam(examName);}
+}
+
+function verifyPass(){
+  var input=document.getElementById('ep-input').value.trim().toUpperCase();
+  var passKey=CU.course+'|'+PEX;
+  var correct=(S.settings.examPasswords[passKey]||'').toUpperCase();
+  PA++;
+  if(input===correct){closeModal('modal-exampass');launchExam(PEX);}
+  else{
+    var err=document.getElementById('ep-err');
+    if(PA>=3){err.textContent='Too many attempts. Contact your trainer.';err.style.display='block';setTimeout(function(){closeModal('modal-exampass');},2000);}
+    else{err.textContent='Incorrect code. '+(3-PA)+' attempt(s) remaining.';err.style.display='block';}
   }
-}
-
-function verifyExamPass(){
-  const input = document.getElementById('ep-input').value.trim();
-  const passKey = currentUser.course + '|' + pendingExamName;
-  const correct = S.settings.examPasswords[passKey];
-  examPassAttempts++;
-  if(input === correct){
-    document.getElementById('modal-exam-pass').classList.add('hidden');
-    launchExam(pendingExamName);
-  } else {
-    const remaining = 3 - examPassAttempts;
-    const errEl = document.getElementById('ep-err');
-    if(remaining <= 0){
-      errEl.textContent = 'Too many incorrect attempts. Contact your trainer.';
-      errEl.style.display='block';
-      document.getElementById('ep-input').disabled=true;
-      setTimeout(()=>document.getElementById('modal-exam-pass').classList.add('hidden'), 3000);
-    } else {
-      errEl.textContent = `Incorrect code. ${remaining} attempt${remaining>1?'s':''} remaining.`;
-      errEl.style.display='block';
-      document.getElementById('ep-input').value='';
-      document.getElementById('ep-input').focus();
-    }
-  }
-}
-
-function cancelExamPass(){
-  document.getElementById('modal-exam-pass').classList.add('hidden');
-  pendingExamName=null;
-}
-
-function togglePassVis(){
-  const inp=document.getElementById('ep-input');
-  const btn=document.getElementById('ep-toggle');
-  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
-  else{inp.type='password';btn.textContent='👁';}
 }
 
 function launchExam(examName){
-  const isMain=examName==='Main Exam';
-  const allQs=S.questions.filter(q=>q.course===currentUser.course&&q.exam===examName);
-  const qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
-  const shuffled=[...allQs].sort(()=>Math.random()-0.5);
-  examQs=shuffled.slice(0,Math.min(qCount,shuffled.length));
-  if(!examQs.length){alert('No questions available for this exam.');return;}
-  currentExam=examName; answers={}; currentQ=0;
-  timeLeft=(isMain?S.settings.mainTime:S.settings.mockTime)*60;
+  var isMain=examName==='Main Exam';
+  var all=getAllQ().filter(function(q){return q.course===CU.course&&q.exam===examName;});
+  var count=isMain?S.settings.mainQ:S.settings.mockQ;
+  var shuffled=all.slice().sort(function(){return Math.random()-.5;});
+  EXQ=shuffled.slice(0,Math.min(count,shuffled.length));
+  if(!EXQ.length){alert('No questions found for this exam.');return;}
+  CEX=examName; ANS={}; CQ=0;
+  TL=(isMain?S.settings.mainTime:S.settings.mockTime)*60;
   document.getElementById('ex-name').textContent=examName;
-  document.getElementById('ex-course').textContent=currentUser.course;
+  document.getElementById('ex-course').textContent=CU.course;
   renderDots(); renderQ(); startTimer();
-  goto('page-exam');
+  showPage('pg-exam');
 }
 
 function startTimer(){
-  clearInterval(timerInterval);
-  timerInterval=setInterval(()=>{
-    timeLeft--;
-    const m=Math.floor(timeLeft/60),s=timeLeft%60;
-    const el=document.getElementById('ex-timer');
+  clearInterval(TI);
+  TI=setInterval(function(){
+    TL--;
+    var m=Math.floor(TL/60),s=TL%60;
+    var el=document.getElementById('ex-timer');
     el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-    el.className='timer-box'+(timeLeft<120?' urgent':'');
-    if(timeLeft<=0){clearInterval(timerInterval);submitExam();}
+    el.className='timer'+(TL<120?' urgent':'');
+    if(TL<=0){clearInterval(TI);doSubmit();}
   },1000);
 }
-function clearTimer(){clearInterval(timerInterval);}
 
 function renderDots(){
-  const cont=document.getElementById('q-dots');
-  cont.innerHTML='';
-  examQs.forEach((_,i)=>{
-    const d=document.createElement('div');
-    const isAns=answers[i]!==undefined,isCur=i===currentQ;
-    d.className='q-dot'+(isAns?' answered':'')+(isCur?' current':'');
-    d.textContent=i+1; d.onclick=()=>goToQ(i);
-    cont.appendChild(d);
+  var d=document.getElementById('q-dots');
+  d.innerHTML='';
+  EXQ.forEach(function(q,i){
+    var dot=document.createElement('div');
+    dot.className='q-dot'+(ANS[i]!==undefined?' ans':'')+(i===CQ?' cur':'');
+    dot.textContent=i+1;
+    dot.onclick=(function(idx){return function(){CQ=idx;renderQ();};})(i);
+    d.appendChild(dot);
   });
-  document.getElementById('ex-progress').style.width=((currentQ+1)/examQs.length*100)+'%';
-  document.getElementById('q-counter').textContent=`${currentQ+1} / ${examQs.length}`;
+  document.getElementById('ex-prog').style.width=((CQ+1)/EXQ.length*100)+'%';
+  document.getElementById('q-count').textContent=(CQ+1)+' / '+EXQ.length;
 }
 
 function renderQ(){
-  const q=examQs[currentQ],ans=answers[currentQ];
-  let html=`<div class="q-card"><div class="q-label"><span class="q-num-text">Question ${currentQ+1} of ${examQs.length}</span><div class="q-right-tags">`;
-  if(q.type==='word') html+=`<span class="badge badge-word">📝 Word Problem</span>`;
-  html+=`<span class="q-marks-pill">${q.marks} mark${q.marks>1?'s':''}</span></div></div>`;
-  if(q.scenario) html+=`<div class="q-scenario"><strong>📖 Read the scenario:</strong>${q.scenario}</div>`;
-  html+=`<div class="q-text">${q.question}</div>`;
+  var q=EXQ[CQ],a=ANS[CQ];
+  var html='<div class="q-card"><div class="q-label"><span class="q-num">Question '+(CQ+1)+' of '+EXQ.length+'</span><span class="q-marks">'+q.marks+' mark'+(q.marks>1?'s':'')+'</span></div>';
+  if(q.scenario) html+='<div class="q-scenario"><strong>&#128216; Scenario:</strong>'+q.scenario+'</div>';
+  html+='<div class="q-text">'+q.question+'</div>';
   if(q.type==='mcq'||q.type==='word'){
-    html+=`<div class="q-opts">`;
-    q.options.forEach((opt,i)=>{ html+=`<div class="q-opt${ans===i?' sel':''}" onclick="pickMCQ(${i})"><div class="q-opt-letter">${String.fromCharCode(65+i)}</div><div class="q-opt-text">${opt}</div></div>`; });
-    html+=`</div>`;
-  } else if(q.type==='tf'){
-    html+=`<div class="tf-row"><div class="tf-btn${ans==='true'?' sel':''}" onclick="pickTF('true')"><span class="tf-icon">✓</span><div class="tf-label">True</div></div><div class="tf-btn${ans==='false'?' sel':''}" onclick="pickTF('false')"><span class="tf-icon">✗</span><div class="tf-label">False</div></div></div>`;
-  } else {
-    html+=`<textarea class="short-field" id="short-ta" placeholder="Type your answer here...">${ans||''}</textarea>`;
+    html+='<div class="q-opts">';
+    q.options.forEach(function(opt,i){
+      html+='<div class="q-opt'+(a===i?' sel':'')+'" onclick="pickA('+i+')"><div class="q-opt-letter">'+String.fromCharCode(65+i)+'</div><div class="q-opt-text">'+opt+'</div></div>';
+    });
+    html+='</div>';
+  }else if(q.type==='tf'){
+    html+='<div class="tf-row"><div class="tf-btn'+(a==='true'?' sel':'')+'" onclick="pickTF('true')"><span class="tf-icon">&#10003;</span><div class="tf-label">True</div></div><div class="tf-btn'+(a==='false'?' sel':'')+'" onclick="pickTF('false')"><span class="tf-icon">&#10007;</span><div class="tf-label">False</div></div></div>';
+  }else{
+    html+='<textarea class="short-field" id="short-ta" placeholder="Type your answer here...">'+(a||'')+'</textarea>';
   }
-  html+=`</div>`;
-  document.getElementById('q-container').innerHTML=html;
-  if(q.type==='short'){ document.getElementById('short-ta').addEventListener('input',e=>{answers[currentQ]=e.target.value;renderDots();}); }
-  const isLast=currentQ===examQs.length-1;
+  html+='</div>';
+  document.getElementById('q-cont').innerHTML=html;
+  if(q.type==='short'){
+    document.getElementById('short-ta').addEventListener('input',function(e){ANS[CQ]=e.target.value;renderDots();});
+  }
+  var isLast=CQ===EXQ.length-1;
   document.getElementById('btn-next').style.display=isLast?'none':'inline-flex';
   document.getElementById('btn-submit').style.display=isLast?'inline-flex':'none';
-  document.getElementById('btn-prev').disabled=currentQ===0;
+  document.getElementById('btn-prev').disabled=CQ===0;
   renderDots();
 }
 
-function pickMCQ(i){answers[currentQ]=i;renderQ();}
-function pickTF(v){answers[currentQ]=v;renderQ();}
-function goToQ(i){currentQ=i;renderQ();}
-function prevQ(){if(currentQ>0){currentQ--;renderQ();}}
-function nextQ(){if(currentQ<examQs.length-1){currentQ++;renderQ();}}
+function pickA(i){ANS[CQ]=i;renderQ();}
+function pickTF(v){ANS[CQ]=v;renderQ();}
+function prevQ(){if(CQ>0){CQ--;renderQ();}}
+function nextQ(){if(CQ<EXQ.length-1){CQ++;renderQ();}}
 
 function confirmSubmit(){
-  const unanswered=examQs.filter((_,i)=>answers[i]===undefined).length;
-  document.getElementById('submit-confirm-msg').innerHTML=unanswered>0
-    ?`You have <strong>${unanswered}</strong> unanswered question(s). Submit anyway?`
-    :'All questions answered. Ready to submit?';
-  openModal('modal-confirm-submit');
+  var u=EXQ.filter(function(q,i){return ANS[i]===undefined;}).length;
+  document.getElementById('submit-msg').textContent=u>0?'You have '+u+' unanswered question(s). Submit anyway?':'All questions answered. Ready to submit?';
+  openModal('modal-submit');
 }
 
-function submitExam(){
-  closeModal('modal-confirm-submit');
-  clearTimer();
-  let earned=0,total=0,hasShort=false;
-  const breakdown=[];
-  examQs.forEach((q,i)=>{
-    const ans=answers[i],m=q.marks||1; total+=m;
-    let correct=false,pending=false;
-    if(q.type==='mcq'||q.type==='word') correct=(ans===q.correct);
-    else if(q.type==='tf') correct=(ans===q.correct);
-    else{pending=true;hasShort=true;}
-    if(correct) earned+=m;
-    breakdown.push({q:q.question,scenario:q.scenario||null,type:q.type,options:q.options,ans,correct,pending,marks:m,marksEarned:correct?m:0,modelAns:q.correct});
+function doSubmit(){
+  closeModal('modal-submit');
+  clearInterval(TI);
+  var earned=0,total=0,hasShort=false;
+  var bd=[];
+  EXQ.forEach(function(q,i){
+    var a=ANS[i],m=q.marks||1;
+    total+=m;
+    var ok=false,pend=false;
+    if(q.type==='mcq'||q.type==='word') ok=(a===q.correct);
+    else if(q.type==='tf') ok=(a===q.correct);
+    else{pend=true;hasShort=true;}
+    if(ok) earned+=m;
+    bd.push({q:q.question,sc:q.scenario||null,type:q.type,opts:q.options,ans:a,ok:ok,pend:pend,marks:m,me:ok?m:0,ca:q.correct});
   });
-  const pct=Math.round(earned/total*100);
-  const grade=getGrade(pct);
-  const result={
-    id:'r'+Date.now(),
-    studentCode:currentUser.code,studentName:currentUser.name,
-    course:currentUser.course,exam:currentExam,
-    pct,earned,total,grade:grade.letter,gradeLabel:grade.label,
-    breakdown,hasShort,
+  var pct=Math.round(earned/total*100);
+  var g=getGrade(pct);
+  var res={
+    id:'r'+Date.now(),sc:CU.code,sn:CU.name,
+    course:CU.course,exam:CEX,
+    pct:pct,earned:earned,total:total,
+    grade:g.letter,gradeLabel:g.label,
+    bd:bd,hasShort:hasShort,
     released:S.settings.autoRelease&&!hasShort,
     date:new Date().toLocaleDateString('en-GB')
   };
-  S.results.push(result); saveState();
-  showResults(result,false);
+  S.results.push(res);
+  saveS();
+  showResults(res);
 }
 
 function getGrade(pct){
-  const s=S.settings;
+  var s=S.settings;
   if(pct>=s.gradeDist) return{letter:'A',label:'Distinction'};
   if(pct>=s.gradeMerit) return{letter:'B',label:'Merit'};
   if(pct>=s.gradePass) return{letter:'C',label:'Pass'};
   return{letter:'F',label:'Fail'};
 }
 
-function showResults(result,isReview){
-  const released=result.released;
-  const pass=result.pct>=S.settings.gradePass;
-  const gradeEl=document.getElementById('res-grade-big');
-  gradeEl.textContent=released?result.grade:'✓';
-  gradeEl.className='result-grade-big '+(pass?'pass':'fail');
-  document.getElementById('res-score-line').textContent=released?`${result.earned} / ${result.total} marks (${result.pct}%)`:'Exam submitted successfully';
-  const labelEl=document.getElementById('res-label');
-  if(released){labelEl.textContent=result.gradeLabel;labelEl.className='result-label '+(pass?'pass':'fail');labelEl.style.display='inline-block';}
-  else{labelEl.style.display='none';}
+function showResults(res){
+  var rel=res.released,ok=res.pct>=S.settings.gradePass;
+  var g=document.getElementById('rg');
+  g.textContent=rel?res.grade:'&#10003;';
+  g.className='res-grade '+(ok?'pass':'fail');
+  document.getElementById('rs').textContent=rel?res.earned+' / '+res.total+' marks ('+res.pct+'%)':'Exam submitted successfully';
+  var rl=document.getElementById('rl');
+  if(rel){rl.textContent=res.gradeLabel;rl.className='res-label '+(ok?'badge-ok':'badge-fail');rl.style.display='inline-block';}
+  else rl.style.display='none';
+  document.getElementById('r-pending').innerHTML=!rel?'<div class="pending-note">&#8987; Your results will be visible once your trainer releases them.</div>':'';
+  var sum='<div class="rb-row"><span class="rb-key">Exam</span><span class="rb-val">'+res.exam+'</span></div><div class="rb-row"><span class="rb-key">Course</span><span class="rb-val">'+res.course+'</span></div><div class="rb-row"><span class="rb-key">Total Marks</span><span class="rb-val">'+res.total+'</span></div>';
+  if(rel) sum+='<div class="rb-row"><span class="rb-key">Marks Earned</span><span class="rb-val">'+res.earned+'</span></div><div class="rb-row"><span class="rb-key">Score</span><span class="rb-val">'+res.pct+'%</span></div><div class="rb-row"><span class="rb-key">Grade</span><span class="rb-val">'+res.grade+' - '+res.gradeLabel+'</span></div>';
+  sum+='<div class="rb-row"><span class="rb-key">Pass Mark</span><span class="rb-val">'+S.settings.gradePass+'%</span></div><div class="rb-row"><span class="rb-key">Date</span><span class="rb-val">'+res.date+'</span></div>';
+  document.getElementById('r-summary').innerHTML=sum;
+  var rv=document.getElementById('r-review');
+  if(!rel){rv.innerHTML='<div class="locked-note">&#128274; Question review will be available once your trainer releases your results.</div>';showPage('pg-results');return;}
+  rv.innerHTML='';
+  res.bd.forEach(function(b,i){
+    var cls=b.pend?'pending':b.ok?'correct':'wrong';
+    var at='Not answered';
+    if((b.type==='mcq'||b.type==='word')&&b.ans!==undefined) at=String.fromCharCode(65+b.ans)+'. '+(b.opts?b.opts[b.ans]:'');
+    else if(b.type==='tf'&&b.ans!==undefined) at=b.ans==='true'?'True':'False';
+    else if(b.type==='short'&&b.ans) at=b.ans;
+    var rl2='';
+    if(b.pend) rl2='<div class="rev-pend">&#8987; Short answer - pending review</div>';
+    else if(b.ok) rl2='<div class="rev-ok">&#10003; Correct (+'+b.marks+' mark'+(b.marks>1?'s':'')+')</div>';
+    else{var ca=(b.type==='mcq'||b.type==='word')?String.fromCharCode(65+b.ca)+'. '+(b.opts?b.opts[b.ca]:''):b.ca;rl2='<div class="rev-no">&#10007; Incorrect - Answer: <strong>'+ca+'</strong></div>';}
+    var el=document.createElement('div');
+    el.className='rev-item '+cls;
+    el.innerHTML=(b.sc?'<div class="rev-scenario"><strong>Scenario:</strong> '+b.sc+'</div>':'')+'<div class="rev-q">Q'+(i+1)+'. '+b.q+'</div><div class="rev-ans">Your answer: <strong>'+at+'</strong></div>'+rl2;
+    rv.appendChild(el);
+  });
+  showPage('pg-results');
+}
 
-  document.getElementById('res-pending-notice').innerHTML=(!released)?`<div class="pending-notice">⏳ Your trainer will review and release your results. Short-answer questions require manual marking.</div>`:'';
-
-  const rows=document.getElementById('res-breakdown-rows');
-  rows.innerHTML=`<div class="rb-row"><span class="rb-key">Exam</span><span class="rb-val">${result.exam}</span></div>
-    <div class="rb-row"><span class="rb-key">Course</span><span class="rb-val">${result.course}</span></div>
-    <div class="rb-row"><span class="rb-key">Total Marks</span><span class="rb-val">${result.total}</span></div>
-    ${released?`<div class="rb-row"><span class="rb-key">Marks Earned</span><span class="rb-val">${result.earned}</span></div>
-      <div class="rb-row"><span class="rb-key">Percentage</span><span class="rb-val">${result.pct}%</span></div>
-      <div class="rb-row"><span class="rb-key">Grade</span><span class="rb-val">${result.grade} — ${result.gradeLabel}</span></div>
-      <div class="rb-row"><span class="rb-key">Pass Mark</span><span class="rb-val">${S.settings.gradePass}%</span></div>`:''}
-    <div class="rb-row"><span class="rb-key">Date</span><span class="rb-val">${result.date}</span></div>`;
-
-  const rl=document.getElementById('review-list');
-  if(!released){
-    rl.innerHTML=`<div class="locked-notice">🔒 Your script will be available to review once your trainer releases your results.</div>`;
-  } else {
-    rl.innerHTML='';
-    result.breakdown.forEach((b,i)=>{
-      const cls=b.pending?'pending':b.correct?'correct':'wrong';
-      let ansText='Not answered';
-      if((b.type==='mcq'||b.type==='word')&&b.ans!==undefined) ansText=String.fromCharCode(65+b.ans)+'. '+(b.options?.[b.ans]||'');
-      else if(b.type==='tf'&&b.ans!==undefined) ansText=b.ans==='true'?'True':'False';
-      else if(b.type==='short'&&b.ans) ansText=b.ans;
-      let resultLine='';
-      if(b.pending) resultLine=`<div class="rev-result-pending">⏳ Short answer — awaiting trainer review</div>`;
-      else if(b.correct) resultLine=`<div class="rev-result-correct">✓ Correct (+${b.marks} mark${b.marks>1?'s':''})</div>`;
-      else{
-        let corrText=(b.type==='mcq'||b.type==='word')?String.fromCharCode(65+b.modelAns)+'. '+(b.options?.[b.modelAns]||''):b.modelAns;
-        resultLine=`<div class="rev-result-wrong">✗ Incorrect — Correct answer: <strong>${corrText}</strong></div>`;
-      }
-      const div=document.createElement('div');
-      div.className=`rev-item ${cls}`;
-      div.innerHTML=`${b.scenario?`<div class="rev-scenario"><strong>Scenario:</strong> ${b.scenario}</div>`:''}
-        <div class="rev-q"><span style="color:var(--text-muted);font-size:12px">Q${i+1}</span> ${b.q}</div>
-        <div class="rev-ans">Your answer: <strong>${ansText}</strong></div>
-        ${resultLine}`;
-      rl.appendChild(div);
-    });
-  }
-  goto('page-results');
+function viewScript(rid){
+  var res=S.results.find(function(r){return r.id===rid;});
+  if(res&&res.released) showResults(res);
 }
 
 // ── TRAINER ──
-function trainerLogin(){
-  const u=document.getElementById('t-user').value.trim(),p=document.getElementById('t-pass').value.trim();
-  const err=document.getElementById('t-err');
-  if(u!==S.trainer.username||p!==S.trainer.password){err.style.display='block';return;}
-  err.style.display='none';
-  showNav('Trainer: '+u);
-  renderOverview(); goto('page-trainer');
-}
-
-function showTab(name){
-  document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.remove('active'));
-  const el=document.getElementById('si-'+name); if(el) el.classList.add('active');
-  document.querySelectorAll('.t-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
+function showTrainerTab(name){
+  document.querySelectorAll('.sb-item').forEach(function(el){el.classList.remove('active');});
+  var si=document.getElementById('si-'+name);
+  if(si) si.classList.add('active');
+  document.querySelectorAll('.t-panel').forEach(function(p){p.classList.remove('active');});
+  var tp=document.getElementById('tp-'+name);
+  if(tp) tp.classList.add('active');
   if(name==='overview') renderOverview();
-  if(name==='students') renderStudentsTable();
-  if(name==='results') renderResultsTable();
-  if(name==='review-q') renderReviewQ();
-  if(name==='settings') loadSettingsForm();
+  if(name==='students') renderStudents();
+  if(name==='results') renderResults();
+  if(name==='questions') renderQBank();
+  if(name==='settings') loadSettings();
 }
 
 function renderOverview(){
-  const stats=document.getElementById('overview-stats');
-  const pending=S.results.filter(r=>!r.released).length;
-  const relResults=S.results.filter(r=>r.released);
-  const passed=relResults.filter(r=>r.pct>=S.settings.gradePass).length;
-  const passRate=relResults.length?Math.round(passed/relResults.length*100):0;
-  stats.innerHTML=`
-    <div class="stat-card"><div class="s-label">Students</div><div class="s-val">${S.students.length}</div><div class="s-sub">Registered</div></div>
-    <div class="stat-card"><div class="s-label">Exams Submitted</div><div class="s-val">${S.results.length}</div><div class="s-sub">All time</div></div>
-    <div class="stat-card"><div class="s-label">Pending Release</div><div class="s-val">${pending}</div><div class="s-sub">Awaiting review</div></div>
-    <div class="stat-card"><div class="s-label">Pass Rate</div><div class="s-val">${passRate}%</div><div class="s-sub">Released results</div></div>
-    <div class="stat-card"><div class="s-label">Questions</div><div class="s-val">${S.questions.length}</div><div class="s-sub">In bank</div></div>`;
-  const recent=[...S.results].sort((a,b)=>b.id.localeCompare(a.id)).slice(0,8);
-  document.getElementById('recent-results-table').innerHTML=recent.map(r=>`<tr>
-    <td>${r.studentName}<br><code>${r.studentCode}</code></td>
-    <td style="font-size:12px">${r.course}</td><td>${r.exam}</td>
-    <td>${r.released?r.pct+'%':'—'}</td><td style="font-size:12px">${r.date}</td>
-    <td>${r.released?`<span class="badge badge-done">${r.grade} ${r.gradeLabel}</span>`
-      :`<button class="btn btn-sm btn-gold" onclick="releaseResult('${r.id}');renderOverview()">Release</button>`}</td>
-  </tr>`).join('')||`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">No results yet</td></tr>`;
+  var pending=S.results.filter(function(r){return !r.released;}).length;
+  var relR=S.results.filter(function(r){return r.released;});
+  var passed=relR.filter(function(r){return r.pct>=S.settings.gradePass;}).length;
+  var rate=relR.length?Math.round(passed/relR.length*100):0;
+  document.getElementById('ov-stats').innerHTML='<div class="stat-box"><div class="sl">Students</div><div class="sv">'+S.students.length+'</div><div class="ss">Registered</div></div><div class="stat-box"><div class="sl">Exams</div><div class="sv">'+S.results.length+'</div><div class="ss">Submitted</div></div><div class="stat-box"><div class="sl">Pending</div><div class="sv">'+pending+'</div><div class="ss">Awaiting release</div></div><div class="stat-box"><div class="sl">Pass Rate</div><div class="sv">'+rate+'%</div><div class="ss">Released results</div></div><div class="stat-box"><div class="sl">Questions</div><div class="sv">'+getAllQ().length+'</div><div class="ss">In bank</div></div>';
+  var recent=[].concat(S.results).sort(function(a,b){return b.id>a.id?1:-1;}).slice(0,8);
+  document.getElementById('ov-results').innerHTML=recent.map(function(r){
+    return '<tr><td>'+r.sn+'<br><span class="code-pill">'+r.sc+'</span></td><td style="font-size:12px">'+r.course+'</td><td>'+r.exam+'</td><td>'+(r.released?r.pct+'%':'-')+'</td><td style="font-size:12px">'+r.date+'</td><td>'+(r.released?'<span class="badge badge-ok">'+r.grade+'</span>':'<button class="btn btn-gold btn-sm" onclick="releaseResult(''+r.id+'')">Release</button>')+'</td></tr>';
+  }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No results yet</td></tr>';
 }
 
-function renderStudentsTable(){
-  document.getElementById('students-tbody').innerHTML=S.students.map(s=>{
-    const ec=S.results.filter(r=>r.studentCode===s.code).length;
-    return`<tr><td><code class="td-code">${s.code}</code></td><td>${s.name}</td><td style="font-size:12px">${s.course}</td><td style="font-size:12px">${s.registered}</td><td>${ec}</td><td><button class="btn btn-danger btn-icon" onclick="delStudent('${s.code}')">✕</button></td></tr>`;
-  }).join('')||`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">No students yet.</td></tr>`;
+function renderStudents(){
+  document.getElementById('tb-students').innerHTML=S.students.map(function(s){
+    var ec=S.results.filter(function(r){return r.sc===s.code;}).length;
+    return '<tr><td><span class="code-pill">'+s.code+'</span></td><td>'+s.name+'</td><td style="font-size:12px">'+s.course+'</td><td style="font-size:12px">'+s.registered+'</td><td>'+ec+'</td><td><button class="btn btn-danger btn-sm" onclick="delStudent(''+s.code+'')">&#10005;</button></td></tr>';
+  }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No students yet.</td></tr>';
 }
 
-function renderResultsTable(){
-  const fc=document.getElementById('rf-course')?.value||'',fe=document.getElementById('rf-exam')?.value||'',fs=document.getElementById('rf-status')?.value||'';
-  let results=[...S.results].sort((a,b)=>b.id.localeCompare(a.id));
-  if(fc) results=results.filter(r=>r.course===fc);
-  if(fe) results=results.filter(r=>r.exam===fe);
-  if(fs==='released') results=results.filter(r=>r.released);
-  if(fs==='pending') results=results.filter(r=>!r.released);
-  document.getElementById('results-tbody').innerHTML=results.map(r=>`<tr>
-    <td>${r.studentName}<br><code>${r.studentCode}</code></td>
-    <td style="font-size:12px">${r.course}</td><td>${r.exam}</td>
-    <td>${r.released?r.pct+'%':'—'}</td>
-    <td>${r.released?`<span class="badge ${r.pct>=S.settings.gradePass?'badge-done':'badge-locked'}">${r.grade} — ${r.gradeLabel}</span>`:'<span class="badge badge-pending">Pending</span>'}</td>
-    <td style="font-size:12px">${r.date}</td>
-    <td>${r.released?'<span style="color:var(--success);font-size:12px">✓ Released</span>'
-      :`<button class="btn btn-sm btn-gold" onclick="releaseResult('${r.id}')">Release</button>`}</td>
-  </tr>`).join('')||`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">No results match filters.</td></tr>`;
+function renderResults(){
+  var fc=document.getElementById('rf-course').value;
+  var fe=document.getElementById('rf-exam').value;
+  var fs=document.getElementById('rf-status').value;
+  var res=[].concat(S.results).sort(function(a,b){return b.id>a.id?1:-1;});
+  if(fc) res=res.filter(function(r){return r.course===fc;});
+  if(fe) res=res.filter(function(r){return r.exam===fe;});
+  if(fs==='released') res=res.filter(function(r){return r.released;});
+  if(fs==='pending') res=res.filter(function(r){return !r.released;});
+  document.getElementById('tb-results').innerHTML=res.map(function(r){
+    var ok=r.pct>=S.settings.gradePass;
+    return '<tr><td>'+r.sn+'<br><span class="code-pill">'+r.sc+'</span></td><td style="font-size:12px">'+r.course+'</td><td>'+r.exam+'</td><td>'+(r.released?r.pct+'%':'-')+'</td><td>'+(r.released?'<span class="badge '+(ok?'badge-ok':'badge-fail')+'">'+r.grade+' '+r.gradeLabel+'</span>':'<span class="badge badge-wait">Pending</span>')+'</td><td style="font-size:12px">'+r.date+'</td><td>'+(r.released?'<span style="color:#166534;font-size:12px">&#10003;</span>':'<button class="btn btn-gold btn-sm" onclick="releaseResult(''+r.id+'')">Release</button>')+'</td></tr>';
+  }).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:#6b7280">No results match filters.</td></tr>';
 }
 
 function releaseResult(id){
-  const r=S.results.find(r=>r.id===id);
-  if(r){r.released=true;saveState();renderResultsTable();renderOverview();}
+  var r=S.results.find(function(x){return x.id===id;});
+  if(r){r.released=true;saveS();renderResults();renderOverview();}
 }
 
-function renderReviewQ(){
-  const fc=document.getElementById('rqf-course')?.value||'',fe=document.getElementById('rqf-exam')?.value||'',ft=document.getElementById('rqf-type')?.value||'';
-  let qs=S.questions.filter(q=>(!fc||q.course===fc)&&(!fe||q.exam===fe)&&(!ft||q.type===ft));
-  document.getElementById('review-q-count').textContent=`Showing ${qs.length} question${qs.length!==1?'s':''} ${fc?'for '+fc:''} ${fe?'/ '+fe:''}`;
-  const cont=document.getElementById('review-q-list');
-  if(!qs.length){cont.innerHTML=`<div class="locked-notice">No questions match the selected filters.</div>`;return;}
-  cont.innerHTML='';
-  qs.forEach((q,i)=>{
-    const div=document.createElement('div');
-    div.className='q-review-card';
-    let optsHtml='';
-    if(q.type==='mcq'||q.type==='word'){
-      optsHtml=`<div class="q-review-opts">${q.options.map((opt,idx)=>`<div class="q-review-opt${idx===q.correct?' correct-opt':''}">${String.fromCharCode(65+idx)}. ${opt}${idx===q.correct?' ✓':''}</div>`).join('')}</div>`;
-    } else if(q.type==='tf'){
-      optsHtml=`<div style="font-size:13px;margin-top:8px">Correct answer: <strong style="color:var(--success)">${q.correct==='true'?'✓ True':'✗ False'}</strong></div>`;
-    } else {
-      optsHtml=`<div style="font-size:13px;margin-top:8px;background:var(--success-bg);padding:8px 12px;border-radius:8px;color:var(--success)"><strong>Model answer:</strong> ${q.correct}</div>`;
-    }
-    div.innerHTML=`
-      ${q.scenario?`<div class="q-review-scenario"><strong>📖 Scenario:</strong> ${q.scenario}</div>`:''}
-      <div class="q-review-header">
-        <div class="q-review-text"><strong>Q${i+1}.</strong> ${q.question}</div>
-        <div class="q-review-tags">
-          <span class="badge badge-${q.type}">${q.type.toUpperCase()}</span>
-          <span class="badge badge-locked">${q.marks} mk</span>
-        </div>
-      </div>
-      ${optsHtml}
-      <div class="q-review-footer">
-        <span style="font-size:12px;color:var(--text-muted)">${q.course} · ${q.exam}</span>
-        <button class="btn btn-danger btn-sm" onclick="delQuestion('${q.id}')">🗑 Delete</button>
-      </div>`;
-    cont.appendChild(div);
-  });
+function renderQBank(){
+  var fc=document.getElementById('qf-course').value;
+  var fe=document.getElementById('qf-exam').value;
+  var qs=getAllQ().filter(function(q){return(!fc||q.course===fc)&&(!fe||q.exam===fe);});
+  document.getElementById('tb-questions').innerHTML=qs.map(function(q,i){
+    return '<tr><td style="color:#6b7280;font-size:12px">'+(i+1)+'</td><td style="font-size:13px;max-width:300px">'+(q.question.length>70?q.question.slice(0,70)+'...':q.question)+'</td><td><span style="background:#f7f3e8;color:#0F2744;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">'+q.type.toUpperCase()+'</span></td><td style="font-size:12px">'+q.course+'</td><td style="font-size:12px">'+q.exam+'</td><td><button class="btn btn-danger btn-sm" onclick="delQ(''+q.id+'')">&#10005;</button></td></tr>';
+  }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No questions match filter.</td></tr>';
 }
 
-function delQuestion(id){
-  if(!confirm('Delete this question permanently?')) return;
-  S.questions=S.questions.filter(q=>q.id!==id);
-  saveState(); renderReviewQ();
+function delQ(id){
+  if(!confirm('Delete this question?')) return;
+  S.extraQ=(S.extraQ||[]).filter(function(q){return q.id!==id;});
+  saveS(); renderQBank();
 }
+
 function delStudent(code){
   if(!confirm('Delete this student?')) return;
-  S.students=S.students.filter(s=>s.code!==code);
-  saveState(); renderStudentsTable();
+  S.students=S.students.filter(function(s){return s.code!==code;});
+  saveS(); renderStudents();
+}
+
+function openAddStudent(){
+  var yr=new Date().getFullYear();
+  var num=String(S.students.length+1).padStart(3,'0');
+  document.getElementById('ns-code').value='NTA-'+yr+'-'+num;
+  document.getElementById('ns-name').value='';
+  document.getElementById('ns-alert').innerHTML='';
+  openModal('modal-student');
+}
+
+function saveStudent(){
+  var name=document.getElementById('ns-name').value.trim();
+  var code=document.getElementById('ns-code').value.trim();
+  var course=document.getElementById('ns-course').value;
+  var al=document.getElementById('ns-alert');
+  if(!name){al.innerHTML='<div class="alert alert-err">Please enter a name.</div>';return;}
+  S.students.push({code:code,name:name,course:course,registered:new Date().toLocaleDateString('en-GB')});
+  saveS(); renderStudents();
+  al.innerHTML='<div class="alert alert-ok">Student added! Code: <strong>'+code+'</strong></div>';
+  setTimeout(function(){closeModal('modal-student');},1800);
 }
 
 // ── ADD QUESTION ──
 function toggleQType(){
-  const t=document.getElementById('nq-type').value;
-  document.getElementById('mcq-section').classList.toggle('hidden',t==='tf'||t==='short');
-  document.getElementById('tf-section').classList.toggle('hidden',t!=='tf');
-  document.getElementById('short-section').classList.toggle('hidden',t!=='short');
-  document.getElementById('scenario-wrap').classList.toggle('hidden',t!=='word');
+  var t=document.getElementById('nq-type').value;
+  document.getElementById('nq-mcq-opts').style.display=(t==='mcq'||t==='word')?'block':'none';
+  document.getElementById('nq-tf-opts').style.display=t==='tf'?'block':'none';
+  document.getElementById('nq-short-opts').style.display=t==='short'?'block':'none';
+  document.getElementById('nq-scenario-wrap').style.display=t==='word'?'block':'none';
 }
 
 function checkNewCourse(){
-  const v=document.getElementById('nq-course').value;
-  document.getElementById('new-course-wrap').classList.toggle('hidden',v!=='__new__');
+  var v=document.getElementById('nq-course').value;
+  document.getElementById('nq-new-course-wrap').className='field'+(v==='__new__'?'':' hidden');
 }
 
 function addQuestion(){
-  const type=document.getElementById('nq-type').value;
-  const q=document.getElementById('nq-question').value.trim();
-  let course=document.getElementById('nq-course').value;
+  var type=document.getElementById('nq-type').value;
+  var q=document.getElementById('nq-question').value.trim();
+  var course=document.getElementById('nq-course').value;
   if(course==='__new__') course=document.getElementById('nq-course-custom').value.trim();
-  const exam=document.getElementById('nq-exam').value;
-  const marks=parseInt(document.getElementById('nq-marks').value)||1;
-  const scenario=document.getElementById('nq-scenario').value.trim()||null;
-  const alertEl=document.getElementById('addq-alert');
-  if(!q||!course){alertEl.innerHTML=`<div class="alert alert-danger">Please enter a question and select a course.</div>`;return;}
-  let correct,options;
-  if(type==='mcq'||type==='word'){
-    const sel=document.querySelector('input[name="corr"]:checked');
-    if(!sel){alertEl.innerHTML=`<div class="alert alert-danger">Please select the correct answer.</div>`;return;}
-    options=[document.getElementById('opt-a').value,document.getElementById('opt-b').value,document.getElementById('opt-c').value,document.getElementById('opt-d').value];
-    correct=parseInt(sel.value);
-  } else if(type==='tf'){
-    correct=document.getElementById('tf-ans').value;
-  } else {
-    correct=document.getElementById('short-ans').value;
-  }
-  const newQ={id:'q'+Date.now(),course,exam,type,question:q,...((type==='mcq'||type==='word')?{options}:{}),correct,marks};
+  var exam=document.getElementById('nq-exam').value;
+  var marks=parseInt(document.getElementById('nq-marks').value)||1;
+  var scenario=document.getElementById('nq-scenario').value.trim()||null;
+  var al=document.getElementById('addq-alert');
+  if(!q||!course){al.innerHTML='<div class="alert alert-err">Please enter a question and select a course.</div>';return;}
+  var newQ={id:'q'+Date.now(),course:course,exam:exam,type:type,question:q,marks:marks};
   if(scenario&&type==='word') newQ.scenario=scenario;
-  S.questions.push(newQ); saveState();
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Question added successfully!</div>`;
+  if(type==='mcq'||type==='word'){
+    var sel=document.querySelector('input[name="corr"]:checked');
+    if(!sel){al.innerHTML='<div class="alert alert-err">Please select the correct answer.</div>';return;}
+    newQ.options=[document.getElementById('opt-a').value,document.getElementById('opt-b').value,document.getElementById('opt-c').value,document.getElementById('opt-d').value];
+    newQ.correct=parseInt(sel.value);
+  }else if(type==='tf'){
+    newQ.correct=document.getElementById('nq-tf-ans').value;
+  }else{
+    newQ.correct=document.getElementById('nq-short-ans').value;
+  }
+  if(!S.extraQ) S.extraQ=[];
+  S.extraQ.push(newQ);
+  saveS();
+  al.innerHTML='<div class="alert alert-ok">Question added successfully!</div>';
   document.getElementById('nq-question').value='';
   document.getElementById('nq-scenario').value='';
-  document.querySelectorAll('input[name="corr"]').forEach(r=>r.checked=false);
-  ['opt-a','opt-b','opt-c','opt-d'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  setTimeout(()=>{alertEl.innerHTML='';},3000);
+  document.querySelectorAll('input[name="corr"]').forEach(function(r){r.checked=false;});
+  ['opt-a','opt-b','opt-c','opt-d'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  setTimeout(function(){al.innerHTML='';},2500);
 }
 
 function handleCSV(input){
-  const file=input.files[0];if(!file) return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const lines=e.target.result.split('\n').filter(l=>l.trim());
-    let added=0,errors=0;
-    lines.slice(1).forEach(line=>{
-      const cols=line.split(',').map(c=>c.trim().replace(/^"|"$/g,''));
-      if(cols.length<7){errors++;return;}
-      const[course,exam_type,question,type,scenario,opt_a,opt_b,opt_c,opt_d,correct_answer,marks]=cols;
-      if(!course||!question||!type){errors++;return;}
-      const q={id:'q'+Date.now()+Math.random().toString(36).slice(2),course,exam:exam_type||'Mock 1',type,question,marks:parseInt(marks)||1};
+  var f=input.files[0];if(!f)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var lines=e.target.result.split('
+').filter(function(l){return l.trim();});
+    var added=0;
+    lines.slice(1).forEach(function(line){
+      var cols=line.split(',').map(function(c){return c.trim().replace(/^"|"$/g,'');});
+      if(cols.length<6) return;
+      var course=cols[0],exam=cols[1],question=cols[2],type=cols[3],scenario=cols[4],opt_a=cols[5],opt_b=cols[6],opt_c=cols[7],opt_d=cols[8],correct=cols[9],marks=parseInt(cols[10])||1;
+      if(!course||!question||!type) return;
+      var q={id:'q'+Date.now()+Math.random().toString(36).slice(2),course:course,exam:exam,type:type,question:question,marks:marks};
       if(scenario) q.scenario=scenario;
-      if(type==='mcq'||type==='word'){q.options=[opt_a,opt_b,opt_c,opt_d].filter(Boolean);q.correct=['a','b','c','d'].indexOf((correct_answer||'').toLowerCase());}
-      else{q.correct=correct_answer||'';}
-      S.questions.push(q);added++;
+      if(type==='mcq'||type==='word'){q.options=[opt_a,opt_b,opt_c,opt_d];q.correct=['a','b','c','d'].indexOf((correct||'').toLowerCase());}
+      else q.correct=correct||'';
+      if(!S.extraQ) S.extraQ=[];
+      S.extraQ.push(q); added++;
     });
-    saveState();
-    document.getElementById('upload-alert').innerHTML=`<div class="alert alert-success">✓ Imported ${added} question(s).${errors?' '+errors+' rows skipped.':''}</div>`;
+    saveS();
+    document.getElementById('upload-alert').innerHTML='<div class="alert alert-ok">Imported '+added+' question(s).</div>';
   };
-  reader.readAsText(file);
+  reader.readAsText(f);
 }
 
-function openModal(id){document.getElementById(id).classList.remove('hidden');}
-function closeModal(id){document.getElementById(id).classList.add('hidden');}
-
-function openAddStudentModal(){
-  const year=new Date().getFullYear();
-  const num=String(S.students.length+1).padStart(3,'0');
-  document.getElementById('ns-code').value=`NTA-${year}-${num}`;
-  document.getElementById('ns-name').value='';
-  document.getElementById('ns-alert').innerHTML='';
-  openModal('modal-add-student');
-}
-
-function saveStudent(){
-  const name=document.getElementById('ns-name').value.trim();
-  const code=document.getElementById('ns-code').value.trim();
-  const course=document.getElementById('ns-course').value;
-  const alertEl=document.getElementById('ns-alert');
-  if(!name){alertEl.innerHTML=`<div class="alert alert-danger">Please enter the student name.</div>`;return;}
-  S.students.push({code,name,course,registered:new Date().toLocaleDateString('en-GB')});
-  saveState();renderStudentsTable();
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Added! Code: <strong>${code}</strong></div>`;
-  setTimeout(()=>closeModal('modal-add-student'),2000);
-}
-
-function loadSettingsForm(){
-  const s=S.settings;
+// ── SETTINGS ──
+function loadSettings(){
+  var s=S.settings;
   document.getElementById('s-dist').value=s.gradeDist;
   document.getElementById('s-merit').value=s.gradeMerit;
   document.getElementById('s-pass').value=s.gradePass;
-  document.getElementById('s-mock-time').value=s.mockTime;
-  document.getElementById('s-main-time').value=s.mainTime;
-  document.getElementById('s-mock-q').value=s.mockQCount;
-  document.getElementById('s-main-q').value=s.mainQCount;
-  document.getElementById('s-autorelease').checked=s.autoRelease;
-  renderExamPasswordsForm();
+  document.getElementById('s-mtime').value=s.mockTime;
+  document.getElementById('s-etime').value=s.mainTime;
+  document.getElementById('s-mq').value=s.mockQ;
+  document.getElementById('s-eq').value=s.mainQ;
+  document.getElementById('s-auto').checked=s.autoRelease;
+  renderPassList();
 }
 
-function renderExamPasswordsForm(){
-  const courses=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
-  const exams=['Mock 1','Mock 2','Main Exam'];
-  const passwords=S.settings.examPasswords||{};
-  const cont=document.getElementById('exam-passwords-list');
-  if(!cont) return;
-  let html='<div style="display:flex;flex-direction:column;gap:10px">';
-  courses.forEach(course=>{
-    exams.forEach(exam=>{
-      const key=course+'|'+exam;
-      const val=passwords[key]||'';
-      const hasQ=S.questions.some(q=>q.course===course&&q.exam===exam);
+function renderPassList(){
+  var courses=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
+  var exams=['Mock 1','Mock 2','Main Exam'];
+  var passwords=S.settings.examPasswords||{};
+  var html='';
+  courses.forEach(function(c){
+    exams.forEach(function(ex){
+      var hasQ=getAllQ().some(function(q){return q.course===c&&q.exam===ex;});
       if(!hasQ) return;
-      html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:600;color:var(--navy)">${exam}</div>
-          <div style="font-size:11px;color:var(--text-muted)">${course}</div>
-        </div>
-        <div style="position:relative">
-          <input type="text" data-key="${key}" value="${val}"
-            placeholder="No password set"
-            style="border:1.5px solid var(--border);border-radius:8px;padding:8px 36px 8px 12px;font-size:13px;font-family:'JetBrains Mono',monospace;width:160px;outline:none;letter-spacing:1px"
-            maxlength="10">
-          <button onclick="genPass('${key}')" title="Generate random password"
-            style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:14px">🎲</button>
-        </div>
-      </div>`;
+      var key=c+'|'+ex;
+      var val=passwords[key]||'';
+      html+='<div class="pass-row"><div class="pr-name"><strong>'+ex+'</strong><span>'+c+'</span></div><input type="text" data-key="'+key+'" value="'+val+'" placeholder="No password" maxlength="10"><button class="dice-btn" onclick="genCode(''+key+'')" title="Generate code">&#127922;</button></div>';
     });
   });
-  html+='</div>';
-  cont.innerHTML=html;
+  document.getElementById('pass-list').innerHTML=html||'<p style="font-size:13px;color:#6b7280">No questions loaded yet.</p>';
 }
 
-function genPass(key){
-  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let pass='';
-  for(let i=0;i<6;i++) pass+=chars[Math.floor(Math.random()*chars.length)];
-  const inp=document.querySelector(`input[data-key="${key}"]`);
-  if(inp) inp.value=pass;
+function genCode(key){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var code='';
+  for(var i=0;i<6;i++) code+=chars[Math.floor(Math.random()*chars.length)];
+  var inp=document.querySelector('input[data-key="'+key+'"]');
+  if(inp) inp.value=code;
 }
 
-async function saveExamPasswords(){
-  const inputs=document.querySelectorAll('#exam-passwords-list input[data-key]');
+function savePasswords(){
+  var inputs=document.querySelectorAll('#pass-list input[data-key]');
   if(!S.settings.examPasswords) S.settings.examPasswords={};
-  inputs.forEach(inp=>{
-    const key=inp.getAttribute('data-key');
-    const val=inp.value.trim();
+  inputs.forEach(function(inp){
+    var key=inp.getAttribute('data-key');
+    var val=inp.value.trim();
     if(val) S.settings.examPasswords[key]=val;
     else delete S.settings.examPasswords[key];
   });
-  await saveState();
-  const alertEl=document.getElementById('pass-save-alert');
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Exam passwords saved and synced to all devices.</div>`;
-  setTimeout(()=>{alertEl.innerHTML='';},3000);
+  saveS();
+  document.getElementById('pass-alert').innerHTML='<div class="alert alert-ok">Passwords saved and synced.</div>';
+  setTimeout(function(){document.getElementById('pass-alert').innerHTML='';},2500);
 }
 
 function saveSettings(){
   S.settings.gradeDist=parseInt(document.getElementById('s-dist').value)||80;
   S.settings.gradeMerit=parseInt(document.getElementById('s-merit').value)||70;
   S.settings.gradePass=parseInt(document.getElementById('s-pass').value)||60;
-  S.settings.mockTime=parseInt(document.getElementById('s-mock-time').value)||20;
-  S.settings.mainTime=parseInt(document.getElementById('s-main-time').value)||50;
-  S.settings.mockQCount=parseInt(document.getElementById('s-mock-q').value)||20;
-  S.settings.mainQCount=parseInt(document.getElementById('s-main-q').value)||50;
-  S.settings.autoRelease=document.getElementById('s-autorelease').checked;
-  saveState();
-  const alertEl=document.getElementById('settings-alert');
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Settings saved.</div>`;
-  setTimeout(()=>{alertEl.innerHTML='';},2500);
+  S.settings.mockTime=parseInt(document.getElementById('s-mtime').value)||20;
+  S.settings.mainTime=parseInt(document.getElementById('s-etime').value)||50;
+  S.settings.mockQ=parseInt(document.getElementById('s-mq').value)||20;
+  S.settings.mainQ=parseInt(document.getElementById('s-eq').value)||50;
+  S.settings.autoRelease=document.getElementById('s-auto').checked;
+  saveS();
+  document.getElementById('settings-alert').innerHTML='<div class="alert alert-ok">Settings saved.</div>';
+  setTimeout(function(){document.getElementById('settings-alert').innerHTML='';},2500);
 }
 
-function saveCredentials(){
-  const u=document.getElementById('s-t-user').value.trim(),p=document.getElementById('s-t-pass').value.trim();
-  const alertEl=document.getElementById('cred-alert');
-  if(!u||!p){alertEl.innerHTML=`<div class="alert alert-danger">Both fields required.</div>`;return;}
-  S.trainer={username:u,password:p};saveState();
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Credentials updated.</div>`;
-  setTimeout(()=>{alertEl.innerHTML='';},2500);
+function saveCreds(){
+  var u=document.getElementById('s-tuser').value.trim();
+  var p=document.getElementById('s-tpass').value.trim();
+  var al=document.getElementById('cred-alert');
+  if(!u||!p){al.innerHTML='<div class="alert alert-err">Both fields required.</div>';return;}
+  S.trainer={username:u,password:p};saveS();
+  al.innerHTML='<div class="alert alert-ok">Credentials updated.</div>';
+  setTimeout(function(){al.innerHTML='';},2500);
 }
 
-document.querySelectorAll('.modal-overlay').forEach(el=>{
-  el.addEventListener('click',e=>{if(e.target===el)el.classList.add('hidden');});
+// Close modals on bg click
+document.querySelectorAll('.modal-bg').forEach(function(el){
+  el.addEventListener('click',function(e){if(e.target===el) el.classList.add('hidden');});
 });
 
 // ── INIT ──
-// ── INIT — synchronous load first, background sync after ──
-(function(){
-  // Load from localStorage or defaults immediately (synchronous — no waiting)
-  try{
-    const r = localStorage.getItem(STORE_KEY);
-    if(r){
-      const parsed = JSON.parse(r);
-      S = mergeWithDefaults(parsed);
-    } else {
-      S = JSON.parse(JSON.stringify(DEFAULT));
-    }
-  } catch(e){
-    S = JSON.parse(JSON.stringify(DEFAULT));
-  }
-
-  // Init UI state
-  const sw=document.getElementById('scenario-wrap');
-  if(sw) sw.classList.add('hidden');
-
-  // Background sync with GAS after page is ready (non-blocking)
-  if(USE_GAS){
-    setTimeout(async function(){
-      try{
-        const controller = new AbortController();
-        const fetchTimeout = setTimeout(()=>controller.abort(), 6000);
-        const resp = await fetch(APPS_SCRIPT_URL + '?action=load', {
-          method:'GET', cache:'no-store', signal:controller.signal
-        });
-        clearTimeout(fetchTimeout);
-        if(resp.ok){
-          const raw = await resp.json();
-          if(raw && raw.students){
-            S = mergeWithDefaults(raw);
-            localStorage.setItem(STORE_KEY, JSON.stringify(getSyncPayload()));
-            showSyncBanner('✓ Data synced across all devices', 'success');
-          }
-        }
-      } catch(e){
-        console.warn('Background GAS sync failed:', e.message);
-      }
-    }, 800); // small delay to let page render first
-  }
-})();
+loadS();
 </script>
 </body>
 </html>
