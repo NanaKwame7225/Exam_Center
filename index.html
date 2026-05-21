@@ -993,10 +993,18 @@ function renderDash(){
   list.innerHTML='';
 
   // Course banner
-  var b=document.createElement('div');
-  b.className='course-banner';
-  b.innerHTML='<div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;background:linear-gradient(135deg,#C49A2A,#E8B84B);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">&#127891;</div><div><div style="font-family:Playfair Display,serif;font-size:16px;font-weight:700">'+u.course+'</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">Enrolled Programme</div></div></div><div style="display:flex;gap:20px"><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700">'+myR.length+'</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Submitted</div></div><div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700">'+myR.filter(function(r){return r.released&&r.pct>=S.settings.gradePass;}).length+'</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Passed</div></div></div>';
-  list.appendChild(b);
+  var banner=document.createElement('div');
+  banner.className='course-banner';
+  var passed=myR.filter(function(r){return r.released&&r.pct>=S.settings.gradePass;}).length;
+  banner.innerHTML='<div style="display:flex;align-items:center;gap:14px">'
+    +'<div style="width:44px;height:44px;background:linear-gradient(135deg,#C49A2A,#E8B84B);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">&#127891;</div>'
+    +'<div><div style="font-family:Playfair Display,serif;font-size:16px;font-weight:700">'+u.course+'</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">Enrolled Programme</div></div></div>'
+    +'<div style="display:flex;gap:20px">'
+    +'<div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700">'+myR.length+'</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Submitted</div></div>'
+    +'<div style="text-align:center"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700">'+passed+'</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Passed</div></div>'
+    +'</div>';
+  list.appendChild(banner);
 
   var modInfo=[
     {name:'Mock 1',color:'#1E40AF',icon:'&#128203;',label:'Practice Exam'},
@@ -1015,41 +1023,131 @@ function renderDash(){
     var passKey=u.course+'|'+mod.name;
     var hasPass=S.settings.examPasswords&&S.settings.examPasswords[passKey];
 
-    var statusHtml='';
+    // Build card using createElement
+    var card=document.createElement('div');
+    card.className='mod-card';
+
+    // Header
+    var head=document.createElement('div');
+    head.className='mod-head';
+    head.style.background=mod.color;
+    head.style.display='flex';
+    head.style.alignItems='center';
+    head.style.justifyContent='space-between';
+    head.style.padding='14px 18px';
+
+    var headLeft=document.createElement('div');
+    headLeft.style.display='flex';
+    headLeft.style.alignItems='center';
+    headLeft.style.gap='12px';
+
+    var iconBox=document.createElement('div');
+    iconBox.style.cssText='width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px';
+    iconBox.innerHTML=mod.icon;
+
+    var titleBox=document.createElement('div');
+    var titleEl=document.createElement('div');
+    titleEl.className='mod-title';
+    titleEl.textContent='Module '+(idx+1)+': '+mod.name;
+    var subEl=document.createElement('div');
+    subEl.className='mod-sub';
+    subEl.textContent=mod.label;
+    titleBox.appendChild(titleEl);
+    titleBox.appendChild(subEl);
+
+    headLeft.appendChild(iconBox);
+    headLeft.appendChild(titleBox);
+    head.appendChild(headLeft);
+
+    // Status badge
+    var statusEl=document.createElement('span');
+    statusEl.className='badge';
     if(done){
       if(done.released){
         var ok=done.pct>=S.settings.gradePass;
-        statusHtml='<span class="badge '+(ok?'badge-ok':'badge-fail')+'">'+(ok?'PASSED':'FAILED')+' '+done.pct+'%</span>';
-      }else{statusHtml='<span class="badge badge-wait">Awaiting Release</span>';}
-    }else if(locked){statusHtml='<span class="badge badge-lock">&#128274; Locked</span>';}
-    else if(hasPass){statusHtml='<span class="badge badge-code">&#128272; Code Required</span>';}
-    else{statusHtml='<span class="badge badge-avail">&#9679; Available</span>';}
+        statusEl.className+=' '+(ok?'badge-ok':'badge-fail');
+        statusEl.textContent=(ok?'PASSED':'FAILED')+' '+done.pct+'%';
+      }else{statusEl.className+=' badge-wait';statusEl.textContent='Awaiting Release';}
+    }else if(locked){statusEl.className+=' badge-lock';statusEl.textContent='Locked';}
+    else if(hasPass){statusEl.className+=' badge-code';statusEl.textContent='Code Required';}
+    else{statusEl.className+=' badge-avail';statusEl.textContent='Available';}
+    head.appendChild(statusEl);
+    card.appendChild(head);
 
-    var resBar='';
+    // Body
+    var body=document.createElement('div');
+    body.className='mod-body';
+
+    // Stats grid
+    var grid=document.createElement('div');
+    grid.className='mod-grid';
+    [
+      {v:Math.min(qs.length,qCount),l:'Questions'},
+      {v:time+'m',l:'Time'},
+      {v:S.settings.gradePass+'%',l:'Pass Mark'}
+    ].forEach(function(s){
+      var st=document.createElement('div');
+      st.className='mod-stat';
+      st.innerHTML='<div class="ms-val">'+s.v+'</div><div class="ms-label">'+s.l+'</div>';
+      grid.appendChild(st);
+    });
+    body.appendChild(grid);
+
+    // Result bar
     if(done&&done.released){
       var ok2=done.pct>=S.settings.gradePass;
-      resBar='<div class="res-bar" style="background:'+(ok2?'#dcfce7':'#fee2e2')+';color:'+(ok2?'#166534':'#991b1b')+';margin-bottom:12px"><strong>'+done.grade+' - '+done.gradeLabel+'</strong> &nbsp; '+done.earned+'/'+done.total+' marks &nbsp; '+done.pct+'%<span style="color:#6b7280;font-size:11px">'+done.date+'</span></div>';
+      var rb=document.createElement('div');
+      rb.className='res-bar';
+      rb.style.background=ok2?'#dcfce7':'#fee2e2';
+      rb.style.color=ok2?'#166534':'#991b1b';
+      rb.style.marginBottom='12px';
+      rb.innerHTML='<strong>'+done.grade+' - '+done.gradeLabel+'</strong> &nbsp; '+done.earned+'/'+done.total+' marks &nbsp; '+done.pct+'%'
+        +'<span style="color:#6b7280;font-size:11px">'+done.date+'</span>';
+      body.appendChild(rb);
     }
 
-    var actionBtn='';
+    // Action
+    var foot=document.createElement('div');
+    foot.className='mod-foot';
+
     if(!done&&!locked){
-      actionBtn='<button class="btn btn-primary" onclick="startExam(''+mod.name+'')">'+(hasPass?'&#128272; Enter Code':'&#9654; Start Exam')+'</button>';
-    }else if(done&&done.released){
-      actionBtn='<button class="btn btn-info btn-sm" onclick="viewScript(''+done.id+'')">&#128196; Review Script</button>';
-    }else if(done&&!done.released){
-      actionBtn='<span style="font-size:12px;color:#6b7280">Pending trainer release</span>';
-    }else if(locked){
-      actionBtn='<span style="font-size:12px;color:#6b7280">Complete Mock 1 first</span>';
+      var startBtn=document.createElement('button');
+      startBtn.className='btn btn-primary';
+      startBtn.textContent=hasPass?'Enter Code & Start':'Start Exam';
+      startBtn.setAttribute('data-exam', mod.name);
+      startBtn.addEventListener('click', (function(examName){
+        return function(){ startExam(examName); };
+      })(mod.name));
+      foot.appendChild(startBtn);
+    } else if(done&&done.released){
+      var viewBtn=document.createElement('button');
+      viewBtn.className='btn btn-info btn-sm';
+      viewBtn.textContent='Review Script';
+      viewBtn.setAttribute('data-rid', done.id);
+      viewBtn.addEventListener('click', (function(rid){
+        return function(){ viewScript(rid); };
+      })(done.id));
+      foot.appendChild(viewBtn);
+    } else if(done&&!done.released){
+      var pending=document.createElement('span');
+      pending.style.cssText='font-size:12px;color:#6b7280';
+      pending.textContent='Pending trainer release';
+      foot.appendChild(pending);
+    } else if(locked){
+      var lockMsg=document.createElement('span');
+      lockMsg.style.cssText='font-size:12px;color:#6b7280';
+      lockMsg.textContent='Complete Mock 1 to unlock';
+      foot.appendChild(lockMsg);
     }
 
-    var card=document.createElement('div');
-    card.className='mod-card';
-    card.innerHTML='<div class="mod-head" style="background:'+mod.color+'"><div style="display:flex;align-items:center;gap:12px"><div style="width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">'+mod.icon+'</div><div><div class="mod-title">Module '+(idx+1)+': '+mod.name+'</div><div class="mod-sub">'+mod.label+'</div></div></div>'+statusHtml+'</div><div class="mod-body"><div class="mod-grid"><div class="mod-stat"><div class="ms-val">'+Math.min(qs.length,qCount)+'</div><div class="ms-label">Questions</div></div><div class="mod-stat"><div class="ms-val">'+time+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">m</span></div><div class="ms-label">Time</div></div><div class="mod-stat"><div class="ms-val">'+S.settings.gradePass+'<span style="font-size:12px;font-family:DM Sans,sans-serif;font-weight:400">%</span></div><div class="ms-label">Pass</div></div></div>'+resBar+'<div class="mod-foot">'+actionBtn+'</div></div>';
+    body.appendChild(foot);
+    card.appendChild(body);
     list.appendChild(card);
   });
 }
 
-// ── START EXAM ──
+
+// ── EXAM FUNCTIONS ──
 function startExam(examName){
   var passKey=CU.course+'|'+examName;
   var pass=S.settings.examPasswords&&S.settings.examPasswords[passKey];
@@ -1081,7 +1179,7 @@ function launchExam(examName){
   var count=isMain?S.settings.mainQ:S.settings.mockQ;
   var shuffled=all.slice().sort(function(){return Math.random()-.5;});
   EXQ=shuffled.slice(0,Math.min(count,shuffled.length));
-  if(!EXQ.length){alert('No questions found for this exam.');return;}
+  if(!EXQ.length){alert('No questions available for this exam.');return;}
   CEX=examName; ANS={}; CQ=0;
   TL=(isMain?S.settings.mainTime:S.settings.mockTime)*60;
   document.getElementById('ex-name').textContent=examName;
@@ -1109,7 +1207,7 @@ function renderDots(){
     var dot=document.createElement('div');
     dot.className='q-dot'+(ANS[i]!==undefined?' ans':'')+(i===CQ?' cur':'');
     dot.textContent=i+1;
-    dot.onclick=(function(idx){return function(){CQ=idx;renderQ();};})(i);
+    dot.addEventListener('click',(function(idx){return function(){CQ=idx;renderQ();};})(i));
     d.appendChild(dot);
   });
   document.getElementById('ex-prog').style.width=((CQ+1)/EXQ.length*100)+'%';
@@ -1118,25 +1216,78 @@ function renderDots(){
 
 function renderQ(){
   var q=EXQ[CQ],a=ANS[CQ];
-  var html='<div class="q-card"><div class="q-label"><span class="q-num">Question '+(CQ+1)+' of '+EXQ.length+'</span><span class="q-marks">'+q.marks+' mark'+(q.marks>1?'s':'')+'</span></div>';
-  if(q.scenario) html+='<div class="q-scenario"><strong>&#128216; Scenario:</strong>'+q.scenario+'</div>';
-  html+='<div class="q-text">'+q.question+'</div>';
+  var cont=document.getElementById('q-cont');
+  cont.innerHTML='';
+
+  var card=document.createElement('div');
+  card.className='q-card';
+
+  // Label row
+  var lbl=document.createElement('div');
+  lbl.className='q-label';
+  var qnum=document.createElement('span');
+  qnum.className='q-num';
+  qnum.textContent='Question '+(CQ+1)+' of '+EXQ.length;
+  var qmk=document.createElement('span');
+  qmk.className='q-marks';
+  qmk.textContent=q.marks+' mark'+(q.marks>1?'s':'');
+  lbl.appendChild(qnum); lbl.appendChild(qmk);
+  card.appendChild(lbl);
+
+  // Scenario
+  if(q.scenario){
+    var sc=document.createElement('div');
+    sc.className='q-scenario';
+    sc.innerHTML='<strong>&#128216; Scenario:</strong> '+q.scenario;
+    card.appendChild(sc);
+  }
+
+  // Question text
+  var qt=document.createElement('div');
+  qt.className='q-text';
+  qt.textContent=q.question;
+  card.appendChild(qt);
+
+  // Answer options
   if(q.type==='mcq'||q.type==='word'){
-    html+='<div class="q-opts">';
+    var opts=document.createElement('div');
+    opts.className='q-opts';
     q.options.forEach(function(opt,i){
-      html+='<div class="q-opt'+(a===i?' sel':'')+'" onclick="pickA('+i+')"><div class="q-opt-letter">'+String.fromCharCode(65+i)+'</div><div class="q-opt-text">'+opt+'</div></div>';
+      var o=document.createElement('div');
+      o.className='q-opt'+(a===i?' sel':'');
+      var ltr=document.createElement('div');
+      ltr.className='q-opt-letter';
+      ltr.textContent=String.fromCharCode(65+i);
+      var txt=document.createElement('div');
+      txt.className='q-opt-text';
+      txt.textContent=opt;
+      o.appendChild(ltr); o.appendChild(txt);
+      o.addEventListener('click',(function(idx){return function(){ANS[CQ]=idx;renderQ();};})(i));
+      opts.appendChild(o);
     });
-    html+='</div>';
-  }else if(q.type==='tf'){
-    html+='<div class="tf-row"><div class="tf-btn'+(a==='true'?' sel':'')+'" onclick="pickTF('true')"><span class="tf-icon">&#10003;</span><div class="tf-label">True</div></div><div class="tf-btn'+(a==='false'?' sel':'')+'" onclick="pickTF('false')"><span class="tf-icon">&#10007;</span><div class="tf-label">False</div></div></div>';
-  }else{
-    html+='<textarea class="short-field" id="short-ta" placeholder="Type your answer here...">'+(a||'')+'</textarea>';
+    card.appendChild(opts);
+  } else if(q.type==='tf'){
+    var tfRow=document.createElement('div');
+    tfRow.className='tf-row';
+    [{v:'true',icon:'&#10003;',lbl:'True'},{v:'false',icon:'&#10007;',lbl:'False'}].forEach(function(tf){
+      var btn=document.createElement('div');
+      btn.className='tf-btn'+(a===tf.v?' sel':'');
+      btn.innerHTML='<span class="tf-icon">'+tf.icon+'</span><div class="tf-label">'+tf.lbl+'</div>';
+      btn.addEventListener('click',(function(val){return function(){ANS[CQ]=val;renderQ();};})(tf.v));
+      tfRow.appendChild(btn);
+    });
+    card.appendChild(tfRow);
+  } else {
+    var ta=document.createElement('textarea');
+    ta.className='short-field';
+    ta.placeholder='Type your answer here...';
+    ta.value=a||'';
+    ta.addEventListener('input',function(e){ANS[CQ]=e.target.value;renderDots();});
+    card.appendChild(ta);
   }
-  html+='</div>';
-  document.getElementById('q-cont').innerHTML=html;
-  if(q.type==='short'){
-    document.getElementById('short-ta').addEventListener('input',function(e){ANS[CQ]=e.target.value;renderDots();});
-  }
+
+  cont.appendChild(card);
+
   var isLast=CQ===EXQ.length-1;
   document.getElementById('btn-next').style.display=isLast?'none':'inline-flex';
   document.getElementById('btn-submit').style.display=isLast?'inline-flex':'none';
@@ -1144,8 +1295,6 @@ function renderQ(){
   renderDots();
 }
 
-function pickA(i){ANS[CQ]=i;renderQ();}
-function pickTF(v){ANS[CQ]=v;renderQ();}
 function prevQ(){if(CQ>0){CQ--;renderQ();}}
 function nextQ(){if(CQ<EXQ.length-1){CQ++;renderQ();}}
 
@@ -1158,14 +1307,13 @@ function confirmSubmit(){
 function doSubmit(){
   closeModal('modal-submit');
   clearInterval(TI);
-  var earned=0,total=0,hasShort=false;
-  var bd=[];
+  var earned=0,total=0,hasShort=false,bd=[];
   EXQ.forEach(function(q,i){
     var a=ANS[i],m=q.marks||1;
     total+=m;
     var ok=false,pend=false;
     if(q.type==='mcq'||q.type==='word') ok=(a===q.correct);
-    else if(q.type==='tf') ok=(a===q.correct);
+    else if(q.type==='tf') ok=(String(a)===String(q.correct));
     else{pend=true;hasShort=true;}
     if(ok) earned+=m;
     bd.push({q:q.question,sc:q.scenario||null,type:q.type,opts:q.options,ans:a,ok:ok,pend:pend,marks:m,me:ok?m:0,ca:q.correct});
@@ -1174,10 +1322,8 @@ function doSubmit(){
   var g=getGrade(pct);
   var res={
     id:'r'+Date.now(),sc:CU.code,sn:CU.name,
-    course:CU.course,exam:CEX,
-    pct:pct,earned:earned,total:total,
-    grade:g.letter,gradeLabel:g.label,
-    bd:bd,hasShort:hasShort,
+    course:CU.course,exam:CEX,pct:pct,earned:earned,total:total,
+    grade:g.letter,gradeLabel:g.label,bd:bd,hasShort:hasShort,
     released:S.settings.autoRelease&&!hasShort,
     date:new Date().toLocaleDateString('en-GB')
   };
@@ -1197,33 +1343,44 @@ function getGrade(pct){
 function showResults(res){
   var rel=res.released,ok=res.pct>=S.settings.gradePass;
   var g=document.getElementById('rg');
-  g.textContent=rel?res.grade:'&#10003;';
+  g.innerHTML=rel?res.grade:'&#10003;';
   g.className='res-grade '+(ok?'pass':'fail');
-  document.getElementById('rs').textContent=rel?res.earned+' / '+res.total+' marks ('+res.pct+'%)':'Exam submitted successfully';
+  document.getElementById('rs').textContent=rel?res.earned+' / '+res.total+' marks ('+res.pct+'%)':'Submitted successfully';
   var rl=document.getElementById('rl');
   if(rel){rl.textContent=res.gradeLabel;rl.className='res-label '+(ok?'badge-ok':'badge-fail');rl.style.display='inline-block';}
   else rl.style.display='none';
-  document.getElementById('r-pending').innerHTML=!rel?'<div class="pending-note">&#8987; Your results will be visible once your trainer releases them.</div>':'';
-  var sum='<div class="rb-row"><span class="rb-key">Exam</span><span class="rb-val">'+res.exam+'</span></div><div class="rb-row"><span class="rb-key">Course</span><span class="rb-val">'+res.course+'</span></div><div class="rb-row"><span class="rb-key">Total Marks</span><span class="rb-val">'+res.total+'</span></div>';
-  if(rel) sum+='<div class="rb-row"><span class="rb-key">Marks Earned</span><span class="rb-val">'+res.earned+'</span></div><div class="rb-row"><span class="rb-key">Score</span><span class="rb-val">'+res.pct+'%</span></div><div class="rb-row"><span class="rb-key">Grade</span><span class="rb-val">'+res.grade+' - '+res.gradeLabel+'</span></div>';
-  sum+='<div class="rb-row"><span class="rb-key">Pass Mark</span><span class="rb-val">'+S.settings.gradePass+'%</span></div><div class="rb-row"><span class="rb-key">Date</span><span class="rb-val">'+res.date+'</span></div>';
+  document.getElementById('r-pending').innerHTML=!rel?'<div class="pending-note">&#8987; Results will be available once your trainer releases them.</div>':'';
+  var sum='<div class="rb-row"><span class="rb-key">Exam</span><span class="rb-val">'+res.exam+'</span></div>'
+    +'<div class="rb-row"><span class="rb-key">Course</span><span class="rb-val">'+res.course+'</span></div>'
+    +'<div class="rb-row"><span class="rb-key">Total Marks</span><span class="rb-val">'+res.total+'</span></div>';
+  if(rel) sum+='<div class="rb-row"><span class="rb-key">Marks Earned</span><span class="rb-val">'+res.earned+'</span></div>'
+    +'<div class="rb-row"><span class="rb-key">Score</span><span class="rb-val">'+res.pct+'%</span></div>'
+    +'<div class="rb-row"><span class="rb-key">Grade</span><span class="rb-val">'+res.grade+' - '+res.gradeLabel+'</span></div>';
+  sum+='<div class="rb-row"><span class="rb-key">Pass Mark</span><span class="rb-val">'+S.settings.gradePass+'%</span></div>'
+    +'<div class="rb-row"><span class="rb-key">Date</span><span class="rb-val">'+res.date+'</span></div>';
   document.getElementById('r-summary').innerHTML=sum;
+
   var rv=document.getElementById('r-review');
-  if(!rel){rv.innerHTML='<div class="locked-note">&#128274; Question review will be available once your trainer releases your results.</div>';showPage('pg-results');return;}
+  if(!rel){rv.innerHTML='<div class="locked-note">&#128274; Question review available once results are released.</div>';showPage('pg-results');return;}
   rv.innerHTML='';
   res.bd.forEach(function(b,i){
-    var cls=b.pend?'pending':b.ok?'correct':'wrong';
+    var el=document.createElement('div');
+    el.className='rev-item '+(b.pend?'pending':b.ok?'correct':'wrong');
+    var html='';
+    if(b.sc) html+='<div class="rev-scenario"><strong>Scenario:</strong> '+b.sc+'</div>';
+    html+='<div class="rev-q">Q'+(i+1)+'. '+b.q+'</div>';
     var at='Not answered';
     if((b.type==='mcq'||b.type==='word')&&b.ans!==undefined) at=String.fromCharCode(65+b.ans)+'. '+(b.opts?b.opts[b.ans]:'');
     else if(b.type==='tf'&&b.ans!==undefined) at=b.ans==='true'?'True':'False';
     else if(b.type==='short'&&b.ans) at=b.ans;
-    var rl2='';
-    if(b.pend) rl2='<div class="rev-pend">&#8987; Short answer - pending review</div>';
-    else if(b.ok) rl2='<div class="rev-ok">&#10003; Correct (+'+b.marks+' mark'+(b.marks>1?'s':'')+')</div>';
-    else{var ca=(b.type==='mcq'||b.type==='word')?String.fromCharCode(65+b.ca)+'. '+(b.opts?b.opts[b.ca]:''):b.ca;rl2='<div class="rev-no">&#10007; Incorrect - Answer: <strong>'+ca+'</strong></div>';}
-    var el=document.createElement('div');
-    el.className='rev-item '+cls;
-    el.innerHTML=(b.sc?'<div class="rev-scenario"><strong>Scenario:</strong> '+b.sc+'</div>':'')+'<div class="rev-q">Q'+(i+1)+'. '+b.q+'</div><div class="rev-ans">Your answer: <strong>'+at+'</strong></div>'+rl2;
+    html+='<div class="rev-ans">Your answer: <strong>'+at+'</strong></div>';
+    if(b.pend) html+='<div class="rev-pend">&#8987; Short answer - pending trainer review</div>';
+    else if(b.ok) html+='<div class="rev-ok">&#10003; Correct (+'+b.marks+' mark'+(b.marks>1?'s':'')+')</div>';
+    else{
+      var ca=(b.type==='mcq'||b.type==='word')?String.fromCharCode(65+b.ca)+'. '+(b.opts?b.opts[b.ca]:''):b.ca;
+      html+='<div class="rev-no">&#10007; Incorrect - Correct answer: <strong>'+ca+'</strong></div>';
+    }
+    el.innerHTML=html;
     rv.appendChild(el);
   });
   showPage('pg-results');
@@ -1233,6 +1390,7 @@ function viewScript(rid){
   var res=S.results.find(function(r){return r.id===rid;});
   if(res&&res.released) showResults(res);
 }
+
 
 // ── TRAINER ──
 function showTrainerTab(name){
