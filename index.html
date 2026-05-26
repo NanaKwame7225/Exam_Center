@@ -1415,14 +1415,14 @@ function renderOverview(){
   document.getElementById('ov-stats').innerHTML='<div class="stat-box"><div class="sl">Students</div><div class="sv">'+S.students.length+'</div><div class="ss">Registered</div></div><div class="stat-box"><div class="sl">Exams</div><div class="sv">'+S.results.length+'</div><div class="ss">Submitted</div></div><div class="stat-box"><div class="sl">Pending</div><div class="sv">'+pending+'</div><div class="ss">Awaiting release</div></div><div class="stat-box"><div class="sl">Pass Rate</div><div class="sv">'+rate+'%</div><div class="ss">Released results</div></div><div class="stat-box"><div class="sl">Questions</div><div class="sv">'+getAllQ().length+'</div><div class="ss">In bank</div></div>';
   var recent=[].concat(S.results).sort(function(a,b){return b.id>a.id?1:-1;}).slice(0,8);
   document.getElementById('ov-results').innerHTML=recent.map(function(r){
-    return '<tr><td>'+r.sn+'<br><span class="code-pill">'+r.sc+'</span></td><td style="font-size:12px">'+r.course+'</td><td>'+r.exam+'</td><td>'+(r.released?r.pct+'%':'-')+'</td><td style="font-size:12px">'+r.date+'</td><td>'+(r.released?'<span class="badge badge-ok">'+r.grade+'</span>':'<button class="btn btn-gold btn-sm" onclick="releaseResult(''+r.id+'')">Release</button>')+'</td></tr>';
+    return '<tr><td>'+r.sn+'<br><span class="code-pill">'+r.sc+'</span></td><td style="font-size:12px">'+r.course+'</td><td>'+r.exam+'</td><td>'+(r.released?r.pct+'%':'-')+'</td><td style="font-size:12px">'+r.date+'</td><td>'+(r.released?'<span class="badge badge-ok">'+r.grade+'</span>':'<button class="btn btn-gold btn-sm" data-rid="'+r.id+'" onclick="releaseResult(this.dataset.rid)">Release</button>')+'</td></tr>';
   }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No results yet</td></tr>';
 }
 
 function renderStudents(){
   document.getElementById('tb-students').innerHTML=S.students.map(function(s){
     var ec=S.results.filter(function(r){return r.sc===s.code;}).length;
-    return '<tr><td><span class="code-pill">'+s.code+'</span></td><td>'+s.name+'</td><td style="font-size:12px">'+s.course+'</td><td style="font-size:12px">'+s.registered+'</td><td>'+ec+'</td><td><button class="btn btn-danger btn-sm" onclick="delStudent(''+s.code+'')">&#10005;</button></td></tr>';
+    return '<tr><td><span class="code-pill">'+s.code+'</span></td><td>'+s.name+'</td><td style="font-size:12px">'+s.course+'</td><td style="font-size:12px">'+s.registered+'</td><td>'+ec+'</td><td><button class="btn btn-danger btn-sm" data-code="'+s.code+'" onclick="delStudent(this.dataset.code)">&#10005;</button></td></tr>';
   }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No students yet.</td></tr>';
 }
 
@@ -1437,7 +1437,7 @@ function renderResults(){
   if(fs==='pending') res=res.filter(function(r){return !r.released;});
   document.getElementById('tb-results').innerHTML=res.map(function(r){
     var ok=r.pct>=S.settings.gradePass;
-    return '<tr><td>'+r.sn+'<br><span class="code-pill">'+r.sc+'</span></td><td style="font-size:12px">'+r.course+'</td><td>'+r.exam+'</td><td>'+(r.released?r.pct+'%':'-')+'</td><td>'+(r.released?'<span class="badge '+(ok?'badge-ok':'badge-fail')+'">'+r.grade+' '+r.gradeLabel+'</span>':'<span class="badge badge-wait">Pending</span>')+'</td><td style="font-size:12px">'+r.date+'</td><td>'+(r.released?'<span style="color:#166534;font-size:12px">&#10003;</span>':'<button class="btn btn-gold btn-sm" onclick="releaseResult(''+r.id+'')">Release</button>')+'</td></tr>';
+    return '<tr><td>'+r.sn+'<br><span class="code-pill">'+r.sc+'</span></td><td style="font-size:12px">'+r.course+'</td><td>'+r.exam+'</td><td>'+(r.released?r.pct+'%':'-')+'</td><td>'+(r.released?'<span class="badge '+(ok?'badge-ok':'badge-fail')+'">'+r.grade+' '+r.gradeLabel+'</span>':'<span class="badge badge-wait">Pending</span>')+'</td><td style="font-size:12px">'+r.date+'</td><td>'+(r.released?'<span style="color:#166534;font-size:12px">&#10003;</span>':'<button class="btn btn-gold btn-sm" data-rid="'+r.id+'" onclick="releaseResult(this.dataset.rid)">Release</button>')+'</td></tr>';
   }).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:#6b7280">No results match filters.</td></tr>';
 }
 
@@ -1451,7 +1451,7 @@ function renderQBank(){
   var fe=document.getElementById('qf-exam').value;
   var qs=getAllQ().filter(function(q){return(!fc||q.course===fc)&&(!fe||q.exam===fe);});
   document.getElementById('tb-questions').innerHTML=qs.map(function(q,i){
-    return '<tr><td style="color:#6b7280;font-size:12px">'+(i+1)+'</td><td style="font-size:13px;max-width:300px">'+(q.question.length>70?q.question.slice(0,70)+'...':q.question)+'</td><td><span style="background:#f7f3e8;color:#0F2744;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">'+q.type.toUpperCase()+'</span></td><td style="font-size:12px">'+q.course+'</td><td style="font-size:12px">'+q.exam+'</td><td><button class="btn btn-danger btn-sm" onclick="delQ(''+q.id+'')">&#10005;</button></td></tr>';
+    return '<tr><td style="color:#6b7280;font-size:12px">'+(i+1)+'</td><td style="font-size:13px;max-width:300px">'+(q.question.length>70?q.question.slice(0,70)+'...':q.question)+'</td><td><span style="background:#f7f3e8;color:#0F2744;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">'+q.type.toUpperCase()+'</span></td><td style="font-size:12px">'+q.course+'</td><td style="font-size:12px">'+q.exam+'</td><td><button class="btn btn-danger btn-sm" data-qid="'+q.id+'" onclick="delQ(this.dataset.qid)">&#10005;</button></td></tr>';
   }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No questions match filter.</td></tr>';
 }
 
@@ -1539,8 +1539,7 @@ function handleCSV(input){
   var f=input.files[0];if(!f)return;
   var reader=new FileReader();
   reader.onload=function(e){
-    var lines=e.target.result.split('
-').filter(function(l){return l.trim();});
+    var lines=e.target.result.split('\n').filter(function(l){return l.trim();});
     var added=0;
     lines.slice(1).forEach(function(line){
       var cols=line.split(',').map(function(c){return c.trim().replace(/^"|"$/g,'');});
@@ -1585,7 +1584,7 @@ function renderPassList(){
       if(!hasQ) return;
       var key=c+'|'+ex;
       var val=passwords[key]||'';
-      html+='<div class="pass-row"><div class="pr-name"><strong>'+ex+'</strong><span>'+c+'</span></div><input type="text" data-key="'+key+'" value="'+val+'" placeholder="No password" maxlength="10"><button class="dice-btn" onclick="genCode(''+key+'')" title="Generate code">&#127922;</button></div>';
+      html+='<div class="pass-row"><div class="pr-name"><strong>'+ex+'</strong><span>'+c+'</span></div><input type="text" data-key="'+key+'" value="'+val+'" placeholder="No password" maxlength="10"><button class="dice-btn" data-ckey="'+key+'" onclick="genCode(this.dataset.ckey)" title="Generate code">&#127922;</button></div>';
     });
   });
   document.getElementById('pass-list').innerHTML=html||'<p style="font-size:13px;color:#6b7280">No questions loaded yet.</p>';
