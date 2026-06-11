@@ -174,6 +174,17 @@ nav{background:#0F2744;height:54px;display:flex;align-items:center;justify-conte
 .t-sub{font-size:13px;color:#6b7280;margin-bottom:20px}
 .t-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
 .card-table{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;overflow:hidden}
+.module-groups{display:grid;gap:16px}
+.module-group{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;overflow:hidden}
+.module-group-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#0F2744;color:#fff;border-bottom:2px solid #C49A2A}
+.module-group-title{font-family:"Playfair Display",serif;font-size:15px}
+.module-group-count{font-size:11px;background:rgba(255,255,255,.12);padding:4px 10px;border-radius:20px}
+.module-checks{display:grid;gap:8px;margin-top:6px}
+.module-check{display:flex;align-items:center;gap:9px;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px 12px;font-size:13px;cursor:pointer;background:#fffdf5}
+.module-check input{width:16px;height:16px;accent-color:#0F2744}
+.course-switcher{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.course-switcher button{border:1.5px solid #d1cbbb;background:#fff;color:#0F2744;border-radius:20px;padding:7px 13px;font:600 12px "DM Sans",sans-serif;cursor:pointer}
+.course-switcher button.active{background:#0F2744;color:#fff;border-color:#0F2744}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{background:#f7f3e8;padding:10px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#6b7280;border-bottom:1.5px solid #e5e0d5}
 td{padding:11px 14px;border-bottom:1px solid #e5e0d5;color:#1a1a2e}
@@ -387,7 +398,7 @@ tr:hover td{background:#fffdf5}
           <div><div class="t-title">Students</div><div class="t-sub">Manage registered students and access codes</div></div>
           <button class="btn btn-primary" onclick="openAddStudent()">+ Add Student</button>
         </div>
-        <div class="card-table"><table><thead><tr><th>Code</th><th>Name</th><th>Course</th><th>Registered</th><th>Exams</th><th>Del</th></tr></thead><tbody id="tb-students"></tbody></table></div>
+        <div class="module-groups" id="student-module-groups"></div>
       </div>
 
       <!-- RESULTS -->
@@ -531,8 +542,12 @@ tr:hover td{background:#fffdf5}
     <h3>Add New Student</h3>
     <p>Fill in the student details. A unique code will be generated.</p>
     <div class="field"><label>Full Name</label><input type="text" id="ns-name" placeholder="Student full name" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
-    <div class="field"><label>Course</label>
-      <select id="ns-course" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none"><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
+    <div class="field"><label>Registered Modules</label>
+      <div class="module-checks" id="ns-courses">
+        <label class="module-check"><input type="checkbox" value="Basic Computer Literacy"> Basic Computer Literacy</label>
+        <label class="module-check"><input type="checkbox" value="MS Office Suite"> MS Office Suite</label>
+        <label class="module-check"><input type="checkbox" value="Data Analytics with Excel"> Data Analytics with Excel</label>
+      </div>
     </div>
     <div class="field"><label>Generated Code</label><input type="text" id="ns-code" readonly style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:JetBrains Mono,monospace;background:#f7f3e8;color:#6b7280;outline:none"></div>
     <div id="ns-alert" style="margin-bottom:8px"></div>
@@ -938,6 +953,8 @@ function doStudentLogin(){
   if(!st){err.style.display='block';return;}
   err.style.display='none';
   CU=Object.assign({},st);
+  CU.courses=(CU.courses&&CU.courses.length)?CU.courses:[CU.course];
+  CU.course=CU.course||CU.courses[0];
   document.getElementById('nav-user').textContent=CU.name;
   document.getElementById('nav-user').classList.remove('hidden');
   document.getElementById('nav-logout').classList.remove('hidden');
@@ -981,6 +998,7 @@ function syncFromGAS(cb){
 // ── STUDENT DASHBOARD ──
 function renderDash(){
   var u=CU;
+  u.courses=(u.courses&&u.courses.length)?u.courses:[u.course];
   document.getElementById('dh-name').textContent='Welcome, '+u.name.split(' ')[0];
   document.getElementById('dh-sub').textContent=u.course;
   document.getElementById('ds-code').textContent=u.code;
@@ -991,6 +1009,19 @@ function renderDash(){
 
   var list=document.getElementById('module-list');
   list.innerHTML='';
+
+  if(u.courses.length>1){
+    var switcher=document.createElement('div');
+    switcher.className='course-switcher';
+    u.courses.forEach(function(course){
+      var b=document.createElement('button');
+      b.textContent=course;
+      b.className=course===u.course?'active':'';
+      b.addEventListener('click',function(){CU.course=course;renderDash();});
+      switcher.appendChild(b);
+    });
+    list.appendChild(switcher);
+  }
 
   // Course banner
   var banner=document.createElement('div');
@@ -1420,10 +1451,15 @@ function renderOverview(){
 }
 
 function renderStudents(){
-  document.getElementById('tb-students').innerHTML=S.students.map(function(s){
-    var ec=S.results.filter(function(r){return r.sc===s.code;}).length;
-    return '<tr><td><span class="code-pill">'+s.code+'</span></td><td>'+s.name+'</td><td style="font-size:12px">'+s.course+'</td><td style="font-size:12px">'+s.registered+'</td><td>'+ec+'</td><td><button class="btn btn-danger btn-sm" data-code="'+s.code+'" onclick="delStudent(this.dataset.code)">&#10005;</button></td></tr>';
-  }).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:#6b7280">No students yet.</td></tr>';
+  var modules=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
+  document.getElementById('student-module-groups').innerHTML=modules.map(function(module){
+    var students=S.students.filter(function(s){return (s.courses&&s.courses.length?s.courses:[s.course]).indexOf(module)!==-1;});
+    var rows=students.map(function(s){
+      var ec=S.results.filter(function(r){return r.sc===s.code&&r.course===module;}).length;
+      return '<tr><td><span class="code-pill">'+s.code+'</span></td><td>'+s.name+'</td><td style="font-size:12px">'+s.registered+'</td><td>'+ec+'</td><td><button class="btn btn-danger btn-sm" data-code="'+s.code+'" onclick="delStudent(this.dataset.code)">&#10005;</button></td></tr>';
+    }).join('')||'<tr><td colspan="5" style="text-align:center;padding:22px;color:#6b7280">No students registered for this module.</td></tr>';
+    return '<section class="module-group"><div class="module-group-head"><div class="module-group-title">'+module+'</div><div class="module-group-count">'+students.length+' student'+(students.length===1?'':'s')+'</div></div><div style="overflow-x:auto"><table><thead><tr><th>Code</th><th>Name</th><th>Registered</th><th>Exams</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>';
+  }).join('');
 }
 
 function renderResults(){
@@ -1472,6 +1508,7 @@ function openAddStudent(){
   var num=String(S.students.length+1).padStart(3,'0');
   document.getElementById('ns-code').value='NTA-'+yr+'-'+num;
   document.getElementById('ns-name').value='';
+  document.querySelectorAll('#ns-courses input').forEach(function(input){input.checked=false;});
   document.getElementById('ns-alert').innerHTML='';
   openModal('modal-student');
 }
@@ -1479,10 +1516,11 @@ function openAddStudent(){
 function saveStudent(){
   var name=document.getElementById('ns-name').value.trim();
   var code=document.getElementById('ns-code').value.trim();
-  var course=document.getElementById('ns-course').value;
+  var courses=Array.prototype.slice.call(document.querySelectorAll('#ns-courses input:checked')).map(function(input){return input.value;});
   var al=document.getElementById('ns-alert');
   if(!name){al.innerHTML='<div class="alert alert-err">Please enter a name.</div>';return;}
-  S.students.push({code:code,name:name,course:course,registered:new Date().toLocaleDateString('en-GB')});
+  if(!courses.length){al.innerHTML='<div class="alert alert-err">Please select at least one module.</div>';return;}
+  S.students.push({code:code,name:name,course:courses[0],courses:courses,registered:new Date().toLocaleDateString('en-GB')});
   saveS(); renderStudents();
   al.innerHTML='<div class="alert alert-ok">Student added! Code: <strong>'+code+'</strong></div>';
   setTimeout(function(){closeModal('modal-student');},1800);
