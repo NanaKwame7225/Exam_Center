@@ -374,6 +374,7 @@ tr:hover td{background:#fffdf5}
       <div class="sb-section">Manage</div>
       <div class="sb-item" id="si-students" onclick="showTrainerTab('students')">&#128100; Students</div>
       <div class="sb-item" id="si-results" onclick="showTrainerTab('results')">&#128200; Results</div>
+      <div class="sb-item" id="si-fees" onclick="showTrainerTab('fees')">&#128176; Fees</div>
       <div class="sb-section">Exams</div>
       <div class="sb-item" id="si-questions" onclick="showTrainerTab('questions')">&#10067; Question Bank</div>
       <div class="sb-item" id="si-addq" onclick="showTrainerTab('addq')">&#43; Add Question</div>
@@ -411,6 +412,42 @@ tr:hover td{background:#fffdf5}
           <select id="rf-status" onchange="renderResults()" style="border:1.5px solid #e5e0d5;border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;font-family:DM Sans,sans-serif"><option value="">All Status</option><option value="released">Released</option><option value="pending">Pending</option></select>
         </div>
         <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Grade</th><th>Date</th><th>Action</th></tr></thead><tbody id="tb-results"></tbody></table></div>
+      </div>
+
+      <!-- FEES -->
+      <div class="t-panel" id="tp-fees">
+        <div class="t-title">Fees</div>
+        <div class="t-sub">Record payments and automatically notify students by SMS</div>
+        <div class="form-card">
+          <h3>Record Payment</h3>
+          <div class="two-col">
+            <div class="field"><label>Student</label>
+              <select id="fe-student" onchange="loadFeeStudent()" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;background:#fff;outline:none"></select>
+            </div>
+            <div class="field"><label>Phone (e.g. 0244123456)</label>
+              <input type="text" id="fe-phone" placeholder="Recipient phone" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none">
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label>Total Fee (GHS)</label>
+              <input type="number" id="fe-total" placeholder="0.00" min="0" step="0.01" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none">
+            </div>
+            <div class="field"><label>Amount Paid Now (GHS)</label>
+              <input type="number" id="fe-amount" placeholder="0.00" min="0" step="0.01" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none">
+            </div>
+          </div>
+          <div id="fe-summary" style="background:#f7f3e8;border-radius:8px;padding:12px;margin:8px 0;font-size:13px;color:#0F2744;line-height:1.7"></div>
+          <div class="toggle-row">
+            <label>Send SMS receipt automatically</label>
+            <input type="checkbox" id="fe-sms" checked style="width:18px;height:18px;accent-color:#0F2744;cursor:pointer">
+          </div>
+          <div id="fee-alert" style="margin:8px 0"></div>
+          <button class="btn btn-primary" onclick="recordFee()">Record Payment &amp; Notify</button>
+        </div>
+        <div class="form-card">
+          <h3>Payment History</h3>
+          <div class="card-table"><table><thead><tr><th>Date</th><th>Student</th><th>Phone</th><th>Paid</th><th>Total</th><th>Balance</th><th>SMS</th></tr></thead><tbody id="tb-fees"></tbody></table></div>
+        </div>
       </div>
 
       <!-- QUESTION BANK -->
@@ -542,6 +579,7 @@ tr:hover td{background:#fffdf5}
     <h3>Add New Student</h3>
     <p>Fill in the student details. A unique code will be generated.</p>
     <div class="field"><label>Full Name</label><input type="text" id="ns-name" placeholder="Student full name" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
+    <div class="field"><label>Phone Number</label><input type="text" id="ns-phone" placeholder="e.g. 0244123456" style="width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px;font-size:14px;font-family:DM Sans,sans-serif;outline:none"></div>
     <div class="field"><label>Registered Modules</label>
       <div class="module-checks" id="ns-courses">
         <label class="module-check"><input type="checkbox" value="Basic Computer Literacy"> Basic Computer Literacy</label>
@@ -585,6 +623,8 @@ tr:hover td{background:#fffdf5}
 <script>
 var STORE='nta_exam_v4';
 var GAS_URL='https://script.google.com/macros/s/AKfycbw_UlrDn5nHWj2-nElTaa8E1FUG0p1HbdaTCj2YUUFEoJPBkR6BPi2swiXbBqUAeBItFQ/exec';
+var MNOTIFY_KEY='s6mhqRtYmKUm4Pf3Go6garMmT';
+var MNOTIFY_SENDER='NkayAcad';
 
 // ── DEFAULT STATE ──
 var DEFAULT={
@@ -1434,6 +1474,7 @@ function showTrainerTab(name){
   if(name==='overview') renderOverview();
   if(name==='students') renderStudents();
   if(name==='results') renderResults();
+  if(name==='fees') renderFees();
   if(name==='questions') renderQBank();
   if(name==='settings') loadSettings();
 }
@@ -1508,6 +1549,7 @@ function openAddStudent(){
   var num=String(S.students.length+1).padStart(3,'0');
   document.getElementById('ns-code').value='NTA-'+yr+'-'+num;
   document.getElementById('ns-name').value='';
+  document.getElementById('ns-phone').value='';
   document.querySelectorAll('#ns-courses input').forEach(function(input){input.checked=false;});
   document.getElementById('ns-alert').innerHTML='';
   openModal('modal-student');
@@ -1515,12 +1557,13 @@ function openAddStudent(){
 
 function saveStudent(){
   var name=document.getElementById('ns-name').value.trim();
+  var phone=document.getElementById('ns-phone').value.trim();
   var code=document.getElementById('ns-code').value.trim();
   var courses=Array.prototype.slice.call(document.querySelectorAll('#ns-courses input:checked')).map(function(input){return input.value;});
   var al=document.getElementById('ns-alert');
   if(!name){al.innerHTML='<div class="alert alert-err">Please enter a name.</div>';return;}
   if(!courses.length){al.innerHTML='<div class="alert alert-err">Please select at least one module.</div>';return;}
-  S.students.push({code:code,name:name,course:courses[0],courses:courses,registered:new Date().toLocaleDateString('en-GB')});
+  S.students.push({code:code,name:name,phone:phone,course:courses[0],courses:courses,registered:new Date().toLocaleDateString('en-GB'),totalFee:0,payments:[]});
   saveS(); renderStudents();
   al.innerHTML='<div class="alert alert-ok">Student added! Code: <strong>'+code+'</strong></div>';
   setTimeout(function(){closeModal('modal-student');},1800);
@@ -1681,6 +1724,116 @@ document.querySelectorAll('.modal-bg').forEach(function(el){
 
 // ── INIT ──
 loadS();
+
+// ── FEES ──
+function normalizePhone(p){
+  p=(p||'').replace(/[^0-9]/g,'');
+  if(p.indexOf('233')===0) return p;
+  if(p.charAt(0)==='0') return '233'+p.slice(1);
+  if(p.length===9) return '233'+p;
+  return p;
+}
+
+function sendMnotifySMS(phone,message){
+  var to=normalizePhone(phone);
+  if(!to) return Promise.resolve({ok:false,err:'No phone'});
+  var url='https://apps.mnotify.net/smsapi?key='+encodeURIComponent(MNOTIFY_KEY)+'&to='+encodeURIComponent(to)+'&msg='+encodeURIComponent(message)+'&sender_id='+encodeURIComponent(MNOTIFY_SENDER);
+  // Fire-and-forget — mNotify GET endpoint does not return CORS headers
+  return fetch(url,{mode:'no-cors'}).then(function(){return {ok:true};}).catch(function(e){return {ok:false,err:String(e)};});
+}
+
+function renderFees(){
+  var sel=document.getElementById('fe-student');
+  sel.innerHTML='<option value="">Select a student...</option>'+S.students.map(function(s){
+    return '<option value="'+s.code+'">'+s.name+' ('+s.code+')</option>';
+  }).join('');
+  loadFeeStudent();
+  renderFeeHistory();
+}
+
+function loadFeeStudent(){
+  var code=document.getElementById('fe-student').value;
+  var s=S.students.find(function(x){return x.code===code;});
+  if(!s){
+    document.getElementById('fe-phone').value='';
+    document.getElementById('fe-total').value='';
+    document.getElementById('fe-amount').value='';
+    document.getElementById('fe-summary').innerHTML='Select a student to see their fee summary.';
+    return;
+  }
+  document.getElementById('fe-phone').value=s.phone||'';
+  document.getElementById('fe-total').value=s.totalFee||'';
+  document.getElementById('fe-amount').value='';
+  updateFeeSummary();
+}
+
+function updateFeeSummary(){
+  var code=document.getElementById('fe-student').value;
+  var s=S.students.find(function(x){return x.code===code;});
+  if(!s){document.getElementById('fe-summary').innerHTML='Select a student to see their fee summary.';return;}
+  var total=parseFloat(document.getElementById('fe-total').value)||0;
+  var paidSoFar=(s.payments||[]).reduce(function(a,p){return a+(parseFloat(p.amount)||0);},0);
+  var now=parseFloat(document.getElementById('fe-amount').value)||0;
+  var bal=total-paidSoFar-now;
+  document.getElementById('fe-summary').innerHTML=
+    '<strong>'+s.name+'</strong><br>'+
+    'Total Fee: GHS '+total.toFixed(2)+'<br>'+
+    'Previously Paid: GHS '+paidSoFar.toFixed(2)+'<br>'+
+    'Paying Now: GHS '+now.toFixed(2)+'<br>'+
+    '<strong>New Balance: GHS '+bal.toFixed(2)+'</strong>';
+}
+
+['fe-total','fe-amount'].forEach(function(id){
+  document.addEventListener('input',function(e){if(e.target&&e.target.id===id) updateFeeSummary();});
+});
+
+function recordFee(){
+  var al=document.getElementById('fee-alert');
+  var code=document.getElementById('fe-student').value;
+  var s=S.students.find(function(x){return x.code===code;});
+  if(!s){al.innerHTML='<div class="alert alert-err">Please select a student.</div>';return;}
+  var phone=document.getElementById('fe-phone').value.trim();
+  var total=parseFloat(document.getElementById('fe-total').value)||0;
+  var amount=parseFloat(document.getElementById('fe-amount').value)||0;
+  if(amount<=0){al.innerHTML='<div class="alert alert-err">Enter the amount paid.</div>';return;}
+  if(total<=0){al.innerHTML='<div class="alert alert-err">Enter the total fee.</div>';return;}
+  s.phone=phone;
+  s.totalFee=total;
+  if(!s.payments) s.payments=[];
+  var date=new Date().toLocaleDateString('en-GB');
+  var paidBefore=s.payments.reduce(function(a,p){return a+(parseFloat(p.amount)||0);},0);
+  var paidTotal=paidBefore+amount;
+  var balance=total-paidTotal;
+  var sendSms=document.getElementById('fe-sms').checked;
+  var entry={amount:amount,date:date,total:total,balance:balance,smsStatus:sendSms?'sending':'skipped'};
+  s.payments.push(entry);
+  saveS();
+  renderFeeHistory();
+  updateFeeSummary();
+  al.innerHTML='<div class="alert alert-ok">Payment of GHS '+amount.toFixed(2)+' recorded. Balance: GHS '+balance.toFixed(2)+'.</div>';
+  if(sendSms){
+    if(!phone){entry.smsStatus='no phone';saveS();renderFeeHistory();return;}
+    var msg='Hello '+s.name+', we have received GHS '+amount.toFixed(2)+' towards your fees. Total Fee: GHS '+total.toFixed(2)+'. Total Paid: GHS '+paidTotal.toFixed(2)+'. Balance: GHS '+balance.toFixed(2)+'. Thank you - NkaySolutions Tech Academy.';
+    sendMnotifySMS(phone,msg).then(function(r){
+      entry.smsStatus=r.ok?'sent':'failed';
+      saveS();renderFeeHistory();
+    });
+  }
+  document.getElementById('fe-amount').value='';
+}
+
+function renderFeeHistory(){
+  var rows=[];
+  S.students.forEach(function(s){
+    (s.payments||[]).forEach(function(p,i){
+      rows.push({date:p.date,name:s.name,code:s.code,phone:s.phone||'-',amount:p.amount,total:p.total,balance:p.balance,sms:p.smsStatus||'-',idx:i,scode:s.code});
+    });
+  });
+  rows.sort(function(a,b){return a.date<b.date?1:-1;});
+  document.getElementById('tb-fees').innerHTML=rows.map(function(r){
+    return '<tr><td style="font-size:12px">'+r.date+'</td><td>'+r.name+'<br><span class="code-pill">'+r.code+'</span></td><td style="font-size:12px">'+r.phone+'</td><td>GHS '+Number(r.amount).toFixed(2)+'</td><td>GHS '+Number(r.total).toFixed(2)+'</td><td><strong>GHS '+Number(r.balance).toFixed(2)+'</strong></td><td style="font-size:11px">'+r.sms+'</td></tr>';
+  }).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:#6b7280">No payments recorded yet.</td></tr>';
+}
 </script>
 </body>
 </html>
