@@ -446,7 +446,7 @@ tr:hover td{background:#fffdf5}
         </div>
         <div class="form-card">
           <h3>Payment History</h3>
-          <div class="card-table"><table><thead><tr><th>Date</th><th>Student</th><th>Phone</th><th>Paid</th><th>Total</th><th>Balance</th><th>SMS</th></tr></thead><tbody id="tb-fees"></tbody></table></div>
+          <div id="tb-fees" class="module-groups"></div>
         </div>
       </div>
 
@@ -1744,9 +1744,23 @@ function sendMnotifySMS(phone,message){
 
 function renderFees(){
   var sel=document.getElementById('fe-student');
-  sel.innerHTML='<option value="">Select a student...</option>'+S.students.map(function(s){
-    return '<option value="'+s.code+'">'+s.name+' ('+s.code+')</option>';
-  }).join('');
+  var modules=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
+  var html='<option value="">Select a student...</option>';
+  modules.forEach(function(module){
+    var inMod=S.students.filter(function(s){return (s.courses&&s.courses.length?s.courses:[s.course]).indexOf(module)!==-1;});
+    if(!inMod.length) return;
+    html+='<optgroup label="'+module+' ('+inMod.length+')">';
+    html+=inMod.map(function(s){return '<option value="'+s.code+'">'+s.name+' ('+s.code+')</option>';}).join('');
+    html+='</optgroup>';
+  });
+  var ungrouped=S.students.filter(function(s){
+    var cs=s.courses&&s.courses.length?s.courses:[s.course];
+    return !cs.some(function(c){return modules.indexOf(c)!==-1;});
+  });
+  if(ungrouped.length){
+    html+='<optgroup label="Other">'+ungrouped.map(function(s){return '<option value="'+s.code+'">'+s.name+' ('+s.code+')</option>';}).join('')+'</optgroup>';
+  }
+  sel.innerHTML=html;
   loadFeeStudent();
   renderFeeHistory();
 }
@@ -1823,16 +1837,36 @@ function recordFee(){
 }
 
 function renderFeeHistory(){
-  var rows=[];
-  S.students.forEach(function(s){
-    (s.payments||[]).forEach(function(p,i){
-      rows.push({date:p.date,name:s.name,code:s.code,phone:s.phone||'-',amount:p.amount,total:p.total,balance:p.balance,sms:p.smsStatus||'-',idx:i,scode:s.code});
+  var modules=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
+  var container=document.getElementById('tb-fees');
+  function rowsFor(students){
+    var rows=[];
+    students.forEach(function(s){
+      (s.payments||[]).forEach(function(p,i){
+        rows.push({date:p.date,name:s.name,code:s.code,phone:s.phone||'-',amount:p.amount,total:p.total,balance:p.balance,sms:p.smsStatus||'-',idx:i});
+      });
     });
+    rows.sort(function(a,b){return a.date<b.date?1:-1;});
+    return rows.map(function(r){
+      return '<tr><td style="font-size:12px">'+r.date+'</td><td>'+r.name+'<br><span class="code-pill">'+r.code+'</span></td><td style="font-size:12px">'+r.phone+'</td><td>GHS '+Number(r.amount).toFixed(2)+'</td><td>GHS '+Number(r.total).toFixed(2)+'</td><td><strong>GHS '+Number(r.balance).toFixed(2)+'</strong></td><td style="font-size:11px">'+r.sms+'</td></tr>';
+    }).join('');
+  }
+  var html='';
+  var anyPayments=false;
+  modules.forEach(function(module){
+    var inMod=S.students.filter(function(s){return (s.courses&&s.courses.length?s.courses:[s.course]).indexOf(module)!==-1;});
+    var paidStudents=inMod.filter(function(s){return s.payments&&s.payments.length;});
+    var modTotal=0,modPaid=0,modBal=0;
+    inMod.forEach(function(s){
+      var t=parseFloat(s.totalFee)||0;
+      var p=(s.payments||[]).reduce(function(a,x){return a+(parseFloat(x.amount)||0);},0);
+      modTotal+=t; modPaid+=p; modBal+=(t-p);
+    });
+    var body=rowsFor(paidStudents)||'<tr><td colspan="7" style="text-align:center;padding:18px;color:#6b7280">No payments recorded for this module yet.</td></tr>';
+    if(paidStudents.length) anyPayments=true;
+    html+='<section class="module-group" style="margin-bottom:14px"><div class="module-group-head"><div class="module-group-title">'+module+'</div><div class="module-group-count">'+inMod.length+' student'+(inMod.length===1?'':'s')+' &middot; Paid: GHS '+modPaid.toFixed(2)+' / '+modTotal.toFixed(2)+' &middot; Bal: GHS '+modBal.toFixed(2)+'</div></div><div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Student</th><th>Phone</th><th>Paid</th><th>Total</th><th>Balance</th><th>SMS</th></tr></thead><tbody>'+body+'</tbody></table></div></section>';
   });
-  rows.sort(function(a,b){return a.date<b.date?1:-1;});
-  document.getElementById('tb-fees').innerHTML=rows.map(function(r){
-    return '<tr><td style="font-size:12px">'+r.date+'</td><td>'+r.name+'<br><span class="code-pill">'+r.code+'</span></td><td style="font-size:12px">'+r.phone+'</td><td>GHS '+Number(r.amount).toFixed(2)+'</td><td>GHS '+Number(r.total).toFixed(2)+'</td><td><strong>GHS '+Number(r.balance).toFixed(2)+'</strong></td><td style="font-size:11px">'+r.sms+'</td></tr>';
-  }).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:#6b7280">No payments recorded yet.</td></tr>';
+  container.innerHTML=html;
 }
 </script>
 </body>
