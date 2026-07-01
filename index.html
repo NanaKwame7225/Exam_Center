@@ -1095,8 +1095,37 @@ const DEFAULT={
 let S={}, currentUser=null, currentExam=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200;
 
 function loadState(){
-  try{ const r=localStorage.getItem(STORE_KEY); S=r?JSON.parse(r):JSON.parse(JSON.stringify(DEFAULT)); }
-  catch(e){ S=JSON.parse(JSON.stringify(DEFAULT)); }
+  try{
+    var r=localStorage.getItem(STORE_KEY);
+    var base=JSON.parse(JSON.stringify(DEFAULT));
+    if(r){
+      var saved=JSON.parse(r);
+      S=base;
+      if(saved.trainer) S.trainer=saved.trainer;
+      if(saved.settings) S.settings=Object.assign({},base.settings,saved.settings);
+      if(saved.students&&saved.students.length) S.students=saved.students;
+      if(saved.results) S.results=saved.results;
+      // Support both S.questions (this portal) and S.extraQ (legacy)
+      if(saved.questions&&saved.questions.length) S.questions=saved.questions;
+      else if(saved.extraQ&&saved.extraQ.length){
+        // Merge legacy extraQ into questions
+        saved.extraQ.forEach(function(q){ if(!S.questions.find(function(x){return x.id===q.id;})) S.questions.push(q); });
+      }
+    } else {
+      S=base;
+    }
+  }catch(e){ S=JSON.parse(JSON.stringify(DEFAULT)); }
+  // Safety guards — ensure all arrays exist
+  if(!S.students) S.students=[];
+  if(!S.results) S.results=[];
+  if(!S.questions) S.questions=JSON.parse(JSON.stringify(DEFAULT.questions));
+  if(!S.settings) S.settings=JSON.parse(JSON.stringify(DEFAULT.settings));
+  if(!S.trainer) S.trainer=JSON.parse(JSON.stringify(DEFAULT.trainer));
+  // Compatibility: older saved data used mockQ/mainQ instead of mockQCount/mainQCount
+  if(!S.settings.mockQCount && S.settings.mockQ) S.settings.mockQCount=S.settings.mockQ;
+  if(!S.settings.mainQCount && S.settings.mainQ) S.settings.mainQCount=S.settings.mainQ;
+  if(!S.settings.mockQCount) S.settings.mockQCount=20;
+  if(!S.settings.mainQCount) S.settings.mainQCount=50;
 }
 function saveState(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){} }
 
