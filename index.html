@@ -795,15 +795,27 @@ tbody tr:hover td{background:var(--cream)}
 <div class="modal-overlay hidden" id="modal-add-student">
   <div class="modal-box">
     <h3>Add New Student</h3>
-    <p>Fill in the student's details. A unique code will be auto-generated.</p>
-    <div class="field"><label>Full Name</label><input id="ns-name" placeholder="Student full name"></div>
-    <div class="field"><label>Course Enrolled</label>
-      <select id="ns-course"><option>Basic Computer Literacy</option><option>MS Office Suite</option><option>Data Analytics with Excel</option></select>
+    <p>Fill in the student details. The code is auto-generated.</p>
+    <div style="background:#f7f3e8;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:4px">Student Code</div>
+        <div id="ns-code-display" style="font-family:JetBrains Mono,monospace;font-size:20px;font-weight:700;color:#0F2744;letter-spacing:2px">Loading...</div>
+      </div>
+      <div style="width:36px;height:36px;background:#0F2744;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">&#127891;</div>
     </div>
-    <div class="field"><label>Generated Code</label><input id="ns-code" readonly></div>
+    <input type="hidden" id="ns-code">
+    <div class="field"><label>Full Name *</label><input id="ns-name" placeholder="e.g. Kwame Mensah"></div>
+    <div class="field"><label>Phone / WhatsApp</label><input id="ns-phone" placeholder="e.g. 0244123456" type="tel"></div>
+    <div class="field"><label>Course Enrolled *</label>
+      <select id="ns-course">
+        <option>Basic Computer Literacy</option>
+        <option>MS Office Suite</option>
+        <option>Data Analytics with Excel</option>
+      </select>
+    </div>
     <div id="ns-alert" style="margin-bottom:8px"></div>
     <div class="modal-actions">
-      <button class="btn btn-primary" onclick="saveStudent()">✓ Save Student</button>
+      <button class="btn btn-primary" onclick="saveStudent()">&#10003; Save Student</button>
       <button class="btn" onclick="closeModal('modal-add-student')">Cancel</button>
     </div>
   </div>
@@ -1741,12 +1753,32 @@ function openModal(id){document.getElementById(id).classList.remove('hidden');}
 function closeModal(id){document.getElementById(id).classList.add('hidden');}
 
 function openAddStudentModal(){
-  const year=new Date().getFullYear();
-  const num=String(S.students.length+1).padStart(3,'0');
-  document.getElementById('ns-code').value=`NTA-${year}-${num}`;
   document.getElementById('ns-name').value='';
+  document.getElementById('ns-phone').value='';
   document.getElementById('ns-alert').innerHTML='';
+  document.getElementById('ns-code-display').textContent='Generating...';
+  document.getElementById('ns-code').value='';
   openModal('modal-add-student');
+
+  // Get next code from API or generate locally
+  function setCode(code){
+    document.getElementById('ns-code').value=code;
+    document.getElementById('ns-code-display').textContent=code;
+  }
+
+  if(apiReady()){
+    api('/api/students/next-code')
+      .then(function(r){ setCode(r.code); })
+      .catch(function(){
+        var yr=new Date().getFullYear();
+        var num=String(S.students.length+1).padStart(3,'0');
+        setCode('NTA-'+yr+'-'+num);
+      });
+  } else {
+    var yr=new Date().getFullYear();
+    var num=String(S.students.length+1).padStart(3,'0');
+    setCode('NTA-'+yr+'-'+num);
+  }
 }
 
 function saveStudent(){
