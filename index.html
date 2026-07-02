@@ -299,6 +299,25 @@ tbody tr:hover td{background:var(--cream)}
   .q-review-opts{grid-template-columns:1fr}
 }
 
+/* ── FEES PANEL HELPERS ── */
+.form-card{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;padding:22px;margin-bottom:14px}
+.form-card h3{font-size:14px;font-weight:600;color:#0F2744;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #e5e0d5}
+.module-group{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;overflow:hidden}
+.module-group-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#0F2744;color:#fff;border-bottom:2px solid #C49A2A}
+.module-group-title{font-family:"Playfair Display",serif;font-size:15px;font-weight:600}
+.module-group-count{font-size:11px;background:rgba(255,255,255,.12);padding:4px 10px;border-radius:20px;color:rgba(255,255,255,.8)}
+.module-groups{display:grid;gap:14px}
+.alert-ok{background:#dcfce7;color:#166534;border:1px solid #bbf7d0;padding:9px 14px;border-radius:8px;font-size:13px}
+.alert-err{background:#fee2e2;color:#991b1b;border:1px solid #fecaca;padding:9px 14px;border-radius:8px;font-size:13px}
+.alert-info{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe;padding:9px 14px;border-radius:8px;font-size:13px}
+.code-pill{font-family:"JetBrains Mono",monospace;font-size:11px;background:#f7f3e8;padding:2px 6px;border-radius:4px;border:1px solid #e5e0d5}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6b7280;margin-bottom:6px}
+.field input,.field select{width:100%;border:1.5px solid #e5e0d5;border-radius:8px;padding:10px 12px;font-size:14px;font-family:"DM Sans",sans-serif;outline:none;color:#1a1a2e;transition:border-color .15s}
+.field input:focus,.field select:focus{border-color:#0F2744}
+
 /* ── RECEIPT MODAL ── */
 .receipt-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
 .receipt-overlay.open{opacity:1;pointer-events:all}
@@ -746,6 +765,18 @@ tbody tr:hover td{background:var(--cream)}
           <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:12px">💾 Save Settings</button>
         </div>
         <div class="settings-section">
+          <h3>&#127758; Backend API Connection</h3>
+          <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.6">Enter your Railway backend URL once deployed. Without this, data only saves on this browser.</p>
+          <div class="field">
+            <label>Railway API URL</label>
+            <input type="text" id="api-url-input" placeholder="https://nta-exam-backend.up.railway.app">
+          </div>
+          <div id="api-status" style="margin:8px 0"></div>
+          <button class="btn btn-primary" onclick="setAPIUrl()" style="margin-bottom:10px">Connect &amp; Test</button>
+          <p style="font-size:11px;color:#6b7280;margin-top:4px">Current: <code id="current-api-url" style="font-family:JetBrains Mono,monospace;font-size:11px"></code></p>
+        </div>
+
+        <div class="settings-section">
           <h3>Trainer Credentials</h3>
           <div class="two-col">
             <div class="field"><label>New Username</label><input id="s-t-user" placeholder="trainer"></div>
@@ -791,6 +822,23 @@ tbody tr:hover td{background:var(--cream)}
 
 <script>
 const STORE_KEY='nta_v3';
+
+// ── API CONFIG ─────────────────────────────────────
+// Replace PLACEHOLDER with your Railway URL after deployment
+var API_BASE = localStorage.getItem('NTA_API_BASE') || 'PLACEHOLDER';
+
+function api(path, opts) {
+  return fetch(API_BASE + path, Object.assign({
+    headers: { 'Content-Type': 'application/json' }
+  }, opts || {})).then(function(r) {
+    if (!r.ok) return r.json().then(function(e){ throw new Error(e.error || r.status); });
+    return r.json();
+  });
+}
+
+function apiReady() {
+  return API_BASE && API_BASE !== 'PLACEHOLDER';
+}
 
 const DEFAULT={
   trainer:{username:'trainer',password:'NkaySolutions2025'},
@@ -1105,29 +1153,52 @@ function loadState(){
       if(saved.settings) S.settings=Object.assign({},base.settings,saved.settings);
       if(saved.students&&saved.students.length) S.students=saved.students;
       if(saved.results) S.results=saved.results;
-      // Support both S.questions (this portal) and S.extraQ (legacy)
       if(saved.questions&&saved.questions.length) S.questions=saved.questions;
       else if(saved.extraQ&&saved.extraQ.length){
-        // Merge legacy extraQ into questions
         saved.extraQ.forEach(function(q){ if(!S.questions.find(function(x){return x.id===q.id;})) S.questions.push(q); });
       }
-    } else {
-      S=base;
-    }
+    } else { S=base; }
   }catch(e){ S=JSON.parse(JSON.stringify(DEFAULT)); }
-  // Safety guards — ensure all arrays exist
   if(!S.students) S.students=[];
   if(!S.results) S.results=[];
   if(!S.questions) S.questions=JSON.parse(JSON.stringify(DEFAULT.questions));
   if(!S.settings) S.settings=JSON.parse(JSON.stringify(DEFAULT.settings));
   if(!S.trainer) S.trainer=JSON.parse(JSON.stringify(DEFAULT.trainer));
-  // Compatibility: older saved data used mockQ/mainQ instead of mockQCount/mainQCount
   if(!S.settings.mockQCount && S.settings.mockQ) S.settings.mockQCount=S.settings.mockQ;
   if(!S.settings.mainQCount && S.settings.mainQ) S.settings.mainQCount=S.settings.mainQ;
   if(!S.settings.mockQCount) S.settings.mockQCount=20;
   if(!S.settings.mainQCount) S.settings.mainQCount=50;
 }
-function saveState(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){} }
+
+// ── SAVE STATE — writes to localStorage + API if available ──
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify(S)); }catch(e){}
+}
+
+// ── LOAD FROM API (called after login) ──
+function loadFromAPI(cb){
+  if(!apiReady()){ cb(); return; }
+  api('/api/load').then(function(data){
+    if(data.students)  S.students  = data.students;
+    if(data.results)   S.results   = data.results;
+    if(data.questions && data.questions.length) {
+      // Merge API extra questions with built-in questions
+      data.questions.forEach(function(q){
+        if(!S.questions.find(function(x){ return x.id===q.id; })) S.questions.push(q);
+      });
+    }
+    if(data.settings){
+      S.settings = Object.assign({}, S.settings, data.settings);
+      if(!S.settings.mockQCount) S.settings.mockQCount=20;
+      if(!S.settings.mainQCount) S.settings.mainQCount=50;
+    }
+    saveState();
+    cb();
+  }).catch(function(e){
+    console.warn('[API] loadFromAPI failed, using localStorage:', e.message);
+    cb();
+  });
+}
 
 function goto(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1149,16 +1220,44 @@ function showNav(name){ document.getElementById('nav-user').textContent=name; do
 
 // ── STUDENT LOGIN ──
 function studentLogin(){
-  const code=document.getElementById('s-code').value.trim().toUpperCase();
-  const name=document.getElementById('s-name').value.trim();
-  const err=document.getElementById('s-err');
-  const student=S.students.find(s=>s.code===code);
-  if(!student){err.style.display='block';return;}
+  var code=document.getElementById('s-code').value.trim().toUpperCase();
+  var err=document.getElementById('s-err');
   err.style.display='none';
-  currentUser={...student,enteredName:name||student.name};
-  showNav(currentUser.name);
-  renderStudentDash();
-  goto('page-student-dash');
+  if(!code){ err.style.display='block'; return; }
+
+  function doLogin(student){
+    if(!student){ err.style.display='block'; return; }
+    currentUser=Object.assign({},student);
+    showNav(currentUser.name);
+    // Load this student's results from API
+    if(apiReady()){
+      api('/api/results/student/'+code).then(function(results){
+        // Merge into S.results
+        results.forEach(function(r){
+          if(!S.results.find(function(x){ return x.id===r.id; })) S.results.push(r);
+        });
+        saveState();
+        renderStudentDash();
+        goto('page-student-dash');
+      }).catch(function(){ renderStudentDash(); goto('page-student-dash'); });
+    } else {
+      renderStudentDash();
+      goto('page-student-dash');
+    }
+  }
+
+  // Try API first, fallback to localStorage
+  if(apiReady()){
+    api('/api/auth/student',{method:'POST',body:JSON.stringify({code:code})})
+      .then(function(r){ doLogin(r.student); })
+      .catch(function(){
+        var student=S.students.find(function(s){ return s.code===code; });
+        doLogin(student||null);
+      });
+  } else {
+    var student=S.students.find(function(s){ return s.code===code; });
+    doLogin(student||null);
+  }
 }
 
 function renderStudentDash(){
@@ -1323,6 +1422,19 @@ function submitExam(){
     date:new Date().toLocaleDateString('en-GB')
   };
   S.results.push(result); saveState();
+  // POST result to API
+  if(apiReady()){
+    api('/api/results',{method:'POST',body:JSON.stringify({
+      id:result.id, studentCode:result.studentCode,
+      studentName:result.studentName,
+      course:result.course, exam:result.exam,
+      pct:result.pct, earned:result.earned, total:result.total,
+      grade:result.grade, gradeLabel:result.gradeLabel,
+      breakdown:result.breakdown,
+      hasShort:result.hasShort, released:result.released,
+      date:result.date
+    })}).catch(function(e){ console.warn('[API] result save failed:',e.message); });
+  }
   showResults(result,false);
 }
 
@@ -1389,12 +1501,31 @@ function showResults(result,isReview){
 
 // ── TRAINER ──
 function trainerLogin(){
-  const u=document.getElementById('t-user').value.trim(),p=document.getElementById('t-pass').value.trim();
-  const err=document.getElementById('t-err');
-  if(u!==S.trainer.username||p!==S.trainer.password){err.style.display='block';return;}
+  var u=document.getElementById('t-user').value.trim();
+  var p=document.getElementById('t-pass').value.trim();
+  var err=document.getElementById('t-err');
   err.style.display='none';
-  showNav('Trainer: '+u);
-  renderOverview(); goto('page-trainer');
+
+  function doTrainerLogin(){
+    showNav('Trainer: '+u);
+    loadFromAPI(function(){
+      renderOverview();
+      goto('page-trainer');
+    });
+  }
+
+  if(apiReady()){
+    api('/api/auth/trainer',{method:'POST',body:JSON.stringify({username:u,password:p})})
+      .then(function(){ doTrainerLogin(); })
+      .catch(function(){
+        // Fallback to local check
+        if(u!==S.trainer.username||p!==S.trainer.password){ err.style.display='block'; return; }
+        doTrainerLogin();
+      });
+  } else {
+    if(u!==S.trainer.username||p!==S.trainer.password){ err.style.display='block'; return; }
+    doTrainerLogin();
+  }
 }
 
 function showTab(name){
@@ -1458,8 +1589,20 @@ function renderResultsTable(){
 }
 
 function releaseResult(id){
-  const r=S.results.find(r=>r.id===id);
-  if(r){r.released=true;saveState();renderResultsTable();renderOverview();}
+  if(apiReady()){
+    api('/api/results/'+id+'/release',{method:'PUT'})
+      .then(function(){
+        var r=S.results.find(function(x){ return x.id===id; });
+        if(r) r.released=true;
+        saveState(); renderResultsTable(); renderOverview();
+      }).catch(function(){
+        var r=S.results.find(function(x){ return x.id===id; });
+        if(r){r.released=true; saveState(); renderResultsTable(); renderOverview();}
+      });
+  } else {
+    var r=S.results.find(function(x){ return x.id===id; });
+    if(r){r.released=true; saveState(); renderResultsTable(); renderOverview();}
+  }
 }
 
 function renderReviewQ(){
@@ -1500,12 +1643,18 @@ function renderReviewQ(){
 
 function delQuestion(id){
   if(!confirm('Delete this question permanently?')) return;
-  S.questions=S.questions.filter(q=>q.id!==id);
+  if(apiReady()){
+    api('/api/questions/'+id,{method:'DELETE'}).catch(function(){});
+  }
+  S.questions=S.questions.filter(function(q){ return q.id!==id; });
   saveState(); renderReviewQ();
 }
 function delStudent(code){
   if(!confirm('Delete this student?')) return;
-  S.students=S.students.filter(s=>s.code!==code);
+  if(apiReady()){
+    api('/api/students/'+code,{method:'DELETE'}).catch(function(){});
+  }
+  S.students=S.students.filter(function(s){ return s.code!==code; });
   saveState(); renderStudentsTable();
 }
 
@@ -1544,10 +1693,20 @@ function addQuestion(){
   } else {
     correct=document.getElementById('short-ans').value;
   }
-  const newQ={id:'q'+Date.now(),course,exam,type,question:q,...((type==='mcq'||type==='word')?{options}:{}),correct,marks};
+  var newQ={id:'q'+Date.now(),course:course,exam:exam,type:type,question:q,correct:correct,marks:marks};
+  if(options) newQ.options=options;
   if(scenario&&type==='word') newQ.scenario=scenario;
-  S.questions.push(newQ); saveState();
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Question added successfully!</div>`;
+
+  function onQAdded(){
+    S.questions.push(newQ); saveState();
+    alertEl.innerHTML='<div class="alert alert-success">&#10003; Question added successfully!</div>';
+  }
+
+  if(apiReady()){
+    api('/api/questions',{method:'POST',body:JSON.stringify(newQ)})
+      .then(function(saved){ newQ=saved; onQAdded(); })
+      .catch(function(){ onQAdded(); });
+  } else { onQAdded(); }
   document.getElementById('nq-question').value='';
   document.getElementById('nq-scenario').value='';
   document.querySelectorAll('input[name="corr"]').forEach(r=>r.checked=false);
@@ -1591,18 +1750,39 @@ function openAddStudentModal(){
 }
 
 function saveStudent(){
-  const name=document.getElementById('ns-name').value.trim();
-  const code=document.getElementById('ns-code').value.trim();
-  const course=document.getElementById('ns-course').value;
-  const alertEl=document.getElementById('ns-alert');
-  if(!name){alertEl.innerHTML=`<div class="alert alert-danger">Please enter the student name.</div>`;return;}
-  S.students.push({code,name,course,registered:new Date().toLocaleDateString('en-GB')});
-  saveState();renderStudentsTable();
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Added! Code: <strong>${code}</strong></div>`;
-  setTimeout(()=>closeModal('modal-add-student'),2000);
+  var name=document.getElementById('ns-name').value.trim();
+  var code=document.getElementById('ns-code').value.trim().toUpperCase();
+  var phone=document.getElementById('ns-phone')?document.getElementById('ns-phone').value.trim():'';
+  var course=document.getElementById('ns-course').value;
+  var courses=[];
+  document.querySelectorAll('#ns-courses input:checked').forEach(function(inp){ courses.push(inp.value); });
+  if(!courses.length) courses=[course];
+  var alertEl=document.getElementById('ns-alert');
+  if(!name){alertEl.innerHTML='<div class="alert alert-danger">Please enter the student name.</div>';return;}
+
+  var studentData={code:code,name:name,phone:phone,course:courses[0],courses:courses,registered:new Date().toLocaleDateString('en-GB')};
+
+  function onSaved(){
+    S.students.push(studentData);
+    saveState(); renderStudentsTable();
+    alertEl.innerHTML='<div class="alert alert-success">&#10003; Added! Code: <strong>'+code+'</strong></div>';
+    setTimeout(function(){ closeModal('modal-add-student'); },2000);
+  }
+
+  if(apiReady()){
+    api('/api/students',{method:'POST',body:JSON.stringify(studentData)})
+      .then(function(saved){ studentData=saved; onSaved(); })
+      .catch(function(e){
+        alertEl.innerHTML='<div class="alert alert-danger">Error: '+e.message+'</div>';
+      });
+  } else { onSaved(); }
 }
 
 function loadSettingsForm(){
+  var urlEl=document.getElementById('current-api-url');
+  if(urlEl) urlEl.textContent=API_BASE && API_BASE!=='PLACEHOLDER'?API_BASE:'Not connected (localStorage only)';
+  var apiInput=document.getElementById('api-url-input');
+  if(apiInput && API_BASE && API_BASE!=='PLACEHOLDER') apiInput.value=API_BASE;
   const s=S.settings;
   document.getElementById('s-dist').value=s.gradeDist;
   document.getElementById('s-merit').value=s.gradeMerit;
@@ -1624,18 +1804,44 @@ function saveSettings(){
   S.settings.mainQCount=parseInt(document.getElementById('s-main-q').value)||50;
   S.settings.autoRelease=document.getElementById('s-autorelease').checked;
   saveState();
-  const alertEl=document.getElementById('settings-alert');
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Settings saved.</div>`;
-  setTimeout(()=>{alertEl.innerHTML='';},2500);
+  var alertEl=document.getElementById('settings-alert');
+  if(apiReady()){
+    api('/api/settings',{method:'PUT',body:JSON.stringify(S.settings)})
+      .then(function(){ alertEl.innerHTML='<div class="alert alert-success">&#10003; Settings saved.</div>'; setTimeout(function(){alertEl.innerHTML='';},2500); })
+      .catch(function(){ alertEl.innerHTML='<div class="alert alert-success">&#10003; Settings saved locally.</div>'; setTimeout(function(){alertEl.innerHTML='';},2500); });
+  } else {
+    alertEl.innerHTML='<div class="alert alert-success">&#10003; Settings saved.</div>';
+    setTimeout(function(){alertEl.innerHTML='';},2500);
+  }
+}
+
+// ── SET API URL (trainer calls this once after deployment) ──
+function setAPIUrl(){
+  var url=document.getElementById('api-url-input').value.trim().replace(/\/$/,'');
+  if(!url){ alert('Please enter the Railway URL'); return; }
+  localStorage.setItem('NTA_API_BASE', url);
+  API_BASE=url;
+  // Test connection
+  fetch(url+'/health').then(function(r){ return r.json(); })
+    .then(function(d){
+      document.getElementById('api-status').innerHTML='<div class="alert alert-ok">&#10003; Connected! DB: '+d.db+'</div>';
+      // Reload all data from API
+      loadFromAPI(function(){ renderOverview(); });
+    }).catch(function(e){
+      document.getElementById('api-status').innerHTML='<div class="alert alert-err">&#10007; Cannot connect: '+e.message+'</div>';
+    });
 }
 
 function saveCredentials(){
   const u=document.getElementById('s-t-user').value.trim(),p=document.getElementById('s-t-pass').value.trim();
   const alertEl=document.getElementById('cred-alert');
   if(!u||!p){alertEl.innerHTML=`<div class="alert alert-danger">Both fields required.</div>`;return;}
-  S.trainer={username:u,password:p};saveState();
-  alertEl.innerHTML=`<div class="alert alert-success">✓ Credentials updated.</div>`;
-  setTimeout(()=>{alertEl.innerHTML='';},2500);
+  S.trainer={username:u,password:p}; saveState();
+  if(apiReady()){
+    api('/api/auth/trainer',{method:'PUT',body:JSON.stringify({username:u,password:p})}).catch(function(){});
+  }
+  alertEl.innerHTML='<div class="alert alert-success">&#10003; Credentials updated.</div>';
+  setTimeout(function(){alertEl.innerHTML='';},2500);
 }
 
 document.querySelectorAll('.modal-overlay').forEach(el=>{
@@ -1751,17 +1957,25 @@ function recordFee(){
   var sendSms = document.getElementById('fe-sms').checked;
   var entry={amount:amount,date:date,total:total,balance:balance,smsStatus:sendSms?'sending':'skipped'};
   s.payments.push(entry);
-  saveS();
+  saveState();
   renderFeeHistory();
   updateFeeSummary();
   al.innerHTML='<div class="alert alert-ok">&#10003; Payment of '+formatGHS(amount)+' recorded. Balance: '+formatGHS(balance)+'</div>';
+  // POST payment to API
+  if(apiReady()){
+    api('/api/students/'+code+'/payment',{method:'POST',body:JSON.stringify({
+      amount:amount, total:total, method:document.getElementById('fe-method').value||'Cash', sendSms:sendSms
+    })}).then(function(r){
+      if(r.student) { Object.assign(s, r.student); saveState(); renderFeeHistory(); }
+    }).catch(function(){});
+  }
   if(sendSms){
-    if(!phone){entry.smsStatus='no phone';saveS();renderFeeHistory();return;}
+    if(!phone){entry.smsStatus='no phone';saveState();renderFeeHistory();return;}
     var cs = s.courses&&s.courses.length?s.courses:[s.course];
     var msg='Hello '+s.name+', we have received '+formatGHS(amount)+' towards your NkaySolutions Tech Academy fees ('+(cs[0]||'')+'). Total Paid: '+formatGHS(paidTotal)+'. Balance: '+formatGHS(balance)+'. Thank you!';
     sendMnotifySMS(phone,msg).then(function(r){
       entry.smsStatus=r.ok?'sent':'failed';
-      saveS(); renderFeeHistory();
+      saveState(); renderFeeHistory();
     });
   }
   document.getElementById('fe-amount').value='';
