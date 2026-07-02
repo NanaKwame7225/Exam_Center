@@ -1867,6 +1867,13 @@ function normalizePhone(p){
 }
 
 function sendMnotifySMS(phone, message){
+  // Route through backend to avoid browser CORS blocks
+  if(apiReady()){
+    return api('/api/sms',{method:'POST',body:JSON.stringify({phone:phone,message:message})})
+      .then(function(r){ return {ok:r.ok}; })
+      .catch(function(e){ return {ok:false,err:String(e)}; });
+  }
+  // Fallback: direct call (may be blocked by browser)
   var to = normalizePhone(phone);
   if(!to) return Promise.resolve({ok:false,err:'No phone'});
   var url = 'https://apps.mnotify.net/smsapi?key='+encodeURIComponent(MNOTIFY_KEY)
