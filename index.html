@@ -825,7 +825,7 @@ const STORE_KEY='nta_v3';
 
 // ── API CONFIG ─────────────────────────────────────
 // Replace PLACEHOLDER with your Railway URL after deployment
-var API_BASE = localStorage.getItem('NTA_API_BASE') || 'PLACEHOLDER';
+var API_BASE = localStorage.getItem('NTA_API_BASE') || 'https://nta-exam-backend-production.up.railway.app';
 
 function api(path, opts) {
   return fetch(API_BASE + path, Object.assign({
