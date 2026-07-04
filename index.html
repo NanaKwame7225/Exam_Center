@@ -785,6 +785,46 @@ tbody tr:hover td{background:var(--cream)}
           <div id="cred-alert" style="margin-top:4px"></div>
           <button class="btn" onclick="saveCredentials()" style="margin-top:8px">🔒 Update Credentials</button>
         </div>
+
+        <div class="settings-section" style="border-color:#fecaca;background:#fffbfb">
+          <h3 style="color:#991b1b;border-bottom-color:#fecaca">&#9888;&#65039; Danger Zone &mdash; Admin Reset</h3>
+          <p style="font-size:13px;color:#6b7280;margin-bottom:16px;line-height:1.6">These actions permanently affect all records across every device. Use with caution &mdash; they cannot be undone.</p>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px">
+                <div style="font-weight:600;font-size:13px;color:#0F2744">Zero All Payment Records</div>
+                <div style="font-size:12px;color:#6b7280">Clears every recorded amount and total fee back to zero for all students.</div>
+              </div>
+              <button class="btn btn-danger" onclick="adminResetPayments()">Zero Payments</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px">
+                <div style="font-weight:600;font-size:13px;color:#0F2744">Delete All Students &amp; Reset ID Counter</div>
+                <div style="font-size:12px;color:#6b7280">Removes all students. Next student code starts fresh from NTA-2026-001.</div>
+              </div>
+              <button class="btn btn-danger" onclick="adminResetStudents()">Delete All Students</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px">
+                <div style="font-weight:600;font-size:13px;color:#0F2744">Delete All Exam Results</div>
+                <div style="font-size:12px;color:#6b7280">Removes every submitted exam result from the system.</div>
+              </div>
+              <button class="btn btn-danger" onclick="adminResetResults()">Delete All Results</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#0F2744;border-radius:8px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px">
+                <div style="font-weight:600;font-size:13px;color:#fff">Full Factory Reset</div>
+                <div style="font-size:12px;color:rgba(255,255,255,.6)">Wipes all students, results and payments. Fresh start. Keeps your settings and login.</div>
+              </div>
+              <button class="btn btn-gold" onclick="adminFactoryReset()">Factory Reset</button>
+            </div>
+          </div>
+          <div id="admin-reset-alert" style="margin-top:12px"></div>
+        </div>
       </div>
 
     </main>
@@ -1862,6 +1902,66 @@ function setAPIUrl(){
     }).catch(function(e){
       document.getElementById('api-status').innerHTML='<div class="alert alert-err">&#10007; Cannot connect: '+e.message+'</div>';
     });
+}
+
+// ── ADMIN RESET FUNCTIONS ──
+function showResetAlert(msg, ok){
+  var el=document.getElementById('admin-reset-alert');
+  el.innerHTML='<div class="alert '+(ok?'alert-success':'alert-danger')+'">'+msg+'</div>';
+  setTimeout(function(){ el.innerHTML=''; },4000);
+}
+
+function adminResetPayments(){
+  if(!confirm('Zero ALL payment records for every student? This cannot be undone.')) return;
+  if(!apiReady()){ showResetAlert('Backend not connected.', false); return; }
+  api('/api/admin/reset-payments',{method:'POST'})
+    .then(function(r){
+      S.students.forEach(function(s){ s.payments=[]; s.totalFee=0; });
+      saveState();
+      if(typeof renderFeeHistory==='function') renderFeeHistory();
+      showResetAlert('&#10003; All payment records cleared to zero.', true);
+    }).catch(function(e){ showResetAlert('Error: '+e.message, false); });
+}
+
+function adminResetStudents(){
+  if(!confirm('Delete ALL students and reset the ID counter to NTA-2026-001? This cannot be undone.')) return;
+  if(!confirm('Are you absolutely sure? Every student record will be permanently deleted.')) return;
+  if(!apiReady()){ showResetAlert('Backend not connected.', false); return; }
+  api('/api/admin/reset-students',{method:'POST'})
+    .then(function(r){
+      S.students=[];
+      saveState();
+      renderStudentsTable();
+      renderOverview();
+      showResetAlert('&#10003; '+r.deleted+' students deleted. ID counter reset to default.', true);
+    }).catch(function(e){ showResetAlert('Error: '+e.message, false); });
+}
+
+function adminResetResults(){
+  if(!confirm('Delete ALL exam results? This cannot be undone.')) return;
+  if(!apiReady()){ showResetAlert('Backend not connected.', false); return; }
+  api('/api/admin/reset-results',{method:'POST'})
+    .then(function(r){
+      S.results=[];
+      saveState();
+      renderResultsTable();
+      renderOverview();
+      showResetAlert('&#10003; '+r.deleted+' results deleted.', true);
+    }).catch(function(e){ showResetAlert('Error: '+e.message, false); });
+}
+
+function adminFactoryReset(){
+  if(!confirm('FULL FACTORY RESET — this deletes all students, results and payments. Continue?')) return;
+  if(!confirm('This is your final warning. Everything except settings and login will be wiped. Proceed?')) return;
+  if(!apiReady()){ showResetAlert('Backend not connected.', false); return; }
+  api('/api/admin/factory-reset',{method:'POST'})
+    .then(function(r){
+      S.students=[]; S.results=[];
+      saveState();
+      renderStudentsTable(); renderResultsTable(); renderOverview();
+      if(typeof renderFeeHistory==='function') renderFeeHistory();
+      showResetAlert('&#10003; '+r.message, true);
+    }).catch(function(e){ showResetAlert('Error: '+e.message, false); });
 }
 
 function saveCredentials(){
