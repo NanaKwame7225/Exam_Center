@@ -1694,12 +1694,18 @@ function delQuestion(id){
   saveState(); renderReviewQ();
 }
 function delStudent(code){
-  if(!confirm('Delete this student?')) return;
+  if(!confirm('Delete this student? This permanently removes their record, results and payments. The ID will NOT be reused.')) return;
   if(apiReady()){
     api('/api/students/'+code,{method:'DELETE'}).catch(function(){});
   }
+  // Remove student AND all their results/payments locally so a
+  // future student never inherits stale data under a shared code
   S.students=S.students.filter(function(s){ return s.code!==code; });
-  saveState(); renderStudentsTable();
+  S.results=S.results.filter(function(r){ return (r.studentCode||r.sc)!==code; });
+  saveState();
+  renderStudentsTable();
+  if(typeof renderOverview==='function') renderOverview();
+  if(typeof renderResultsTable==='function') renderResultsTable();
 }
 
 // ── ADD QUESTION ──
@@ -1826,16 +1832,18 @@ function saveStudent(){
 
   var studentData={code:code,name:name,phone:phone,course:courses[0],courses:courses,registered:new Date().toLocaleDateString('en-GB')};
 
-  function onSaved(){
-    S.students.push(studentData);
-    saveState(); renderStudentsTable();
-    alertEl.innerHTML='<div class="alert alert-success">&#10003; Added! Code: <strong>'+code+'</strong></div>';
+  function onSaved(rec){
+    // Use the record the backend actually stored (with its assigned code)
+    var saved=rec||studentData;
+    S.students.push(saved);
+    saveState(); renderStudentsTable(); if(typeof renderOverview==='function') renderOverview();
+    alertEl.innerHTML='<div class="alert alert-success">&#10003; Added! Code: <strong>'+(saved.code||code)+'</strong></div>';
     setTimeout(function(){ closeModal('modal-add-student'); },2000);
   }
 
   if(apiReady()){
     api('/api/students',{method:'POST',body:JSON.stringify(studentData)})
-      .then(function(saved){ studentData=saved; onSaved(); })
+      .then(function(saved){ onSaved(saved); })
       .catch(function(e){
         alertEl.innerHTML='<div class="alert alert-danger">Error: '+e.message+'</div>';
       });
