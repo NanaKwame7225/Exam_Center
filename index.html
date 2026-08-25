@@ -361,6 +361,16 @@ tbody tr:hover td{background:var(--cream)}
   .rec-actions,.receipt-modal-head,.rec-form-grid,.rec-field,#rec-post-actions .btn,#rec-sms-alert,.no-print{display:none!important}
 }
 
+
+.pass-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+.pass-row:last-child{border-bottom:none}
+.pass-row .pr-name{flex:1}
+.pass-row .pr-name strong{display:block;font-size:13px;color:#0F2744}
+.pass-row .pr-name span{font-size:11px;color:#6b7280}
+.pass-row input[type=text]{border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;font-family:'JetBrains Mono',monospace;width:160px;outline:none;letter-spacing:1px}
+.pass-row input[type=text]:focus{border-color:#0F2744}
+.dice-btn{background:none;border:none;cursor:pointer;font-size:16px;padding:4px;line-height:1}
+
 </style>
 </head>
 <body>
@@ -733,6 +743,17 @@ tbody tr:hover td{background:var(--cream)}
       <div class="t-panel" id="tab-settings">
         <div class="t-page-title">System Settings</div>
         <div class="t-page-sub">Configure grading, timing and credentials</div>
+        <div class="settings-section">
+          <h3>&#128272; Exam Access Passwords</h3>
+          <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.6">
+            Set a password students must enter before starting each exam. Leave blank for open access.
+            Click &#127922; to auto-generate a random code.
+          </p>
+          <div id="pass-list"></div>
+          <div id="pass-alert" style="margin-top:8px"></div>
+          <button class="btn btn-primary" onclick="savePasswords()" style="margin-top:10px">&#128274; Save Passwords</button>
+        </div>
+
         <div class="settings-section">
           <h3>Grading Scale</h3>
           <div class="two-col">
@@ -1357,7 +1378,44 @@ function viewScript(resultId){
 }
 
 // ── EXAM ──
+// Track pending exam and pass attempts
+var pendingExam=null; var passAttempts=0;
+
 function startExam(examName){
+  var passKey=currentUser.course+'|'+examName;
+  var passwords=S.settings.examPasswords||{};
+  var required=passwords[passKey]||'';
+  if(required){
+    pendingExam=examName; passAttempts=0;
+    document.getElementById('ep-input').value='';
+    var errEl=document.getElementById('ep-err');
+    errEl.classList.add('hidden');
+    openModal('modal-exampass');
+    setTimeout(function(){ document.getElementById('ep-input').focus(); },100);
+  } else {
+    launchExam(examName);
+  }
+}
+
+function verifyPass(){
+  var input=document.getElementById('ep-input').value.trim().toUpperCase();
+  var passKey=currentUser.course+'|'+pendingExam;
+  var correct=((S.settings.examPasswords||{})[passKey]||'').toUpperCase();
+  passAttempts++;
+  var errEl=document.getElementById('ep-err');
+  if(input===correct){
+    closeModal('modal-exampass');
+    launchExam(pendingExam);
+  } else {
+    errEl.textContent=passAttempts>=3
+      ? 'Too many attempts. Contact your trainer.'
+      : 'Incorrect code. '+(3-passAttempts)+' attempt(s) left.';
+    errEl.classList.remove('hidden');
+    if(passAttempts>=3) setTimeout(function(){ closeModal('modal-exampass'); },2000);
+  }
+}
+
+function launchExam(examName){
   const isMain=examName==='Main Exam';
   const allQs=S.questions.filter(q=>q.course===currentUser.course&&q.exam===examName);
   const qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
@@ -1850,7 +1908,65 @@ function saveStudent(){
   } else { onSaved(); }
 }
 
+
+// ── EXAM PASSWORD FUNCTIONS ──
+function renderPassList(){
+  var courses=['Basic Computer Literacy','MS Office Suite','Data Analytics with Excel'];
+  var exams=['Mock 1','Mock 2','Main Exam'];
+  var passwords=S.settings.examPasswords||{};
+  var html='';
+  courses.forEach(function(c){
+    exams.forEach(function(ex){
+      // Only show if questions exist for this combo
+      var hasQ=S.questions.some(function(q){ return q.course===c && q.exam===ex; });
+      if(!hasQ) return;
+      var key=c+'|'+ex;
+      var val=passwords[key]||'';
+      html+='<div class="pass-row">'
+        +'<div class="pr-name"><strong>'+ex+'</strong><span>'+c+'</span></div>'
+        +'<input type="text" data-key="'+key+'" value="'+val+'" placeholder="No password" maxlength="10">'
+        +'<button class="dice-btn" data-k="'+key+'" onclick="genCode(this.dataset.k)" title="Generate random code">&#127922;</button>'
+        +'</div>';
+    });
+  });
+  document.getElementById('pass-list').innerHTML=html||'<p style="font-size:13px;color:#6b7280">No questions loaded yet.</p>';
+}
+
+function genCode(key){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var code='';
+  for(var i=0;i<6;i++) code+=chars[Math.floor(Math.random()*chars.length)];
+  var inp=document.querySelector('input[data-key="'+key+'"]');
+  if(inp) inp.value=code;
+}
+
+function savePasswords(){
+  var inputs=document.querySelectorAll('#pass-list input[data-key]');
+  if(!S.settings.examPasswords) S.settings.examPasswords={};
+  inputs.forEach(function(inp){
+    var key=inp.getAttribute('data-key');
+    var val=inp.value.trim().toUpperCase();
+    if(val) S.settings.examPasswords[key]=val;
+    else delete S.settings.examPasswords[key];
+  });
+  saveState();
+  if(apiReady()){
+    api('/api/settings',{method:'PUT',body:JSON.stringify(S.settings)})
+      .then(function(){
+        document.getElementById('pass-alert').innerHTML='<div class="alert alert-success">&#10003; Passwords saved.</div>';
+        setTimeout(function(){ document.getElementById('pass-alert').innerHTML=''; },2500);
+      }).catch(function(){
+        document.getElementById('pass-alert').innerHTML='<div class="alert alert-success">&#10003; Passwords saved locally.</div>';
+        setTimeout(function(){ document.getElementById('pass-alert').innerHTML=''; },2500);
+      });
+  } else {
+    document.getElementById('pass-alert').innerHTML='<div class="alert alert-success">&#10003; Passwords saved.</div>';
+    setTimeout(function(){ document.getElementById('pass-alert').innerHTML=''; },2500);
+  }
+}
+
 function loadSettingsForm(){
+  renderPassList();
   var urlEl=document.getElementById('current-api-url');
   if(urlEl) urlEl.textContent=API_BASE && API_BASE!=='PLACEHOLDER'?API_BASE:'Not connected (localStorage only)';
   var apiInput=document.getElementById('api-url-input');
@@ -2377,6 +2493,28 @@ function sendReceiptSMS(){
         </div>
         <div id="rec-sms-alert" style="margin-top:8px;font-size:13px;padding:9px 14px;border-radius:8px;display:none"></div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- EXAM PASSWORD MODAL -->
+<div class="modal-overlay hidden" id="modal-exampass">
+  <div class="modal-box" style="max-width:380px">
+    <h3>&#128272; Exam Access Code</h3>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:16px;line-height:1.6">
+      Your trainer has set an access code for this exam. Enter it below to begin.
+    </p>
+    <div class="field">
+      <label>Access Code</label>
+      <input type="text" id="ep-input" placeholder="Enter code"
+        style="text-align:center;font-family:JetBrains Mono,monospace;font-size:20px;letter-spacing:4px;text-transform:uppercase"
+        maxlength="10" onkeydown="if(event.key==='Enter')verifyPass()">
+    </div>
+    <div id="ep-err" class="alert alert-danger hidden" style="margin-bottom:10px"></div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="verifyPass()">&#128275; Unlock &amp; Start</button>
+      <button class="btn" onclick="closeModal('modal-exampass')">Cancel</button>
     </div>
   </div>
 </div>
