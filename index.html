@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NkaySolutions Tech Academy — Exam Portal</title>
-<link href="[https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap)" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -30,7 +30,6 @@ button{cursor:pointer}
 code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--cream2);padding:2px 6px;border-radius:4px;border:1px solid var(--border)}
 .page{display:none;min-height:100vh}
 .page.active{display:block}
-<br>
 /* NAV */
 .nav{background:var(--navy);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold)}
 .nav-brand{display:flex;align-items:center;gap:12px}
@@ -41,7 +40,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .nav-user-pill{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.85);font-weight:500}
 .btn-logout{background:transparent;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);padding:6px 14px;border-radius:8px;font-size:12px;display:flex;align-items:center;gap:6px;transition:all 0.15s}
 .btn-logout:hover{background:rgba(255,255,255,0.1);color:white}
-<br>
 /* LOGIN PAGE */
 .login-shell{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
 .login-left{background:var(--navy);position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:48px;overflow:hidden}
@@ -87,7 +85,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .field textarea{height:90px;resize:vertical;line-height:1.5}
 .field input[readonly]{background:var(--cream2);color:var(--text-muted)}
 .err-msg{font-size:12px;color:var(--danger);margin-top:8px;padding:8px 12px;background:var(--danger-bg);border-radius:8px;border:1px solid var(--danger-border);display:none}
-<br>
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:var(--radius);border:1.5px solid var(--border);background:white;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;transition:all 0.15s}
 .btn:hover{background:var(--cream2);border-color:var(--border-dark)}
@@ -102,7 +99,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
 .btn-full{width:100%}
 .btn-icon{width:32px;height:32px;padding:0;border-radius:8px}
-<br>
 /* ALERTS & BADGES */
 .alert{padding:10px 14px;border-radius:var(--radius);font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .alert-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border)}
@@ -119,7 +115,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .badge-tf{background:#E0F2FE;color:#0369A1}
 .badge-short{background:#FEF9C3;color:#854D0E}
 .badge-word{background:#FCE7F3;color:#9D174D}
-<br>
 /* STUDENT DASHBOARD */
 .dash-shell{background:var(--cream);min-height:calc(100vh - 58px)}
 .dash-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:36px 40px 40px;border-bottom:2px solid var(--gold)}
@@ -144,7 +139,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .ec-score.pass{background:var(--success-bg);color:var(--success)}
 .ec-score.fail{background:var(--danger-bg);color:var(--danger)}
 .ec-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-<br>
 /* EXAM TAKING */
 .exam-shell{background:var(--cream2);min-height:calc(100vh - 58px)}
 .exam-topbar{background:white;border-bottom:1.5px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:58px;z-index:50}
@@ -186,7 +180,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .short-field{width:100%;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;font-size:14px;line-height:1.6;color:var(--text);resize:vertical;min-height:120px;outline:none;transition:border-color 0.15s}
 .short-field:focus{border-color:var(--navy)}
 .exam-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-<br>
 /* RESULTS */
 .results-shell{background:var(--cream);min-height:calc(100vh - 58px)}
 .result-hero{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:40px;border-bottom:2px solid var(--gold);text-align:center}
@@ -217,7 +210,6 @@ code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--crea
 .rev-result-pending{font-size:12px;font-weight:600;color:var(--warning)}
 .pending-notice{background:var(--warning-bg);border:1px solid var(--warning-border);border-radius:var(--radius);padding:14px 18px;margin:12px 0;font-size:13px;color:var(--warning);line-height:1.6}
 .locked-notice{background:var(--cream2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;color:var(--text-muted);font-size:14px}
-<br>
 /* TRAINER PANEL */
 .trainer-shell{background:var(--cream2);min-height:calc(100vh - 58px)}
 .trainer-sidebar{width:220px;background:var(--navy);min-height:calc(100vh - 58px);position:fixed;top:58px;left:0;padding:20px 0;border-right:2px solid var(--gold)}
@@ -247,7 +239,6 @@ tbody tr:hover td{background:var(--cream)}
 .stat-card .s-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px}
 .stat-card .s-val{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy)}
 .stat-card .s-sub{font-size:12px;color:var(--text-muted);margin-top:4px}
-<br>
 /* QUESTION REVIEW (Trainer) */
 .q-review-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
 .q-review-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
@@ -258,7 +249,6 @@ tbody tr:hover td{background:var(--cream)}
 .q-review-opt{padding:8px 12px;border-radius:8px;font-size:13px;border:1px solid var(--border);background:var(--cream)}
 .q-review-opt.correct-opt{background:var(--success-bg);border-color:var(--success-border);color:var(--success);font-weight:600}
 .q-review-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-<br>
 /* QUESTION BUILDER */
 .q-builder-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
 .q-builder-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
@@ -278,7 +268,6 @@ tbody tr:hover td{background:var(--cream)}
 .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
 .toggle-row label{font-size:14px;color:var(--text)}
 .toggle-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--navy);cursor:pointer}
-<br>
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:24px;animation:fadeIn 0.15s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -287,7 +276,6 @@ tbody tr:hover td{background:var(--cream)}
 .modal-box h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px}
 .modal-box p{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6}
 .modal-actions{display:flex;gap:10px;margin-top:16px}
-<br>
 @media(max-width:768px){
   .trainer-sidebar{display:none}
   .trainer-main{margin-left:0;padding:20px 16px}
@@ -298,7 +286,6 @@ tbody tr:hover td{background:var(--cream)}
   .two-col,.three-col{grid-template-columns:1fr}
   .q-review-opts{grid-template-columns:1fr}
 }
-<br>
 /* ── FEES PANEL HELPERS ── */
 .form-card{background:#fff;border:1.5px solid #e5e0d5;border-radius:12px;padding:22px;margin-bottom:14px}
 .form-card h3{font-size:14px;font-weight:600;color:#0F2744;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #e5e0d5}
@@ -311,7 +298,6 @@ tbody tr:hover td{background:var(--cream)}
 .alert-err{background:#fee2e2;color:#991b1b;border:1px solid #fecaca;padding:9px 14px;border-radius:8px;font-size:13px}
 .alert-info{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe;padding:9px 14px;border-radius:8px;font-size:13px}
 .code-pill{font-family:"JetBrains Mono",monospace;font-size:11px;background:#f7f3e8;padding:2px 6px;border-radius:4px;border:1px solid #e5e0d5}
-<br>
 /* ── RECEIPT MODAL ── */
 .receipt-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
 .receipt-overlay.open{opacity:1;pointer-events:all}
@@ -360,8 +346,6 @@ tbody tr:hover td{background:var(--cream)}
   .printable-receipt{position:fixed!important;inset:0!important;display:block!important;margin:0!important;border:none!important}
   .rec-actions,.receipt-modal-head,.rec-form-grid,.rec-field,#rec-post-actions .btn,#rec-sms-alert,.no-print{display:none!important}
 }
-<br>
-<br>
 .pass-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
 .pass-row:last-child{border-bottom:none}
 .pass-row .pr-name{flex:1}
@@ -370,11 +354,9 @@ tbody tr:hover td{background:var(--cream)}
 .pass-row input[type=text]{border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;font-family:'JetBrains Mono',monospace;width:160px;outline:none;letter-spacing:1px}
 .pass-row input[type=text]:focus{border-color:#0F2744}
 .dice-btn{background:none;border:none;cursor:pointer;font-size:16px;padding:4px;line-height:1}
-<br>
 </style>
 </head>
 <body>
-<br>
 <!-- NAV -->
 <nav class="nav hidden" id="main-nav">
   <div class="nav-brand">
@@ -389,11 +371,9 @@ tbody tr:hover td{background:var(--cream)}
     </button>
   </div>
 </nav>
-<br>
 <!-- LOGIN PAGE (unified) -->
 <div class="page active" id="page-landing">
   <div class="login-shell">
-<br>
     <!-- LEFT PANEL -->
     <div class="login-left">
       <div class="login-left-bg"></div>
@@ -406,15 +386,12 @@ tbody tr:hover td{background:var(--cream)}
         <div class="login-hero-tag">● Online Exam Portal</div>
         <h1 class="login-hero-h1">Digital Skills<span>Examination Centre</span></h1>
         <p class="login-hero-p">Accredited online examinations for Basic Computer Literacy, MS Office Suite, Data Analytics, and Business Applications & Automations. Access your portal using the tabs on the right.</p>
-<br>
       </div>
       <div class="login-left-footer">Scientia Est Potestas · Knowledge is Power. Skills are Freedom.</div>
     </div>
-<br>
     <!-- RIGHT PANEL -->
     <div class="login-right">
       <div class="login-right-inner">
-<br>
         <!-- Tab switcher -->
         <div class="login-tab-row">
           <button class="login-tab active" id="tab-btn-student" onclick="switchLoginTab('student')">
@@ -426,7 +403,6 @@ tbody tr:hover td{background:var(--cream)}
             Trainer
           </button>
         </div>
-<br>
         <!-- STUDENT FORM -->
         <div class="login-form active" id="form-student">
           <div class="login-form-title">Student Login</div>
@@ -450,7 +426,6 @@ tbody tr:hover td{background:var(--cream)}
             Format: <code>NTA-YYYY-###</code> e.g. <code>NTA-2025-001</code>
           </div>
         </div>
-<br>
         <!-- TRAINER FORM -->
         <div class="login-form" id="form-trainer">
           <div class="login-form-title">Trainer Login</div>
@@ -474,17 +449,14 @@ tbody tr:hover td{background:var(--cream)}
             Change your password in Settings after first login.
           </div>
         </div>
-<br>
         <div class="login-right-footer">
           NkaySolutions Tech Academy · Ablekuma Afuaman, Accra<br>
           © 2025 · All rights reserved
         </div>
       </div>
     </div>
-<br>
   </div>
 </div>
-<br>
 <!-- STUDENT DASHBOARD -->
 <div class="page" id="page-student-dash">
   <div class="dash-shell">
@@ -504,7 +476,6 @@ tbody tr:hover td{background:var(--cream)}
     </div>
   </div>
 </div>
-<br>
 <!-- EXAM PAGE -->
 <div class="page" id="page-exam">
   <div class="exam-shell">
@@ -525,7 +496,6 @@ tbody tr:hover td{background:var(--cream)}
     </div>
   </div>
 </div>
-<br>
 <!-- RESULTS PAGE -->
 <div class="page" id="page-results">
   <div class="results-shell">
@@ -545,7 +515,6 @@ tbody tr:hover td{background:var(--cream)}
     </div>
   </div>
 </div>
-<br>
 <!-- TRAINER PANEL -->
 <div class="page" id="page-trainer">
   <div class="trainer-shell">
@@ -580,7 +549,6 @@ tbody tr:hover td{background:var(--cream)}
       </div>
     </aside>
     <main class="trainer-main">
-<br>
       <!-- OVERVIEW -->
       <div class="t-panel active" id="tab-overview">
         <div class="t-page-title">Dashboard</div>
@@ -589,7 +557,6 @@ tbody tr:hover td{background:var(--cream)}
         <div class="section-head" style="margin-bottom:12px">Recent Results</div>
         <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Date</th><th>Status</th></tr></thead><tbody id="recent-results-table"></tbody></table></div>
       </div>
-<br>
       <!-- STUDENTS -->
       <div class="t-panel" id="tab-students">
         <div class="t-toolbar">
@@ -598,7 +565,6 @@ tbody tr:hover td{background:var(--cream)}
         </div>
         <div class="card-table"><table><thead><tr><th>Code</th><th>Name</th><th>Course</th><th>Registered</th><th>Exams</th><th>Del</th></tr></thead><tbody id="students-tbody"></tbody></table></div>
       </div>
-<br>
       <!-- RESULTS -->
       <div class="t-panel" id="tab-results">
         <div class="t-page-title">Exam Results</div>
@@ -610,7 +576,6 @@ tbody tr:hover td{background:var(--cream)}
         </div>
         <div class="card-table"><table><thead><tr><th>Student</th><th>Course</th><th>Exam</th><th>Score</th><th>Grade</th><th>Date</th><th>Action</th></tr></thead><tbody id="results-tbody"></tbody></table></div>
       </div>
-<br>
       <!-- REVIEW QUESTIONS -->
       <div class="t-panel" id="tab-review-q">
         <div class="t-page-title">Review Questions</div>
@@ -623,7 +588,6 @@ tbody tr:hover td{background:var(--cream)}
         <div id="review-q-count" style="font-size:13px;color:var(--text-muted);margin-bottom:14px"></div>
         <div id="review-q-list"></div>
       </div>
-<br>
       <!-- ADD QUESTION -->
       <div class="t-panel" id="tab-addq">
         <div class="t-page-title">Add Question</div>
@@ -637,6 +601,7 @@ tbody tr:hover td{background:var(--cream)}
               </select>
             </div>
             <div class="field"><label>Exam Type</label><select id="nq-exam"><option>Mock 1</option><option>Mock 2</option><option>Main Exam</option></select></div>
+            <div class="field"><label>Section</label><select id="nq-section"><option value="auto">Auto Arrange</option><option value="A">Section A</option><option value="B">Section B</option><option value="C">Section C</option><option value="Short Answer">Short Answer</option></select></div>
             <div class="field"><label>Question Type</label>
               <select id="nq-type" onchange="toggleQType()">
                 <option value="mcq">Multiple Choice</option><option value="tf">True / False</option><option value="short">Short Answer</option><option value="word">Word Problem (MCQ)</option>
@@ -644,6 +609,7 @@ tbody tr:hover td{background:var(--cream)}
             </div>
           </div>
           <div class="field hidden" id="new-course-wrap"><label>New Course Name</label><input id="nq-course-custom" placeholder="Enter new course name"></div>
+          <div class="field"><label>Module / Topic <span style="font-weight:400;color:var(--text-muted)">(optional; Business Applications uses this to group modules)</span></label><input id="nq-module" placeholder="e.g. Module 1: Business Fundamentals"></div>
           <div class="field" id="scenario-wrap">
             <label>Scenario / Word Problem Context <span style="color:var(--text-muted);font-weight:400">(for Word Problem type)</span></label>
             <textarea id="nq-scenario" placeholder="Describe the real-world scenario or case study the question is based on..."></textarea>
@@ -663,34 +629,45 @@ tbody tr:hover td{background:var(--cream)}
           <button class="btn btn-primary" onclick="addQuestion()" style="margin-top:4px">+ Add to Question Bank</button>
         </div>
       </div>
-<br>
-      <!-- UPLOAD CSV -->
+      <!-- QUESTION IMPORT / AUTO-SECTION -->
       <div class="t-panel" id="tab-upload">
-        <div class="t-page-title">Upload Questions via CSV</div>
-        <div class="t-page-sub">Bulk-import questions from a spreadsheet</div>
+        <div class="t-page-title">Question Import &amp; Auto-Sectioning</div>
+        <div class="t-page-sub">Upload a CSV or JSON question bank and let the portal arrange questions into Section A, B, C and Short Answer.</div>
         <div class="q-builder-card">
-          <h3>CSV Format</h3>
+          <h3>Automatic Question Arrangement</h3>
           <p style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:12px">
-            Columns: <code>course, exam_type, question, type, scenario, option_a, option_b, option_c, option_d, correct_answer, marks</code><br>
-            <strong>type</strong>: <code>mcq</code>, <code>tf</code>, <code>short</code>, or <code>word</code><br>
-            <strong>scenario</strong>: leave empty for non-word problems<br>
-            <strong>correct_answer</strong>: <code>a/b/c/d</code> for MCQ/word, <code>true/false</code> for TF, model answer for short
+            <strong>Recommended columns:</strong> <code>course, exam_type, module, section, question, type, scenario, option_a, option_b, option_c, option_d, correct_answer, marks</code><br>
+            Leave <code>section</code> as <code>auto</code> and the system will classify: <strong>MCQ → Section A</strong>, <strong>True/False → Section B</strong>, <strong>scenario/word problem → Section C</strong>, and <strong>short answer → Short Answer</strong>.<br>
+            For Business Applications &amp; Automations, the <code>module</code> value keeps all questions under the main umbrella and groups them by module.
           </p>
           <div class="upload-zone" onclick="document.getElementById('csv-input').click()">
             <div style="font-size:36px">📂</div>
-            <p><strong>Click to select CSV file</strong></p>
-            <input type="file" id="csv-input" accept=".csv,.txt" style="display:none" onchange="handleCSV(this)">
+            <p><strong>Click to select CSV or JSON</strong></p>
+            <p>Questions will be validated, assigned IDs, auto-sectioned and added to the question bank.</p>
+            <input type="file" id="csv-input" accept=".csv,.txt,.json" style="display:none" onchange="handleQuestionUpload(this)">
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+            <button class="btn btn-secondary btn-sm" onclick="downloadQuestionTemplate()">⬇ Download CSV Template</button>
+            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('csv-input').click()">📥 Import Question Bank</button>
           </div>
           <div id="upload-alert" style="margin-top:12px"></div>
+          <div id="upload-preview" style="margin-top:14px"></div>
+        </div>
+        <div class="q-builder-card" style="margin-top:16px">
+          <h3>Section Rules</h3>
+          <div class="two-col">
+            <div><strong>Section A</strong><br><span style="font-size:13px;color:var(--text-muted)">Multiple-choice questions</span></div>
+            <div><strong>Section B</strong><br><span style="font-size:13px;color:var(--text-muted)">True/False questions</span></div>
+            <div><strong>Section C</strong><br><span style="font-size:13px;color:var(--text-muted)">Scenario / case / word-problem questions</span></div>
+            <div><strong>Short Answer</strong><br><span style="font-size:13px;color:var(--text-muted)">Open-ended questions requiring typed answers</span></div>
+          </div>
         </div>
       </div>
-<br>
       <!-- SETTINGS -->
       <!-- FEES & RECEIPTS PANEL -->
       <div class="t-panel" id="tab-fees">
         <div style="font-family:Playfair Display,serif;font-size:22px;color:#0F2744;margin-bottom:4px">Fees &amp; Receipts</div>
         <div style="font-size:13px;color:#6b7280;margin-bottom:20px">Record payments, generate printable receipts and send SMS via Mnotify</div>
-<br>
         <div class="form-card">
           <h3>Record Payment</h3>
           <div class="two-col">
@@ -733,13 +710,11 @@ tbody tr:hover td{background:var(--cream)}
             <button class="btn btn-gold" onclick="openReceiptModal()">&#128438; Generate / Print Receipt</button>
           </div>
         </div>
-<br>
         <div class="form-card">
           <h3>Payment History</h3>
           <div id="tb-fees" class="module-groups"></div>
         </div>
       </div>
-<br>
       <div class="t-panel" id="tab-settings">
         <div class="t-page-title">System Settings</div>
         <div class="t-page-sub">Configure grading, timing and credentials</div>
@@ -753,7 +728,6 @@ tbody tr:hover td{background:var(--cream)}
           <div id="pass-alert" style="margin-top:8px"></div>
           <button class="btn btn-primary" onclick="savePasswords()" style="margin-top:10px">&#128274; Save Passwords</button>
         </div>
-<br>
         <div class="settings-section">
           <h3>Grading Scale</h3>
           <div class="two-col">
@@ -790,7 +764,6 @@ tbody tr:hover td{background:var(--cream)}
           <button class="btn btn-primary" onclick="setAPIUrl()" style="margin-bottom:10px">Connect &amp; Test</button>
           <p style="font-size:11px;color:#6b7280;margin-top:4px">Current: <code id="current-api-url" style="font-family:JetBrains Mono,monospace;font-size:11px"></code></p>
         </div>
-<br>
         <div class="settings-section">
           <h3>Trainer Credentials</h3>
           <div class="two-col">
@@ -800,11 +773,9 @@ tbody tr:hover td{background:var(--cream)}
           <div id="cred-alert" style="margin-top:4px"></div>
           <button class="btn" onclick="saveCredentials()" style="margin-top:8px">🔒 Update Credentials</button>
         </div>
-<br>
         <div class="settings-section" style="border-color:#fecaca;background:#fffbfb">
           <h3 style="color:#991b1b;border-bottom-color:#fecaca">&#9888;&#65039; Danger Zone &mdash; Admin Reset</h3>
           <p style="font-size:13px;color:#6b7280;margin-bottom:16px;line-height:1.6">These actions permanently affect all records across every device. Use with caution &mdash; they cannot be undone.</p>
-<br>
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
               <div style="flex:1;min-width:200px">
@@ -813,7 +784,6 @@ tbody tr:hover td{background:var(--cream)}
               </div>
               <button class="btn btn-danger" onclick="adminResetPayments()">Zero Payments</button>
             </div>
-<br>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
               <div style="flex:1;min-width:200px">
                 <div style="font-weight:600;font-size:13px;color:#0F2744">Delete All Students &amp; Reset ID Counter</div>
@@ -821,7 +791,6 @@ tbody tr:hover td{background:var(--cream)}
               </div>
               <button class="btn btn-danger" onclick="adminResetStudents()">Delete All Students</button>
             </div>
-<br>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
               <div style="flex:1;min-width:200px">
                 <div style="font-weight:600;font-size:13px;color:#0F2744">Delete All Exam Results</div>
@@ -829,7 +798,6 @@ tbody tr:hover td{background:var(--cream)}
               </div>
               <button class="btn btn-danger" onclick="adminResetResults()">Delete All Results</button>
             </div>
-<br>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#0F2744;border-radius:8px;flex-wrap:wrap">
               <div style="flex:1;min-width:200px">
                 <div style="font-weight:600;font-size:13px;color:#fff">Full Factory Reset</div>
@@ -843,7 +811,6 @@ tbody tr:hover td{background:var(--cream)}
     </main>
   </div>
 </div>
-<br>
 <!-- MODALS -->
 <div class="modal-overlay hidden" id="modal-add-student">
   <div class="modal-box">
@@ -873,7 +840,6 @@ tbody tr:hover td{background:var(--cream)}
     </div>
   </div>
 </div>
-<br>
 <div class="modal-overlay hidden" id="modal-confirm-submit">
   <div class="modal-box">
     <h3>Submit Exam?</h3>
@@ -884,7 +850,6 @@ tbody tr:hover td{background:var(--cream)}
     </div>
   </div>
 </div>
-<br>
 <script>
 const STORE_KEY='nta_v3';
 
@@ -1131,16 +1096,16 @@ const DEFAULT={
     {id:'ba1_18',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'MCQ',type:'mcq',question:"\"Digitization\" refers to:",options:["Converting analogue information into digital format","Changing the entire business strategy","Replacing all staff with robots","Deleting old records"],correct:0,marks:1},
     {id:'ba1_19',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'MCQ',type:'mcq',question:"\"Digital transformation\" refers to:",options:["Simply scanning paper documents","A fundamental change in how an organization operates and delivers value using digital technology","Buying new computers only","Changing the company name"],correct:1,marks:1},
     {id:'ba1_20',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'MCQ',type:'mcq',question:"Robotic Process Automation (RPA) is best described as:",options:["Physical robots on a factory floor","Software that mimics human actions to automate repetitive, rule-based digital tasks","A type of spreadsheet","An HR policy"],correct:1,marks:1},
-    {id:'bap1_1',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"In 3–4 sentences, explain the difference between digitization, digitalization, and digital transformation, giving one example of each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_2',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Choose a real or hypothetical Ghanaian business. Identify its business structure (sole proprietorship, partnership, limited company, etc.) and justify your choice.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_3',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"List and briefly explain the four core business objectives covered in class, applying each to a business of your choice.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_4',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Select a business process (e.g. student admission, customer complaint handling, procurement). Draw a simple flowchart AND a swimlane diagram showing the steps and who is responsible for each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_5',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"From the process you mapped in Q4, identify at least two bottlenecks or inefficiencies and recommend one improvement for each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_6',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Conduct a short SWOT analysis (2 points per quadrant) for a business of your choice.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_7',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Conduct a short PESTLE analysis (one point per factor) for a Ghanaian industry of your choice (e.g. banking, retail, education).",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_8',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Identify three repetitive, manual activities in a department of your choice that could be automated, and briefly explain how automation would help.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_9',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Develop three KPIs for a department of your choice (e.g. Sales or HR), stating what each KPI measures and why it matters.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap1_10',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Describe, in your own words, what \"Citizen Developer\" means in the context of digital transformation.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap1_1',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"In 3–4 sentences, explain the difference between digitization, digitalization, and digital transformation, giving one example of each.",correct:'Digitization converts analogue information into digital form; digitalization uses digital technology to improve existing processes; digital transformation changes how the organization operates and delivers value. Examples: scanning paper records, using a digital workflow to process them, and redesigning the service around an online customer platform.',marks:3},
+    {id:'bap1_2',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Choose a real or hypothetical Ghanaian business. Identify its business structure (sole proprietorship, partnership, limited company, etc.) and justify your choice.",correct:'A suitable answer identifies a business structure and justifies it. For example, a one-person provision shop may be a sole proprietorship because one owner controls the business and bears the business responsibilities and risks.',marks:3},
+    {id:'bap1_3',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"List and briefly explain the four core business objectives covered in class, applying each to a business of your choice.",correct:'The four objectives are profitability, customer satisfaction, sustainability and growth/long-term business performance. A good answer explains how each objective applies to the selected business.',marks:3},
+    {id:'bap1_4',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Select a business process (e.g. student admission, customer complaint handling, procurement). Draw a simple flowchart AND a swimlane diagram showing the steps and who is responsible for each.",correct:'The response should show the process in sequence in a flowchart and assign responsibility for each step in swimlanes, for example applicant submits form, admissions checks it, finance confirms payment, and administration completes registration.',marks:3},
+    {id:'bap1_5',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"From the process you mapped in Q4, identify at least two bottlenecks or inefficiencies and recommend one improvement for each.",correct:'Identify actual constraints such as repeated manual data entry, approval delays or missing information, then pair each with a specific improvement such as automation, clearer validation or removing an unnecessary approval step.',marks:3},
+    {id:'bap1_6',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Conduct a short SWOT analysis (2 points per quadrant) for a business of your choice.",correct:'A complete SWOT identifies two internal strengths, two internal weaknesses, two external opportunities and two external threats that are relevant to the chosen business.',marks:3},
+    {id:'bap1_7',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Conduct a short PESTLE analysis (one point per factor) for a Ghanaian industry of your choice (e.g. banking, retail, education).",correct:'PESTLE should cover Political, Economic, Social, Technological, Legal and Environmental factors, with one relevant factor explained for each category.',marks:3},
+    {id:'bap1_8',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Identify three repetitive, manual activities in a department of your choice that could be automated, and briefly explain how automation would help.",correct:'Suitable examples include repetitive data entry, routine report preparation and copying information between systems. Automation reduces manual effort, errors and processing time.',marks:3},
+    {id:'bap1_9',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Develop three KPIs for a department of your choice (e.g. Sales or HR), stating what each KPI measures and why it matters.",correct:'Each KPI should state the measure and its business purpose. For example, sales conversion rate measures the percentage of leads becoming customers and helps management evaluate sales effectiveness.',marks:3},
+    {id:'bap1_10',course:'Business Applications & Automations',exam:"Mock 1",module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Describe, in your own words, what \"Citizen Developer\" means in the context of digital transformation.",correct:'A Citizen Developer is a business user who builds or configures applications and automations using approved low-code/no-code tools without being a traditional professional software developer.',marks:3},
     // ── Module 2: Artificial Intelligence Fundamentals & Prompt Engineering → Mock 1 ──
     {id:'ba2_1',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'MCQ',type:'mcq',question:"Artificial Intelligence (AI) can be defined as:",options:["A type of computer virus","The ability of a computer system to perform tasks that typically require human intelligence","A physical robot only","A spreadsheet formula"],correct:1,marks:1},
     {id:'ba2_2',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'MCQ',type:'mcq',question:"\"Narrow AI\" refers to AI that:",options:["Can perform any intellectual task a human can","Is designed to perform a specific task or a limited range of tasks","Does not exist yet","Is always physically embodied"],correct:1,marks:1},
@@ -1162,16 +1127,16 @@ const DEFAULT={
     {id:'ba2_18',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'MCQ',type:'mcq',question:"When using AI to draft a business email, the final step should always be to:",options:["Send it immediately without reading","Review and edit the output for accuracy, tone, and professionalism","Translate it into another language","Delete it"],correct:1,marks:1},
     {id:'ba2_19',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'MCQ',type:'mcq',question:"Which of the following is an appropriate use of AI in HR?",options:["Making final hiring/firing decisions with no human review","Drafting a first version of a job description for human review","Replacing all HR staff","Ignoring labour law"],correct:1,marks:1},
     {id:'ba2_20',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'MCQ',type:'mcq',question:"\"Generative AI\" refers to AI systems that:",options:["Only sort numbers","Can create new content such as text, images, or code based on learned patterns","Only store files","Only send emails"],correct:1,marks:1},
-    {id:'bap2_1',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"In your own words, explain the relationship between Artificial Intelligence, Machine Learning, and Generative AI.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_2',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Give one real-world example each of supervised learning, unsupervised learning, and reinforcement learning.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_3',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Write one poorly constructed prompt and then rewrite it as an effective prompt using context, clear instructions, constraints, and desired format.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_4',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Choose a business task (e.g. writing a proposal, summarizing a meeting). Draft a role/persona prompt to accomplish it.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_5',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain what an AI hallucination is and describe one practical step a business should take to guard against it.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_6',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Compare two AI tools (e.g. ChatGPT and Microsoft Copilot) for a specific business task, noting at least one similarity and one difference.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_7',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Design a simple 3-step prompt chain for producing a marketing social media post from a product description.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_8',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"List three privacy/data-security precautions a business should take before entering company information into a public AI tool.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_9',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Draft an AI prompt to generate a professional customer service response to a complaint about a late delivery.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap2_10',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain why human review of AI-generated business documents (reports, policies, HR documents) remains necessary.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap2_1',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"In your own words, explain the relationship between Artificial Intelligence, Machine Learning, and Generative AI.",correct:'AI is the broad field of systems performing tasks associated with intelligence; Machine Learning is an AI approach that learns patterns from data; Generative AI produces new content such as text, images or code.',marks:3},
+    {id:'bap2_2',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Give one real-world example each of supervised learning, unsupervised learning, and reinforcement learning.",correct:'Supervised learning can classify approved/rejected applications from labelled examples; unsupervised learning can group customers into segments; reinforcement learning can learn action policies from rewards and penalties.',marks:3},
+    {id:'bap2_3',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Write one poorly constructed prompt and then rewrite it as an effective prompt using context, clear instructions, constraints, and desired format.",correct:'The improved prompt should add context, a precise task, constraints and an output format. Example: provide the business context, ask the AI to act as a business analyst, limit the response to five bullet points, and request a table where appropriate.',marks:3},
+    {id:'bap2_4',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Choose a business task (e.g. writing a proposal, summarizing a meeting). Draft a role/persona prompt to accomplish it.",correct:'A role prompt can say: “Act as a professional business proposal writer. Using the information provided, draft a concise proposal for the target audience, following the stated objectives, tone and format.”',marks:3},
+    {id:'bap2_5',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain what an AI hallucination is and describe one practical step a business should take to guard against it.",correct:'An AI hallucination is a plausible-sounding but incorrect or unsupported output. Businesses should ground outputs in trusted sources and require human verification before important use.',marks:3},
+    {id:'bap2_6',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Compare two AI tools (e.g. ChatGPT and Microsoft Copilot) for a specific business task, noting at least one similarity and one difference.",correct:'A good comparison identifies a similarity such as assistance with drafting/summarization and a difference such as integration with the Microsoft ecosystem for Copilot versus the broader conversational and tool capabilities of ChatGPT.',marks:3},
+    {id:'bap2_7',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Design a simple 3-step prompt chain for producing a marketing social media post from a product description.",correct:'Step 1: ask AI to identify the product audience and key benefits. Step 2: generate a draft social post from those points. Step 3: review/refine the draft for tone, accuracy, length and call-to-action.',marks:3},
+    {id:'bap2_8',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"List three privacy/data-security precautions a business should take before entering company information into a public AI tool.",correct:'Do not enter confidential personal/customer data, passwords or sensitive company information; use approved enterprise AI tools and apply access, privacy and data-retention policies before sharing business information.',marks:3},
+    {id:'bap2_9',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Draft an AI prompt to generate a professional customer service response to a complaint about a late delivery.",correct:'Example: “Act as a professional customer-service representative. Draft a polite response to a customer whose delivery is late. Apologize, acknowledge the inconvenience, state the verified next step, avoid inventing facts, and keep the message under 120 words.”',marks:3},
+    {id:'bap2_10',course:'Business Applications & Automations',exam:"Mock 1",module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain why human review of AI-generated business documents (reports, policies, HR documents) remains necessary.",correct:'Human review checks factual accuracy, confidentiality, organizational policy, fairness, tone and appropriateness. AI output should support the employee rather than replace accountability for important documents.',marks:3},
     // ── Module 3: Workplace Productivity & Collaboration → Mock 2 ──
     {id:'ba3_1',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'MCQ',type:'mcq',question:"Microsoft 365 is best described as:",options:["A single desktop-only program","A cloud-based suite of productivity applications including Word, Excel, PowerPoint, and Outlook","An operating system","A social media platform"],correct:1,marks:1},
     {id:'ba3_2',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'MCQ',type:'mcq',question:"Which Microsoft application is primarily used for creating formatted text documents like letters and reports?",options:["Excel","Word","PowerPoint","Outlook"],correct:1,marks:1},
@@ -1193,16 +1158,16 @@ const DEFAULT={
     {id:'ba3_18',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'MCQ',type:'mcq',question:"Setting appropriate access permissions on a shared folder is important mainly for:",options:["Making files load faster","Protecting sensitive information and controlling who can view or edit it","Changing the file extension","Formatting text"],correct:1,marks:1},
     {id:'ba3_19',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'MCQ',type:'mcq',question:"An \"integrated business workflow\" (e.g. Form → Sheet → Document → Email) is valuable because it:",options:["Requires more manual copy-pasting","Connects separate tools so data flows automatically between steps, reducing manual work","Only works for one person","Cannot include email"],correct:1,marks:1},
     {id:'ba3_20',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'MCQ',type:'mcq',question:"Which of these is a practical example of document lifecycle management?",options:["Keeping every draft forever with no naming system","Creating, reviewing, approving, storing, and eventually archiving/deleting a document in a structured way","Deleting all documents immediately after creation","Never backing up files"],correct:1,marks:1},
-    {id:'bap3_1',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Describe a scenario where you would use Mail Merge in a business setting, and list the steps involved.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_2',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Design a simple KPI dashboard structure in Excel for a sales team — list the data fields you'd need and the chart/PivotTable you would build.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_3',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Compare Google Workspace and Microsoft 365 for a small business with a tight budget — give one advantage of each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_4',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Design an online customer feedback workflow using Google Forms → Google Sheets → email notification. Describe each step.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_5',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Propose a file naming convention and folder structure for a business department of your choice (e.g. HR, Finance).",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_6',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain the difference between \"Edit\" and \"View only\" sharing permissions, and give an example of when you'd use each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_7',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Outline the steps to schedule and run a professional virtual meeting using Microsoft Teams or Google Meet, including pre-meeting and post-meeting tasks.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_8',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Describe a document approval workflow (e.g. for an expense claim) from submission to final approval, naming the tools you'd use at each stage.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_9',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"List three best practices for managing a shared Google Drive or OneDrive folder in a team of 10 people.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap3_10',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Design an employee onboarding document workflow that uses at least three different productivity tools (forms, documents, spreadsheets, email, etc.).",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap3_1',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Describe a scenario where you would use Mail Merge in a business setting, and list the steps involved.",correct:'Mail Merge can create personalized customer letters. Steps: prepare the recipient list, create the main document, connect the data source, insert merge fields, preview the records, then complete the merge and review the output.',marks:3},
+    {id:'bap3_2',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Design a simple KPI dashboard structure in Excel for a sales team — list the data fields you'd need and the chart/PivotTable you would build.",correct:'Useful fields include date, salesperson, region, product, sales amount and target. A PivotTable can summarize sales by salesperson/region, with charts such as column or line charts showing performance and trends.',marks:3},
+    {id:'bap3_3',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Compare Google Workspace and Microsoft 365 for a small business with a tight budget — give one advantage of each.",correct:'Google Workspace can be advantageous for browser-based collaboration and sharing, while Microsoft 365 can be advantageous for businesses already using Microsoft Office and its integrated desktop/cloud tools.',marks:3},
+    {id:'bap3_4',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Design an online customer feedback workflow using Google Forms → Google Sheets → email notification. Describe each step.",correct:'Create the Google Form, connect responses to Google Sheets, validate/store the response data, create an email-notification trigger/workflow, and send the responsible staff member the relevant submission details.',marks:3},
+    {id:'bap3_5',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Propose a file naming convention and folder structure for a business department of your choice (e.g. HR, Finance).",correct:'Use consistent names such as Department_DocumentType_Date_Version and folders such as Department > Year > Process > Document Type. The exact structure should match the department’s workflow.',marks:3},
+    {id:'bap3_6',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain the difference between \"Edit\" and \"View only\" sharing permissions, and give an example of when you'd use each.",correct:'Edit permission allows a user to change the file; View only allows reading without editing. Use Edit for collaborators responsible for updating a document and View only for people who only need to read it.',marks:3},
+    {id:'bap3_7',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Outline the steps to schedule and run a professional virtual meeting using Microsoft Teams or Google Meet, including pre-meeting and post-meeting tasks.",correct:'Prepare the agenda and invite, confirm participants and materials, start the Teams/Meet session, manage discussion and record decisions, then distribute minutes/actions and follow up after the meeting.',marks:3},
+    {id:'bap3_8',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Describe a document approval workflow (e.g. for an expense claim) from submission to final approval, naming the tools you'd use at each stage.",correct:'A typical workflow is submission → validation → supervisor/manager review → finance/authorized approval → notification → recording/payment. Each stage should use the appropriate form, document, spreadsheet or workflow tool and retain an audit trail.',marks:3},
+    {id:'bap3_9',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"List three best practices for managing a shared Google Drive or OneDrive folder in a team of 10 people.",correct:'Use consistent folders/naming, assign least-privilege permissions, and archive or version outdated files. Teams should also avoid unnecessary duplicate copies.',marks:3},
+    {id:'bap3_10',course:'Business Applications & Automations',exam:"Mock 2",module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Design an employee onboarding document workflow that uses at least three different productivity tools (forms, documents, spreadsheets, email, etc.).",correct:'A form can collect employee details, a document can provide onboarding materials or generate records, a spreadsheet can track completion, and email can send instructions/reminders to the employee and responsible staff.',marks:3},
     // ── Module 4: Business Data Analytics & Power BI → Mock 2 ──
     {id:'ba4_1',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'MCQ',type:'mcq',question:"The key difference between \"data\" and \"information\" is:",options:["They are exactly the same thing","Data is raw, unprocessed facts; information is data that has been processed and given context/meaning","Information is always numeric","Data cannot be stored"],correct:1,marks:1},
     {id:'ba4_2',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'MCQ',type:'mcq',question:"\"Business Intelligence\" (BI) refers to:",options:["A type of employee training","Technologies and processes used to collect, analyze, and present business data to support decisions","A type of office furniture","A marketing slogan"],correct:1,marks:1},
@@ -1224,16 +1189,16 @@ const DEFAULT={
     {id:'ba4_18',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'MCQ',type:'mcq',question:"Before building a dashboard, it's important to first:",options:["Choose random colors","Identify the business questions and KPIs the dashboard needs to answer","Delete the source data","Skip data cleaning"],correct:1,marks:1},
     {id:'ba4_19',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'MCQ',type:'mcq',question:"A common cause of \"missing values\" in a business dataset is:",options:["Perfect data entry every time","Incomplete form submissions, system errors, or human entry mistakes","Having too many columns","Using a PivotTable"],correct:1,marks:1},
     {id:'ba4_20',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'MCQ',type:'mcq',question:"Which of these best describes \"the analytics lifecycle\"?",options:["A single, one-time report","A continuous cycle of defining questions, collecting data, analyzing, visualizing, and acting on insights","Deleting data after one use","A type of chart"],correct:1,marks:1},
-    {id:'bap4_1',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain, with an example, the difference between data, information, and business intelligence.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_2',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Describe the steps you would take to clean a messy sales dataset containing duplicate rows, missing values, and inconsistent date formats.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_3',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Design a PivotTable layout (rows, columns, values) to answer the business question: \"What are total sales by region and product category per month?\"",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_4',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain how Power Query could be used to combine three monthly sales CSV files into one table, listing the key steps.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_5',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Propose three KPIs for a customer service department and explain what business decision each KPI would support.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_6',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Describe the steps to build a simple Power BI report: from connecting a data source to publishing a dashboard.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_7',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain why establishing relationships between tables matters when building a data model in Power BI.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_8',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"A sales report shows conflicting totals depending on which column is used for \"Region.\" Explain what data quality issue this likely represents and how you would fix it.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_9',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Design an executive dashboard layout (describe which 4–5 visuals/KPIs you would include and why) for a retail business.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap4_10',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain the concept of \"data storytelling\" and describe how you would present a finding (e.g. declining sales in one region) to non-technical executives.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap4_1',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain, with an example, the difference between data, information, and business intelligence.",correct:'Data is raw facts, information is processed data with meaning, and business intelligence uses organized information and analysis to support decisions. Example: individual sales transactions are data; monthly regional totals are information; a dashboard identifying a declining region for action is BI.',marks:3},
+    {id:'bap4_2',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Describe the steps you would take to clean a messy sales dataset containing duplicate rows, missing values, and inconsistent date formats.",correct:'Remove or identify duplicates, handle missing values, standardize date formats and categories, validate data types and ranges, then review the cleaned dataset before analysis.',marks:3},
+    {id:'bap4_3',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Design a PivotTable layout (rows, columns, values) to answer the business question: \"What are total sales by region and product category per month?\"",correct:'Rows: Region; Columns: Month; Values: Sum of Sales; Product Category can be placed as a column, filter or additional hierarchy depending on the desired layout. The layout should allow comparison of total sales by region, category and month.',marks:3},
+    {id:'bap4_4',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain how Power Query could be used to combine three monthly sales CSV files into one table, listing the key steps.",correct:'Use Power Query to import the files, inspect/standardize their columns and data types, append the monthly tables, clean/transform the combined data, and load the resulting table for analysis.',marks:3},
+    {id:'bap4_5',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Propose three KPIs for a customer service department and explain what business decision each KPI would support.",correct:'Examples: average response time, first-contact resolution rate and customer satisfaction score. Each should be linked to a decision such as staffing, process improvement or service-quality action.',marks:3},
+    {id:'bap4_6',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Describe the steps to build a simple Power BI report: from connecting a data source to publishing a dashboard.",correct:'Connect to the source, transform/clean data, build the data model and relationships, create measures and visuals, arrange the report, validate results, then publish the report/dashboard to the intended Power BI workspace or audience.',marks:3},
+    {id:'bap4_7',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain why establishing relationships between tables matters when building a data model in Power BI.",correct:'Relationships tell Power BI how records in different tables correspond. Correct relationships allow filters and measures to aggregate the right records and prevent misleading results.',marks:3},
+    {id:'bap4_8',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"A sales report shows conflicting totals depending on which column is used for \"Region.\" Explain what data quality issue this likely represents and how you would fix it.",correct:'Likely causes include inconsistent region values, duplicate categories or incorrect mappings. Standardize the Region field, remove/resolve duplicates and validate the mapping before rebuilding the report totals.',marks:3},
+    {id:'bap4_9',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Design an executive dashboard layout (describe which 4–5 visuals/KPIs you would include and why) for a retail business.",correct:'Include KPI cards for sales/revenue and profit, a trend chart, a regional/category comparison, and a visual showing top or underperforming products/customers. Each visual should support an executive decision.',marks:3},
+    {id:'bap4_10',course:'Business Applications & Automations',exam:"Mock 2",module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain the concept of \"data storytelling\" and describe how you would present a finding (e.g. declining sales in one region) to non-technical executives.",correct:'Data storytelling explains a finding with evidence, context and a clear implication. For declining regional sales, show the trend, quantify the decline, identify likely drivers and finish with a focused recommendation or question for management.',marks:3},
     // ── Module 5: No-Code / Low-Code Application Development → Main Exam ──
     {id:'ba5_1',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'MCQ',type:'mcq',question:"\"No-code development\" refers to building applications:",options:["Only by professional software engineers writing code","Using visual tools and drag-and-drop interfaces, without writing traditional code","By hand-coding in Python only","Using punch cards"],correct:1,marks:1},
     {id:'ba5_2',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'MCQ',type:'mcq',question:"A \"Citizen Developer\" is:",options:["A professional software engineer only","A non-technical business user who builds applications using no-code/low-code tools to solve business problems","A government official","A hardware technician"],correct:1,marks:1},
@@ -1255,16 +1220,16 @@ const DEFAULT={
     {id:'ba5_18',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'MCQ',type:'mcq',question:"When comparing no-code platforms (e.g. AppSheet vs Glide vs Airtable) for a project, an important evaluation criterion is:",options:["The developer's favorite color","Fit with data sources, features needed, cost, and ease of use for the specific business case","The number of letters in the platform's name","Whether it has a mascot"],correct:1,marks:1},
     {id:'ba5_19',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'MCQ',type:'mcq',question:"\"Low-code development\" differs from \"no-code\" mainly in that low-code:",options:["Requires absolutely no technical knowledge ever","Still allows/sometimes requires some custom code alongside visual tools for more complex needs","Cannot connect to any data source","Is identical to traditional coding"],correct:1,marks:1},
     {id:'ba5_20',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'MCQ',type:'mcq',question:"A key benefit of involving end users in testing/feedback before full deployment is:",options:["It wastes time","It surfaces usability issues and missing requirements early, before they become costly to fix","It guarantees zero bugs forever","It replaces the need for documentation"],correct:1,marks:1},
-    {id:'bap5_1',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain the difference between no-code and low-code development, giving one example platform for each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_2',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Choose a business process (e.g. visitor management, inventory tracking). Write 3 user stories describing what different users need from an application for it.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_3',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Sketch (describe in words) a wireframe for the main screen of a Leave Management App, listing the key fields and buttons.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_4',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Design a simple business rule for an expense approval app (e.g. based on amount) and explain how it would change the app's behavior.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_5',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Describe the steps to connect a Power App to a SharePoint or Excel data source.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_6',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain how Power Automate could be used to send a notification when a new row is added to a connected data source.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_7',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Compare AppSheet and Power Apps for a small business wanting to build a simple inventory tracking app — give one factor favoring each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_8',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Outline a basic User Acceptance Testing (UAT) plan for a newly built Visitor Log application (list 3 things you would test).",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_9',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Propose an appropriate set of user permissions/security roles for a Leave Management app involving Staff, Managers, and HR.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap5_10',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Describe, step by step, how you would plan and build a simple no-code application for student registration at a school, from requirements to deployment.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap5_1',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain the difference between no-code and low-code development, giving one example platform for each.",correct:'No-code development uses visual tools with little or no traditional coding; low-code uses visual development with the option for some coding/custom logic. Examples can include AppSheet for no-code and Power Apps for low-code.',marks:3},
+    {id:'bap5_2',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Choose a business process (e.g. visitor management, inventory tracking). Write 3 user stories describing what different users need from an application for it.",correct:'User stories should follow a structure such as “As a [user], I want [capability], so that [benefit].” A good set represents different users and needs, such as staff submitting requests, managers approving them and administrators maintaining records.',marks:3},
+    {id:'bap5_3',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Sketch (describe in words) a wireframe for the main screen of a Leave Management App, listing the key fields and buttons.",correct:'A Leave Management screen can include employee name/ID, leave type, start/end dates, reason, available balance, status and buttons such as Submit, Save and Cancel. Managers can have approval controls.',marks:3},
+    {id:'bap5_4',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Design a simple business rule for an expense approval app (e.g. based on amount) and explain how it would change the app's behavior.",correct:'Example rule: if expense amount exceeds GHS 5,000, route it to a senior manager for approval; otherwise route it to the normal manager. The rule changes the approval path based on the amount.',marks:3},
+    {id:'bap5_5',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Describe the steps to connect a Power App to a SharePoint or Excel data source.",correct:'Create/select the data source, connect it to Power Apps, choose or configure the table/list, map the fields, test reading/writing records and then apply appropriate permissions.',marks:3},
+    {id:'bap5_6',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain how Power Automate could be used to send a notification when a new row is added to a connected data source.",correct:'Create a Power Automate trigger for a new row/item, retrieve the relevant values, compose the notification and send it to the required recipient or channel. Add conditions if only certain rows should trigger alerts.',marks:3},
+    {id:'bap5_7',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Compare AppSheet and Power Apps for a small business wanting to build a simple inventory tracking app — give one factor favoring each.",correct:'AppSheet may favor a business already using Google-oriented data and needing quick no-code deployment; Power Apps may favor a business invested in Microsoft 365, Dataverse and Power Platform. Licensing and integration should also be considered.',marks:3},
+    {id:'bap5_8',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Outline a basic User Acceptance Testing (UAT) plan for a newly built Visitor Log application (list 3 things you would test).",correct:'Test that visitors can be registered correctly, required fields and validation work, authorized users can retrieve/search records, and the application handles expected edge cases and permissions.',marks:3},
+    {id:'bap5_9',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Propose an appropriate set of user permissions/security roles for a Leave Management app involving Staff, Managers, and HR.",correct:'Staff should normally manage their own leave requests; Managers should view/approve requests for their teams; HR should have broader administrative/reporting access. Permissions should follow least privilege.',marks:3},
+    {id:'bap5_10',course:'Business Applications & Automations',exam:"Main Exam",module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Describe, step by step, how you would plan and build a simple no-code application for student registration at a school, from requirements to deployment.",correct:'Gather requirements and users, design the registration data and screens, build the forms/app, configure validation and workflows, define permissions, test with users, correct issues, train users and deploy with monitoring.',marks:3},
     // ── Module 6: AI Agents, Automation & Intelligent Business Systems → Main Exam ──
     {id:'ba6_1',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'MCQ',type:'mcq',question:"An \"AI agent,\" as distinct from a simple AI assistant, is best described as a system that can:",options:["Only answer one-off questions passively","Autonomously plan and execute multi-step tasks toward a goal, often with limited human intervention","Only display static text","Only work offline"],correct:1,marks:1},
     {id:'ba6_2',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'MCQ',type:'mcq',question:"A \"human approval loop\" in an AI workflow is used to:",options:["Remove all human involvement","Ensure a person reviews and approves an AI's decision or output at a critical step before it proceeds","Slow the system down for no reason","Replace the need for testing"],correct:1,marks:1},
@@ -1286,16 +1251,16 @@ const DEFAULT={
     {id:'ba6_18',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'MCQ',type:'mcq',question:"When designing an AI-powered procurement workflow, which business rule is a sensible human checkpoint?",options:["Auto-approve all purchases regardless of amount","Require human approval for purchases above a defined cost threshold","Never require approval","Skip the finance department entirely"],correct:1,marks:1},
     {id:'ba6_19',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'MCQ',type:'mcq',question:"A core benefit of combining AI agents with existing business applications (CRM, Excel, email) is:",options:["It isolates each tool further","It creates connected, end-to-end intelligent workflows rather than disconnected manual steps","It removes the need for any data","It eliminates the need for testing"],correct:1,marks:1},
     {id:'ba6_20',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'MCQ',type:'mcq',question:"Which of the following best describes the purpose of a chatbot \"conversation flow diagram\"?",options:["A legal document","A visual map of how the chatbot should respond to different user inputs and intents","A financial statement","A network topology diagram"],correct:1,marks:1},
-    {id:'bap6_1',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain the difference between an AI assistant and an AI agent, with an example business use case for each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_2',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Design a simple AI-assisted workflow for processing supplier invoices, including at least one human approval checkpoint.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_3',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"List the steps you would take to extract and validate data from a scanned receipt using Intelligent Document Processing.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_4',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Sketch a basic conversation flow (describe in words) for an HR chatbot answering \"How many leave days do I have left?\" including an escalation path.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_5',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain how AI could be integrated with Microsoft Forms and email to automate a customer feedback response process.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_6',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Describe how you would use NotebookLM (or a similar tool) to help new employees quickly find answers in a large set of company policy documents.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_7',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Identify two risks of deploying an AI chatbot for customer service with no human escalation option, and propose a mitigation for each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_8',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Design an AI opportunity assessment for a department of your choice — list two processes that could be enhanced by AI agents and explain the expected benefit.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_9',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain why \"monitoring\" an AI-driven business workflow after launch is just as important as building it.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap6_10',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Propose a complete AI-powered workflow (e.g. employee onboarding assistant) naming the AI tool, the business application it connects to, and the human checkpoint involved.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap6_1',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain the difference between an AI assistant and an AI agent, with an example business use case for each.",correct:'An assistant mainly responds to a user request, while an agent can pursue a goal by using tools and taking permitted actions. Example assistant: answer HR policy questions; example agent: receive an onboarding request, update records and send approved notifications.',marks:3},
+    {id:'bap6_2',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Design a simple AI-assisted workflow for processing supplier invoices, including at least one human approval checkpoint.",correct:'Receive invoice → extract fields with AI/document processing → validate supplier/amount → flag exceptions → human reviews/approves → record/post the invoice → notify relevant parties. The human checkpoint controls the approval decision.',marks:3},
+    {id:'bap6_3',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"List the steps you would take to extract and validate data from a scanned receipt using Intelligent Document Processing.",correct:'Capture/scan the receipt, extract fields such as date/vendor/amount, validate the extracted values against rules or source records, flag low-confidence fields for human review, then store the approved structured data.',marks:3},
+    {id:'bap6_4',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Sketch a basic conversation flow (describe in words) for an HR chatbot answering \"How many leave days do I have left?\" including an escalation path.",correct:'Employee asks for leave balance → chatbot verifies identity → retrieves the employee’s approved leave balance → returns the balance. If data is unavailable, identity fails or the request is exceptional, escalate to HR.',marks:3},
+    {id:'bap6_5',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain how AI could be integrated with Microsoft Forms and email to automate a customer feedback response process.",correct:'Forms collects feedback → automation sends the submission to an AI step → AI classifies/summarizes the feedback and drafts a response → workflow routes it to the responsible staff member → approved response is sent by email and the case is recorded.',marks:3},
+    {id:'bap6_6',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Describe how you would use NotebookLM (or a similar tool) to help new employees quickly find answers in a large set of company policy documents.",correct:'Load approved policy documents into the knowledge source, ask questions against those documents, cite or inspect the relevant source passages, and direct employees to the authoritative policy when clarification is needed.',marks:3},
+    {id:'bap6_7',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Identify two risks of deploying an AI chatbot for customer service with no human escalation option, and propose a mitigation for each.",correct:'Risk 1: incorrect answers; mitigation: trusted knowledge sources, confidence/validation rules and human escalation. Risk 2: failure on sensitive/exception cases; mitigation: clear escalation paths and restricted scope.',marks:3},
+    {id:'bap6_8',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Design an AI opportunity assessment for a department of your choice — list two processes that could be enhanced by AI agents and explain the expected benefit.",correct:'For example, customer-service triage and invoice processing could be enhanced. Expected benefits include faster handling, reduced repetitive work and better routing, subject to accuracy and control requirements.',marks:3},
+    {id:'bap6_9',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain why \"monitoring\" an AI-driven business workflow after launch is just as important as building it.",correct:'Post-launch monitoring detects errors, failures, drift, unexpected outputs, changing data and business exceptions that were not visible during testing. It enables timely correction and safe operation.',marks:3},
+    {id:'bap6_10',course:'Business Applications & Automations',exam:"Main Exam",module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Propose a complete AI-powered workflow (e.g. employee onboarding assistant) naming the AI tool, the business application it connects to, and the human checkpoint involved.",correct:'Example: an employee-onboarding agent receives an approved request, uses a business application to create the employee record and sends standard onboarding tasks; HR reviews/approves the record before final activation.',marks:3},
     // ── Module 7: Digital Leadership, Security & Enterprise Transformation → Main Exam ──
     {id:'ba7_1',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'MCQ',type:'mcq',question:"A \"digital maturity model\" is used to:",options:["Measure a company's physical office size","Assess how advanced an organization's use of digital technology and processes is, to guide transformation planning","Calculate employee salaries","Design company logos"],correct:1,marks:1},
     {id:'ba7_2',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'MCQ',type:'mcq',question:"A \"digital transformation roadmap\" is best described as:",options:["A random to-do list with no timeline","A phased, strategic plan outlining how an organization will implement digital change over time","A single email","A type of software license"],correct:1,marks:1},
@@ -1317,16 +1282,86 @@ const DEFAULT={
     {id:'ba7_18',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'MCQ',type:'mcq',question:"A \"business impact analysis\" (used in continuity planning) helps identify:",options:["The company's logo design","Which business functions are most critical and the impact of their disruption","Employee birthdays","Office seating arrangements"],correct:1,marks:1},
     {id:'ba7_19',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'MCQ',type:'mcq',question:"In an enterprise digital transformation business case, a \"cost-benefit analysis\" is used to:",options:["Ignore all costs","Compare the expected costs of a project against its expected benefits to support a go/no-go decision","Guarantee zero cost","Avoid calculating ROI"],correct:1,marks:1},
     {id:'ba7_20',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'MCQ',type:'mcq',question:"The capstone's \"future state design\" component asks learners to:",options:["Describe the organization's current problems only, with no solution","Propose how the organization's processes, technology, and operations should look after successful digital transformation","List competitor names only","Design a company party"],correct:1,marks:1},
-    {id:'bap7_1',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Choose an organization. Briefly assess its current digital maturity (low/medium/high) and justify your rating with 2–3 points.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_2',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Outline a 3-phase digital transformation roadmap (e.g. Phase 1: 0–6 months) for an organization of your choice.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_3',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Identify two likely sources of employee resistance to a new digital system, and propose a change management action to address each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_4',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Design a simple employee cybersecurity awareness checklist (5 items) covering phishing, passwords, and MFA.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_5',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain, with an example, how bias could enter an AI system used for hiring, and propose one mitigation step.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_6',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Draft a short (3–4 point) responsible AI usage policy for an organization adopting AI chatbots.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_7',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Describe the difference between Business Continuity Planning and Disaster Recovery Planning, with an example of each in action.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_8',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain how you would present the ROI of a digital transformation project to senior management — what inputs would you need?",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_9',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Propose a project governance structure (roles and responsibilities) for a digital transformation project in a mid-sized organization.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
-    {id:'bap7_10',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"For the Digital Business Transformation Capstone, outline the key sections your final strategy document would include and briefly explain each.",correct:'Manual marking: award up to 3 marks — 1 mark for the correct core concept, 1 mark for correct application/example, and 1 mark for clarity and completeness.',marks:3},
+    {id:'bap7_1',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Choose an organization. Briefly assess its current digital maturity (low/medium/high) and justify your rating with 2–3 points.",correct:'Assess maturity using evidence such as digital process adoption, data use, integration, employee capability and governance. A rating should be justified with 2–3 concrete observations rather than a label alone.',marks:3},
+    {id:'bap7_2',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Outline a 3-phase digital transformation roadmap (e.g. Phase 1: 0–6 months) for an organization of your choice.",correct:'Example: Phase 1 (0–6 months) assess current state, fix foundational processes and train staff; Phase 2 (6–12 months) digitize/automate priority workflows; Phase 3 (12–24 months) scale integration, analytics and continuous improvement.',marks:3},
+    {id:'bap7_3',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Identify two likely sources of employee resistance to a new digital system, and propose a change management action to address each.",correct:'Resistance may come from fear of job/role change and lack of skills or confidence. Use transparent communication, involve users in design, provide training and offer support during transition.',marks:3},
+    {id:'bap7_4',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Design a simple employee cybersecurity awareness checklist (5 items) covering phishing, passwords, and MFA.",correct:'Checklist: verify suspicious links/senders before clicking, never share passwords, use strong unique passwords, enable MFA, and report suspected phishing/security incidents promptly.',marks:3},
+    {id:'bap7_5',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain, with an example, how bias could enter an AI system used for hiring, and propose one mitigation step.",correct:'Historical hiring data may reflect past bias, causing an AI model to favor or penalize groups unfairly. Mitigate through representative data, fairness testing, appropriate feature review and human oversight.',marks:3},
+    {id:'bap7_6',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Draft a short (3–4 point) responsible AI usage policy for an organization adopting AI chatbots.",correct:'Policy points can include approved-use boundaries, protection of confidential information, human review for important outputs, and accountability/monitoring for AI-generated content and decisions.',marks:3},
+    {id:'bap7_7',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Describe the difference between Business Continuity Planning and Disaster Recovery Planning, with an example of each in action.",correct:'Business Continuity Planning keeps critical operations running during disruption; Disaster Recovery Planning restores systems/data after an incident. Example: continuity may use an alternate work process/site, while recovery restores a failed application from backups.',marks:3},
+    {id:'bap7_8',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain how you would present the ROI of a digital transformation project to senior management — what inputs would you need?",correct:'Use project cost, expected or measured savings/revenue, productivity benefits, implementation period and key assumptions. Present the calculation transparently and compare benefits with costs to show expected or realized ROI.',marks:3},
+    {id:'bap7_9',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Propose a project governance structure (roles and responsibilities) for a digital transformation project in a mid-sized organization.",correct:'A suitable structure includes an executive sponsor, project manager, business/process owners, technical lead, security/risk representatives and user representatives, with clear decision rights, reporting and escalation.',marks:3},
+    {id:'bap7_10',course:'Business Applications & Automations',exam:"Main Exam",module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"For the Digital Business Transformation Capstone, outline the key sections your final strategy document would include and briefly explain each.",correct:'Include executive summary, current-state assessment, problems/opportunities, future-state vision, process/technology design, implementation roadmap, governance, risks, KPIs, change management and expected benefits/ROI.',marks:3},
+    {id:'bap1_11',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Explain why cross-department collaboration is important to achieving business objectives.",correct:"Collaboration allows departments to share information, coordinate activities and align their work toward common objectives such as customer satisfaction, profitability and sustainability.",marks:3},
+    {id:'bap1_12',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Give one example of a process that is suitable for RPA and explain why.",correct:"A repetitive rule-based task such as copying approved invoice data into a system is suitable because RPA can mimic the same digital steps consistently.",marks:3},
+    {id:'bap1_13',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Explain how a swimlane diagram differs from an ordinary flowchart.",correct:"A swimlane diagram shows both the process steps and the department or role responsible for each step, while a basic flowchart mainly shows the sequence of activities.",marks:3},
+    {id:'bap1_14',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Explain why KPIs should be measurable and linked to business objectives.",correct:"A KPI should be measurable so performance can be tracked objectively and linked to an objective so the organization can tell whether its actions are producing the intended result.",marks:3},
+    {id:'bap1_15',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Give two examples of customer-related KPIs and explain what each tells management.",correct:"Customer satisfaction score indicates how customers perceive the service, while complaint resolution time shows how quickly customer problems are handled.",marks:3},
+    {id:'bap1_16',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Explain how a bottleneck can affect customer service.",correct:"A bottleneck slows the process at a constrained step, creating delays, queues and longer customer waiting times; removing or improving the constraint can increase throughput.",marks:3},
+    {id:'bap1_17',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Differentiate a business process from a single task using an example.",correct:"A business process is a sequence of related activities that produces an outcome, such as student admission; a single task is one activity within it, such as checking an application.",marks:3},
+    {id:'bap1_18',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Explain one way digital transformation can create value for customers.",correct:"Digital transformation can redesign a service to make it faster, easier or more accessible, such as allowing customers to submit and track requests online.",marks:3},
+    {id:'bap1_19',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"State two questions a PESTLE analysis can help a business answer.",correct:"It can help identify external factors that may create opportunities or threats, such as how new regulations or technological changes could affect the business.",marks:3},
+    {id:'bap1_20',course:'Business Applications & Automations',exam:'Mock 1',module:"Business Fundamentals & Digital Transformation Basics",section:'Short Answer / Practical',type:'short',question:"Explain why automation should normally be applied after a process has been reviewed.",correct:"Automating a poor process can make inefficiency happen faster; reviewing the process first helps remove unnecessary steps and define a better workflow before automation.",marks:3},
+    {id:'bap2_11',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain the difference between traditional software automation and AI-based automation.",correct:"Traditional automation follows explicit rules, while AI-based automation can use models to interpret data, generate content, classify information or make predictions within defined controls.",marks:3},
+    {id:'bap2_12',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"What makes a prompt more useful than a vague instruction?",correct:"A useful prompt provides context, a clear task, relevant constraints and the desired output format, reducing ambiguity and improving consistency.",marks:3},
+    {id:'bap2_13',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Give two examples of business tasks where generative AI can assist employees.",correct:"Generative AI can draft customer responses and summarize meeting notes, provided employees review the output for accuracy and appropriateness.",marks:3},
+    {id:'bap2_14',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain why sensitive company information should not automatically be entered into a public AI tool.",correct:"Public AI tools may create privacy, confidentiality or data-governance risks; businesses should follow approved tools, policies and controls before sharing sensitive information.",marks:3},
+    {id:'bap2_15',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Describe one method for reducing AI hallucinations in a business workflow.",correct:"Ground the model on trusted source material and require human verification of important outputs before they are used for business decisions.",marks:3},
+    {id:'bap2_16',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain the purpose of giving an AI a role or persona in a prompt.",correct:"A role sets the perspective and expected expertise of the response, helping the model produce an output suited to the business task and audience.",marks:3},
+    {id:'bap2_17',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Design a simple prompt structure for generating an executive summary.",correct:"Specify the role, provide the source information, state the task, define constraints such as length and audience, and request a clear executive-summary format.",marks:3},
+    {id:'bap2_18',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Why should AI-generated HR or policy documents receive human review?",correct:"Human review is needed to check factual accuracy, organizational policy, fairness, confidentiality, legal requirements and context before the document is adopted.",marks:3},
+    {id:'bap2_19',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"Explain the difference between supervised and unsupervised learning.",correct:"Supervised learning uses labelled examples to learn a mapping from inputs to known outputs, while unsupervised learning finds patterns or groups in data without labelled target answers.",marks:3},
+    {id:'bap2_20',course:'Business Applications & Automations',exam:'Mock 1',module:"Artificial Intelligence Fundamentals & Prompt Engineering",section:'Short Answer / Practical',type:'short',question:"What is reinforcement learning in simple business terms?",correct:"It is learning through feedback or rewards, where an agent improves its choices by learning which actions produce better outcomes over repeated interactions.",marks:3},
+    {id:'bap3_11',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain when Mail Merge is useful in an organization.",correct:"Mail Merge is useful when the same document must be sent to many recipients with personalized fields, such as letters containing different names, addresses or account details.",marks:3},
+    {id:'bap3_12',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Give two benefits of using cloud collaboration tools in a small business.",correct:"They allow authorized users to access shared files from different locations and support real-time collaboration without relying on separate local copies.",marks:3},
+    {id:'bap3_13',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain why a file naming convention matters.",correct:"Consistent names make files easier to find, sort, identify and manage, reducing confusion and duplicate or outdated versions.",marks:3},
+    {id:'bap3_14',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"What is the purpose of assigning sharing permissions to a shared file?",correct:"Permissions control who can view, edit or otherwise access the file, helping protect information while enabling appropriate collaboration.",marks:3},
+    {id:'bap3_15',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Describe one good practice for organizing a shared team folder.",correct:"Use a clear folder hierarchy and naming convention, limit unnecessary permissions and archive outdated material so users can find current files easily.",marks:3},
+    {id:'bap3_16',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain the difference between synchronous and asynchronous collaboration.",correct:"Synchronous collaboration happens at the same time, such as a live meeting; asynchronous collaboration happens at different times, such as comments on a shared document.",marks:3},
+    {id:'bap3_17',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"List the key stages of a simple virtual meeting workflow.",correct:"Prepare the agenda and invite participants, hold the meeting and record decisions, then distribute minutes or actions and follow up on assigned tasks.",marks:3},
+    {id:'bap3_18',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain why a document approval workflow should record who approved a document.",correct:"A record of the approver creates accountability, an audit trail and evidence that the required authorization was obtained.",marks:3},
+    {id:'bap3_19',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Give two examples of productivity tools and the work each can support.",correct:"A spreadsheet can support calculations and tracking, while a form can collect structured information from users.",marks:3},
+    {id:'bap3_20',course:'Business Applications & Automations',exam:'Mock 2',module:"Workplace Productivity & Collaboration",section:'Short Answer / Practical',type:'short',question:"Explain how an onboarding workflow can connect forms, documents and email.",correct:"A form can collect new-employee information, a document template can generate or store onboarding records, and email can notify responsible staff and the new employee about next steps.",marks:3},
+    {id:'bap4_11',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain why data cleaning is necessary before analysis.",correct:"Cleaning removes or corrects duplicates, missing values, inconsistent formats and other errors so analysis is based on reliable and comparable data.",marks:3},
+    {id:'bap4_12',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"What is the difference between data and information?",correct:"Data is raw facts or observations, while information is data that has been processed or organized so it has meaning and supports understanding.",marks:3},
+    {id:'bap4_13',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain why relationships between tables matter in Power BI.",correct:"Relationships connect related records across tables so filters, calculations and visuals can use the data model correctly.",marks:3},
+    {id:'bap4_14',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Give two examples of useful customer-service KPIs.",correct:"Average response time measures how quickly customers receive responses, while customer satisfaction measures the quality of the customer experience.",marks:3},
+    {id:'bap4_15',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain what a PivotTable helps a manager do.",correct:"A PivotTable summarizes large datasets by selected dimensions and measures, allowing a manager to compare totals, counts or trends quickly.",marks:3},
+    {id:'bap4_16',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Describe one sign of inconsistent categorical data.",correct:"The same category may appear under different spellings or formats, such as \u201cAccra\u201d, \u201caccra\u201d and \u201cACC\u201d; these should be standardized before grouping.",marks:3},
+    {id:'bap4_17',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain why a dashboard should focus on decision-relevant KPIs.",correct:"Decision-relevant KPIs help users quickly understand performance and act on important issues instead of being distracted by unnecessary information.",marks:3},
+    {id:'bap4_18',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"What is data storytelling?",correct:"Data storytelling combines evidence, visuals and a clear narrative to explain what happened, why it matters and what action decision-makers should consider.",marks:3},
+    {id:'bap4_19',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Explain one use of Power Query in a monthly reporting process.",correct:"Power Query can import and transform recurring files using repeatable steps, making it easier to combine monthly datasets consistently.",marks:3},
+    {id:'bap4_20',course:'Business Applications & Automations',exam:'Mock 2',module:"Business Data Analytics & Power BI",section:'Short Answer / Practical',type:'short',question:"Why should an analyst validate conflicting totals before presenting a report?",correct:"Conflicting totals may indicate data-quality, filtering, duplication or modeling problems; validating them prevents incorrect conclusions from reaching decision-makers.",marks:3},
+    {id:'bap5_11',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain one advantage of no-code development for a business department.",correct:"No-code allows users to build simple applications with little or no traditional programming, enabling faster solutions for suitable departmental processes.",marks:3},
+    {id:'bap5_12',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"What is a user story and why is it useful?",correct:"A user story describes a need from the perspective of a user, helping the development team understand who needs what and why.",marks:3},
+    {id:'bap5_13',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain why a wireframe is created before building an application interface.",correct:"A wireframe provides a simple layout of screens, fields and controls so users and builders can agree on the design before implementation.",marks:3},
+    {id:'bap5_14',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Give an example of a business rule for an expense approval app.",correct:"Expenses above a defined threshold can be routed to a manager or finance officer for approval, while smaller approved amounts follow a simpler route.",marks:3},
+    {id:'bap5_15',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Why is User Acceptance Testing important?",correct:"UAT checks whether the application works as expected for real business users and whether it meets agreed requirements before deployment.",marks:3},
+    {id:'bap5_16',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain the role of data permissions in a leave-management application.",correct:"Permissions ensure staff see their own relevant information while managers and HR receive only the access needed for their responsibilities.",marks:3},
+    {id:'bap5_17',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Give one situation where Power Automate can complement Power Apps.",correct:"When a user submits information in Power Apps, Power Automate can send notifications, request approval or update another connected system.",marks:3},
+    {id:'bap5_18',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Explain one factor a small business should consider when choosing between AppSheet and Power Apps.",correct:"The business should consider its existing technology ecosystem, data sources, user needs, licensing and the skills available to maintain the app.",marks:3},
+    {id:'bap5_19',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Describe the main stages of developing a simple no-code application.",correct:"Identify requirements, design the data and user interface, configure workflows and permissions, test with users, correct issues and deploy the application.",marks:3},
+    {id:'bap5_20',course:'Business Applications & Automations',exam:'Main Exam',module:"No-Code / Low-Code Application Development",section:'Short Answer / Practical',type:'short',question:"Why should application requirements be documented before configuration begins?",correct:"Documented requirements create a shared reference for scope, users, data, workflows and expected behavior, reducing misunderstandings during development and testing.",marks:3},
+    {id:'bap6_11',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain one key difference between an AI assistant and an AI agent.",correct:"An assistant mainly responds to user requests, while an agent can pursue a defined goal by taking actions across tools or systems within its permissions and controls.",marks:3},
+    {id:'bap6_12',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Why is a human approval checkpoint useful in an AI-assisted invoice workflow?",correct:"It prevents an automated system from making high-impact approval decisions without human oversight and provides a control for exceptions or questionable records.",marks:3},
+    {id:'bap6_13',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"What is Intelligent Document Processing used for?",correct:"It extracts and interprets information from documents such as scanned receipts or invoices so structured data can be validated and used in workflows.",marks:3},
+    {id:'bap6_14',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Explain why an HR chatbot should have an escalation path.",correct:"If the chatbot cannot confidently answer a question or the issue is sensitive or exceptional, escalation allows a human to handle it rather than giving an unsafe or incorrect response.",marks:3},
+    {id:'bap6_15',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Give two benefits of connecting AI with forms and email.",correct:"AI can classify or summarize submitted feedback and help generate appropriate responses, while automation can route the result and notify the responsible staff.",marks:3},
+    {id:'bap6_16',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"How can a knowledge-grounded AI tool help new employees?",correct:"It can let employees search or ask questions against approved company documents, making policies easier to find while keeping answers tied to the available source material.",marks:3},
+    {id:'bap6_17',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"State two risks of deploying a customer-service chatbot without human escalation.",correct:"It may provide incorrect information and may fail to handle unusual or sensitive cases appropriately; escalation and monitoring can reduce these risks.",marks:3},
+    {id:'bap6_18',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"Why should an AI workflow be monitored after launch?",correct:"Real-world data, model behavior, exceptions and business requirements can change, so monitoring helps detect errors, drift, failures and unexpected outcomes.",marks:3},
+    {id:'bap6_19',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"List two processes that could benefit from AI agents in a business.",correct:"Customer-service triage and employee onboarding can benefit because agents can interpret requests, retrieve information and coordinate defined workflow steps.",marks:3},
+    {id:'bap6_20',course:'Business Applications & Automations',exam:'Main Exam',module:"AI Agents, Automation & Intelligent Business Systems",section:'Short Answer / Practical',type:'short',question:"What should be defined before an AI agent is allowed to take actions?",correct:"Its objective, permitted tools, data access, decision boundaries, approval checkpoints, error handling and monitoring requirements should be defined.",marks:3},
+    {id:'bap7_11',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain what digital maturity means for an organization.",correct:"Digital maturity describes how effectively an organization uses digital capabilities, processes, people and technology to achieve business objectives and adapt to change.",marks:3},
+    {id:'bap7_12',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Why should a transformation roadmap be divided into phases?",correct:"Phasing makes a large transformation manageable by sequencing priorities, resources, dependencies and measurable outcomes over time.",marks:3},
+    {id:'bap7_13',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Give two common reasons employees resist a new digital system.",correct:"They may fear job or role changes, or they may lack confidence and training; clear communication, participation and training can address these concerns.",marks:3},
+    {id:'bap7_14',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Why is MFA important even when strong passwords are used?",correct:"MFA adds another verification factor, so a stolen password alone is less likely to give an attacker access.",marks:3},
+    {id:'bap7_15',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain how bias can enter an AI hiring system.",correct:"Bias can arise when historical training data reflects unequal past decisions or when the selected features disadvantage a group; testing and fairness controls can help mitigate it.",marks:3},
+    {id:'bap7_16',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"State three principles that should appear in a responsible AI policy.",correct:"The policy should address human oversight, protection of confidential data, and verification or accountability for important AI-generated decisions.",marks:3},
+    {id:'bap7_17',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Explain the difference between Business Continuity Planning and Disaster Recovery Planning.",correct:"Business continuity focuses on keeping critical operations functioning during disruption, while disaster recovery focuses on restoring systems, data and technology after an incident.",marks:3},
+    {id:'bap7_18',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Name three inputs needed to calculate or present transformation ROI.",correct:"Relevant project costs, expected or measured financial benefits such as savings or additional revenue, and the time period or assumptions used for the comparison.",marks:3},
+    {id:'bap7_19',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"Why is project governance important in digital transformation?",correct:"Governance defines decision rights, accountability, oversight, reporting and escalation so the project remains aligned with business objectives and risks are managed.",marks:3},
+    {id:'bap7_20',course:'Business Applications & Automations',exam:'Main Exam',module:"Digital Leadership, Security & Enterprise Transformation",section:'Short Answer / Practical',type:'short',question:"List key sections you would expect in a digital transformation strategy document.",correct:"A strong strategy can include the current-state assessment, problems and opportunities, future-state vision, roadmap, technology/process changes, governance, risks, KPIs and expected benefits.",marks:3},
     // ═══ DATA ANALYTICS — MOCK 1 (20 questions) ═══
     {id:'d1',course:'Data Analytics with Excel',exam:'Mock 1',type:'mcq',question:'What is the purpose of a Pivot Table in Excel?',options:['Format cells','Summarise and analyse large datasets','Create presentations','Send emails'],correct:1,marks:1},
     {id:'d2',course:'Data Analytics with Excel',exam:'Mock 1',type:'mcq',question:'Which function calculates standard deviation?',options:['=VAR()','=STDEV()','=MEAN()','=DEV()'],correct:1,marks:1},
@@ -1427,6 +1462,26 @@ const DEFAULT={
 
 let S={}, currentUser=null, currentExam=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200;
 
+function autoSection(q){
+  var t=String(q.type||'').toLowerCase();
+  if(q.section && q.section!=='auto') return q.section;
+  if(t==='short') return 'Short Answer';
+  if(t==='mcq') return q.scenario ? 'Section C' : 'Section A';
+  if(t==='word') return 'Section C';
+  if(t==='tf') return 'Section B';
+  return 'Section A';
+}
+function normalizeQuestionBank(){
+  if(!Array.isArray(S.questions)) S.questions=[];
+  S.questions.forEach(function(q){
+    q.section=autoSection(q);
+    if(q.course==='Business Applications & Automations' && !q.module) q.module='General Business Applications';
+    if(!q.exam) q.exam='Mock 1';
+    if(!q.marks) q.marks=q.type==='short'?3:1;
+    if(q.type==='word') q.section='Section C';
+  });
+}
+
 function loadState(){
   try{
     var r=localStorage.getItem(STORE_KEY);
@@ -1453,6 +1508,7 @@ function loadState(){
   if(!S.settings.mainQCount && S.settings.mainQ) S.settings.mainQCount=S.settings.mainQ;
   if(!S.settings.mockQCount) S.settings.mockQCount=20;
   if(!S.settings.mainQCount) S.settings.mainQCount=50;
+  normalizeQuestionBank();
 }
 
 // ── SAVE STATE — writes to localStorage + API if available ──
@@ -1658,7 +1714,8 @@ function launchExam(examName){
       selected.push(...shorts.slice(0,shortTarget));
       selected.push(...others.slice(0,Math.max(0,target-shortTarget)));
     });
-    selected=selected.sort(()=>Math.random()-0.5).slice(0,qCount);
+    // Keep the umbrella's module and section structure visible to students.
+    selected=selected.sort((a,b)=>String(a.module||'').localeCompare(String(b.module||''))||String(a.section||'').localeCompare(String(b.section||''))||Math.random()-0.5).slice(0,qCount);
   } else {
     // Other courses: retain their existing exam bank, but guarantee that
     // available scenario-derived short-answer questions are represented.
@@ -1709,7 +1766,7 @@ function renderDots(){
 
 function renderQ(){
   const q=examQs[currentQ],ans=answers[currentQ];
-  let html=`<div class="q-card"><div class="q-label"><span class="q-num-text">Question ${currentQ+1} of ${examQs.length}</span><div class="q-right-tags">`;
+  let html=`<div class="q-card"><div class="q-label"><span class="q-num-text">Question ${currentQ+1} of ${examQs.length}</span><div class="q-right-tags"><span class="badge badge-locked">${q.section||autoSection(q)}</span>${q.module?`<span class="badge badge-locked">${q.module}</span>`:''}`;
   if(q.type==='word') html+=`<span class="badge badge-word">📝 Word Problem</span>`;
   html+=`<span class="q-marks-pill">${q.marks} mark${q.marks>1?'s':''}</span></div></div>`;
   if(q.scenario) html+=`<div class="q-scenario"><strong>📖 Read the scenario:</strong>${q.scenario}</div>`;
@@ -1959,36 +2016,21 @@ function releaseResult(id){
 function renderReviewQ(){
   const fc=document.getElementById('rqf-course')?.value||'',fe=document.getElementById('rqf-exam')?.value||'',ft=document.getElementById('rqf-type')?.value||'';
   let qs=S.questions.filter(q=>(!fc||q.course===fc)&&(!fe||q.exam===fe)&&(!ft||q.type===ft));
-  document.getElementById('review-q-count').textContent=`Showing ${qs.length} question${qs.length!==1?'s':''} ${fc?'for '+fc:''} ${fe?'/ '+fe:''}`;
-  const cont=document.getElementById('review-q-list');
-  if(!qs.length){cont.innerHTML=`<div class="locked-notice">No questions match the selected filters.</div>`;return;}
-  cont.innerHTML='';
-  qs.forEach((q,i)=>{
-    const div=document.createElement('div');
-    div.className='q-review-card';
-    let optsHtml='';
-    if(q.type==='mcq'||q.type==='word'){
-      optsHtml=`<div class="q-review-opts">${q.options.map((opt,idx)=>`<div class="q-review-opt${idx===q.correct?' correct-opt':''}">${String.fromCharCode(65+idx)}. ${opt}${idx===q.correct?' ✓':''}</div>`).join('')}</div>`;
-    } else if(q.type==='tf'){
-      optsHtml=`<div style="font-size:13px;margin-top:8px">Correct answer: <strong style="color:var(--success)">${q.correct==='true'?'✓ True':'✗ False'}</strong></div>`;
-    } else {
-      optsHtml=`<div style="font-size:13px;margin-top:8px;background:var(--success-bg);padding:8px 12px;border-radius:8px;color:var(--success)"><strong>Model answer:</strong> ${q.correct}</div>`;
-    }
-    div.innerHTML=`
-      ${q.scenario?`<div class="q-review-scenario"><strong>📖 Scenario:</strong> ${q.scenario}</div>`:''}
-      <div class="q-review-header">
-        <div class="q-review-text"><strong>Q${i+1}.</strong> ${q.question}</div>
-        <div class="q-review-tags">
-          <span class="badge badge-${q.type}">${q.type.toUpperCase()}</span>
-          <span class="badge badge-locked">${q.marks} mk</span>
-        </div>
-      </div>
-      ${optsHtml}
-      <div class="q-review-footer">
-        <span style="font-size:12px;color:var(--text-muted)">${q.course} · ${q.exam}</span>
-        <button class="btn btn-danger btn-sm" onclick="delQuestion('${q.id}')">🗑 Delete</button>
-      </div>`;
-    cont.appendChild(div);
+  document.getElementById('review-q-count').textContent=`Showing ${qs.length} question${qs.length!==1?'s':''}${fc?' for '+fc:''}${fe?' / '+fe:''}`;
+  const cont=document.getElementById('review-q-list'); if(!qs.length){cont.innerHTML=`<div class="locked-notice">No questions match the selected filters.</div>`;return;}
+  // Business Applications is one umbrella course, grouped strictly by module, then section.
+  const groups={}; qs.forEach(q=>{const key=(q.course==='Business Applications & Automations'?(q.module||'General Business Applications'):'__OTHER__')+'||'+(q.section||autoSection(q));(groups[key]||(groups[key]=[])).push(q);});
+  const keys=Object.keys(groups).sort((a,b)=>a.localeCompare(b)); cont.innerHTML=''; let n=0;
+  keys.forEach(key=>{
+    const arr=groups[key]; const parts=key.split('||'); const module=parts[0]==='__OTHER__'?'All Questions':parts[0], section=parts[1];
+    const box=document.createElement('div'); box.className='q-builder-card'; box.style.marginBottom='16px';
+    box.innerHTML=`<h3 style="margin-bottom:6px">${module}</h3><div style="font-size:12px;color:var(--text-muted);margin-bottom:14px">${section} · ${arr.length} question${arr.length!==1?'s':''}</div>`;
+    arr.forEach(q=>{n++; const div=document.createElement('div');div.className='q-review-card';let optsHtml='';
+      if(q.type==='mcq'||q.type==='word') optsHtml=`<div class="q-review-opts">${(q.options||[]).map((opt,idx)=>`<div class="q-review-opt${idx===q.correct?' correct-opt':''}">${String.fromCharCode(65+idx)}. ${opt}${idx===q.correct?' ✓':''}</div>`).join('')}</div>`;
+      else if(q.type==='tf') optsHtml=`<div style="font-size:13px;margin-top:8px">Correct answer: <strong style="color:var(--success)">${q.correct==='true'?'✓ True':'✗ False'}</strong></div>`;
+      else optsHtml=`<div style="font-size:13px;margin-top:8px;background:var(--success-bg);padding:10px 12px;border-radius:8px;color:var(--success)"><strong>Model / correct answer:</strong> ${q.correct||'No model answer supplied'}</div>`;
+      div.innerHTML=`${q.scenario?`<div class="q-review-scenario"><strong>📖 Scenario:</strong> ${q.scenario}</div>`:''}<div class="q-review-header"><div class="q-review-text"><strong>Q${n}.</strong> ${q.question}</div><div class="q-review-tags"><span class="badge badge-${q.type}">${q.type.toUpperCase()}</span><span class="badge badge-locked">${q.section||autoSection(q)}</span><span class="badge badge-locked">${q.marks} mk</span></div></div>${optsHtml}<div class="q-review-footer"><span style="font-size:12px;color:var(--text-muted)">${q.course} · ${q.exam}${q.module?' · '+q.module:''}</span><button class="btn btn-danger btn-sm" onclick="delQuestion('${q.id}')">🗑 Delete</button></div>`;box.appendChild(div);});
+    cont.appendChild(box);
   });
 }
 
@@ -2037,62 +2079,77 @@ function addQuestion(){
   const exam=document.getElementById('nq-exam').value;
   const marks=parseInt(document.getElementById('nq-marks').value)||1;
   const scenario=document.getElementById('nq-scenario').value.trim()||null;
+  const module=(document.getElementById('nq-module')?.value||'').trim();
+  const sectionChoice=document.getElementById('nq-section')?.value||'auto';
   const alertEl=document.getElementById('addq-alert');
-  if(!q||!course){alertEl.innerHTML=`<div class="alert alert-danger">Please enter a question and select a course.</div>`;return;}
+  if(!q||!course){alertEl.innerHTML='<div class="alert alert-danger">Please enter a question and select a course.</div>';return;}
   let correct,options;
   if(type==='mcq'||type==='word'){
     const sel=document.querySelector('input[name="corr"]:checked');
-    if(!sel){alertEl.innerHTML=`<div class="alert alert-danger">Please select the correct answer.</div>`;return;}
+    if(!sel){alertEl.innerHTML='<div class="alert alert-danger">Please select the correct answer.</div>';return;}
     options=[document.getElementById('opt-a').value,document.getElementById('opt-b').value,document.getElementById('opt-c').value,document.getElementById('opt-d').value];
     correct=parseInt(sel.value);
-  } else if(type==='tf'){
-    correct=document.getElementById('tf-ans').value;
-  } else {
-    correct=document.getElementById('short-ans').value;
-  }
-  var newQ={id:'q'+Date.now(),course:course,exam:exam,type:type,question:q,correct:correct,marks:marks};
+  } else if(type==='tf') correct=document.getElementById('tf-ans').value;
+  else correct=document.getElementById('short-ans').value.trim();
+  if(type==='short'&&!correct){alertEl.innerHTML='<div class="alert alert-danger">Please enter the model answer.</div>';return;}
+  const newQ={id:'q'+Date.now()+Math.random().toString(36).slice(2),course:course,exam:exam,type:type,question:q,correct:correct,marks:marks,section:sectionChoice==='auto'?autoSection({type:type,scenario:scenario}):sectionChoice};
+  if(module) newQ.module=module;
   if(options) newQ.options=options;
-  if(scenario&&type==='word') newQ.scenario=scenario;
-
-  function onQAdded(){
-    S.questions.push(newQ); saveState();
-    alertEl.innerHTML='<div class="alert alert-success">&#10003; Question added successfully!</div>';
-  }
-
-  if(apiReady()){
-    api('/api/questions',{method:'POST',body:JSON.stringify(newQ)})
-      .then(function(saved){ newQ=saved; onQAdded(); })
-      .catch(function(){ onQAdded(); });
-  } else { onQAdded(); }
-  document.getElementById('nq-question').value='';
-  document.getElementById('nq-scenario').value='';
+  if(scenario) newQ.scenario=scenario;
+  function onQAdded(){S.questions.push(newQ);normalizeQuestionBank();saveState();alertEl.innerHTML='<div class="alert alert-success">✓ Question added to '+newQ.section+'.</div>';renderReviewQ();}
+  if(apiReady()) api('/api/questions',{method:'POST',body:JSON.stringify(newQ)}).then(function(saved){newQ=saved||newQ;onQAdded();}).catch(function(){onQAdded();}); else onQAdded();
+  document.getElementById('nq-question').value=''; document.getElementById('nq-scenario').value='';
+  if(document.getElementById('nq-module')) document.getElementById('nq-module').value='';
   document.querySelectorAll('input[name="corr"]').forEach(r=>r.checked=false);
   ['opt-a','opt-b','opt-c','opt-d'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   setTimeout(()=>{alertEl.innerHTML='';},3000);
 }
-
-function handleCSV(input){
-  const file=input.files[0];if(!file) return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const lines=e.target.result.split('\n').filter(l=>l.trim());
-    let added=0,errors=0;
-    lines.slice(1).forEach(line=>{
-      const cols=line.split(',').map(c=>c.trim().replace(/^"|"$/g,''));
-      if(cols.length<7){errors++;return;}
-      const[course,exam_type,question,type,scenario,opt_a,opt_b,opt_c,opt_d,correct_answer,marks]=cols;
-      if(!course||!question||!type){errors++;return;}
-      const q={id:'q'+Date.now()+Math.random().toString(36).slice(2),course,exam:exam_type||'Mock 1',type,question,marks:parseInt(marks)||1};
-      if(scenario) q.scenario=scenario;
-      if(type==='mcq'||type==='word'){q.options=[opt_a,opt_b,opt_c,opt_d].filter(Boolean);q.correct=['a','b','c','d'].indexOf((correct_answer||'').toLowerCase());}
-      else{q.correct=correct_answer||'';}
-      S.questions.push(q);added++;
-    });
-    saveState();
-    document.getElementById('upload-alert').innerHTML=`<div class="alert alert-success">✓ Imported ${added} question(s).${errors?' '+errors+' rows skipped.':''}</div>`;
-  };
-  reader.readAsText(file);
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', quoted=false;
+  for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1]; if(c==='"'){if(quoted&&n==='"'){cell+='"';i++;}else quoted=!quoted;} else if(c===','&&!quoted){row.push(cell);cell='';} else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(x=>x.trim()!==''))rows.push(row);row=[];} else cell+=c;}
+  if(cell!==''||row.length){row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);} return rows;
 }
+function autoAssignSectionFromRow(row){
+  const type=String(row.type||'').trim().toLowerCase(); const scenario=String(row.scenario||'').trim();
+  if(row.section&&String(row.section).toLowerCase()!=='auto') return row.section;
+  if(type==='short') return 'Short Answer'; if(type==='tf') return 'Section B'; if(type==='word'||scenario) return 'Section C'; return 'Section A';
+}
+function importQuestionObjects(items){
+  let added=0,errors=0; const preview=[];
+  items.forEach((row,index)=>{
+    const type=String(row.type||'mcq').trim().toLowerCase();
+    const course=String(row.course||'').trim(), question=String(row.question||'').trim();
+    if(!course||!question||!['mcq','tf','short','word'].includes(type)){errors++;return;}
+    const q={id:'imp'+Date.now()+Math.random().toString(36).slice(2)+index,course,exam:String(row.exam_type||row.exam||'Mock 1').trim()||'Mock 1',module:String(row.module||'').trim(),section:autoAssignSectionFromRow({...row,type}),type,question,marks:parseInt(row.marks)|| (type==='short'?3:1)};
+    if(row.scenario) q.scenario=String(row.scenario);
+    if(type==='mcq'||type==='word'){
+      q.options=[row.option_a,row.option_b,row.option_c,row.option_d].map(x=>String(x||'').trim()).filter(Boolean);
+      const ca=String(row.correct_answer||'').trim(); const idxLetter=['a','b','c','d'].indexOf(ca.toLowerCase()); q.correct=idxLetter>=0?idxLetter:parseInt(ca);
+      if(!q.options.length||isNaN(q.correct)){errors++;return;}
+    } else if(type==='tf') q.correct=String(row.correct_answer||'true').toLowerCase()==='false'?'false':'true';
+    else {q.correct=String(row.correct_answer||'').trim();if(!q.correct){errors++;return;}}
+    if(!q.module) delete q.module;
+    S.questions.push(q);added++; if(preview.length<8) preview.push(q);
+  });
+  normalizeQuestionBank();saveState();return {added,errors,preview};
+}
+function handleQuestionUpload(input){
+  const file=input.files[0]; if(!file)return; const reader=new FileReader();
+  reader.onload=function(e){try{
+    let items=[];
+    if(file.name.toLowerCase().endsWith('.json')){const parsed=JSON.parse(e.target.result);items=Array.isArray(parsed)?parsed:(parsed.questions||[]);}
+    else {const rows=parseCSV(e.target.result); if(rows.length<2)throw new Error('CSV has no question rows.'); const headers=rows[0].map(h=>h.trim().toLowerCase()); items=rows.slice(1).map(r=>{const o={};headers.forEach((h,i)=>o[h]=r[i]||'');return o;});}
+    const out=importQuestionObjects(items); document.getElementById('upload-alert').innerHTML='<div class="alert alert-success">✓ Imported '+out.added+' question(s). '+(out.errors?out.errors+' row(s) skipped.':'All rows were accepted.')+'</div>';
+    document.getElementById('upload-preview').innerHTML=out.preview.length?'<div class="locked-notice"><strong>Auto-arranged preview:</strong> '+out.preview.map(q=>q.section+(q.module?' · '+q.module:'')).join(' | ')+'</div>':'';
+    input.value='';renderReviewQ();
+  }catch(err){document.getElementById('upload-alert').innerHTML='<div class="alert alert-danger">Import failed: '+String(err.message||err)+'</div>';}}; reader.readAsText(file);
+}
+function downloadQuestionTemplate(){
+  const header='course,exam_type,module,section,question,type,scenario,option_a,option_b,option_c,option_d,correct_answer,marks\n';
+  const sample='Business Applications & Automations,Mock 1,Module 1: Business Fundamentals & Digital Transformation Basics,auto,What is the primary purpose of a business?,mcq,,Create value,Reduce costs,Ignore customers,Stop competition,a,1\n';
+  const blob=new Blob([header+sample],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='NkaySolutions_Question_Bank_Template.csv';a.click();URL.revokeObjectURL(a.href);
+}
+function handleCSV(input){handleQuestionUpload(input);}
 
 function openModal(id){document.getElementById(id).classList.remove('hidden');}
 function closeModal(id){document.getElementById(id).classList.add('hidden');}
@@ -2655,7 +2712,6 @@ function sendReceiptSMS(){
 }
 
 </script>
-<br>
 <!-- RECEIPT MODAL -->
 <div class="receipt-overlay" id="receipt-overlay" onclick="if(event.target===this)closeReceiptModal()">
   <div class="receipt-modal">
@@ -2696,7 +2752,6 @@ function sendReceiptSMS(){
         <button class="btn btn-primary" onclick="generateReceipt()">&#128196; Preview Receipt</button>
         <button class="btn" onclick="closeReceiptModal()">Cancel</button>
       </div>
-<br>
       <!-- PRINTABLE RECEIPT -->
       <div class="printable-receipt" id="printable-receipt">
         <div class="pr-head">
@@ -2732,7 +2787,6 @@ function sendReceiptSMS(){
         </div>
         <div class="pr-motto-bar">Scientia Est Potestas &nbsp;&middot;&nbsp; Knowledge is Power. Skills are Freedom.</div>
       </div>
-<br>
       <!-- POST-PREVIEW ACTIONS -->
       <div id="rec-post-actions" style="display:none;margin-top:14px">
         <div class="rec-actions">
@@ -2745,8 +2799,6 @@ function sendReceiptSMS(){
     </div>
   </div>
 </div>
-<br>
-<br>
 <!-- EXAM PASSWORD MODAL -->
 <div class="modal-overlay hidden" id="modal-exampass">
   <div class="modal-box" style="max-width:380px">
@@ -2767,6 +2819,5 @@ function sendReceiptSMS(){
     </div>
   </div>
 </div>
-<br>
 </body>
 </html>
