@@ -1308,8 +1308,56 @@ function switchLoginTab(tab){
   document.getElementById('tab-btn-'+tab).classList.add('active');
   document.getElementById('form-'+tab).classList.add('active');
 }
-function logout(){ currentUser=null; clearTimer(); document.getElementById('nav-user').classList.add('hidden'); document.getElementById('nav-logout-btn').classList.add('hidden'); goto('page-landing'); }
+function logout(){ currentUser=null; clearTimer(); stopAutoRefresh(); document.getElementById('nav-user').classList.add('hidden'); document.getElementById('nav-logout-btn').classList.add('hidden'); goto('page-landing'); }
 function showNav(name){ document.getElementById('nav-user').textContent=name; document.getElementById('nav-user').classList.remove('hidden'); document.getElementById('nav-logout-btn').classList.remove('hidden'); }
+// ── AUTO-REFRESH — keeps results up to date without manual page refresh ──
+var autoRefreshTimer=null;
+var AUTO_REFRESH_MS=10000; // check for updates every 10 seconds
+function startAutoRefresh(){
+  stopAutoRefresh();
+  autoRefreshTimer=setInterval(autoRefreshTick, AUTO_REFRESH_MS);
+}
+function stopAutoRefresh(){
+  if(autoRefreshTimer){ clearInterval(autoRefreshTimer); autoRefreshTimer=null; }
+}
+function autoRefreshTick(){
+  if(!apiReady()) return;
+  api('/api/load').then(function(data){
+    var changed=false;
+    if(data.results && JSON.stringify(data.results)!==JSON.stringify(S.results)){ S.results=data.results; changed=true; }
+    if(data.students && JSON.stringify(data.students)!==JSON.stringify(S.students)){ S.students=data.students; changed=true; }
+    if(data.settings){ S.settings=Object.assign({},S.settings,data.settings); }
+    if(data.questions && data.questions.length){
+      data.questions.forEach(function(q){
+        if(!S.questions.find(function(x){ return x.id===q.id; })){ S.questions.push(q); changed=true; }
+      });
+    }
+    if(changed){ saveState(); refreshVisiblePanels(); }
+  }).catch(function(){ /* stay silent on network errors, keep last known data */ });
+}
+function refreshVisiblePanels(){
+  var trainer=document.getElementById('page-trainer');
+  if(trainer && trainer.classList.contains('active')){
+    renderOverview();
+    if(document.getElementById('tab-results').classList.contains('active')) renderResultsTable();
+    if(document.getElementById('tab-students').classList.contains('active')) renderStudentsTable();
+    if(document.getElementById('tab-fees').classList.contains('active') && typeof renderFees==='function') renderFees();
+  }
+  var dash=document.getElementById('page-student-dash');
+  if(dash && dash.classList.contains('active') && currentUser) renderStudentDash();
+}
+// React instantly when another open tab (e.g. a student submitting) saves new data
+window.addEventListener('storage', function(e){
+  if(e.key!==STORE_KEY || !e.newValue) return;
+  try{
+    var saved=JSON.parse(e.newValue);
+    if(saved.results) S.results=saved.results;
+    if(saved.students) S.students=saved.students;
+    if(saved.settings) S.settings=Object.assign({},S.settings,saved.settings);
+    refreshVisiblePanels();
+  }catch(err){}
+});
+
 // ── STUDENT LOGIN ──
 function studentLogin(){
   var code=document.getElementById('s-code').value.trim().toUpperCase();
@@ -1330,10 +1378,12 @@ function studentLogin(){
         saveState();
         renderStudentDash();
         goto('page-student-dash');
-      }).catch(function(){ renderStudentDash(); goto('page-student-dash'); });
+        startAutoRefresh();
+      }).catch(function(){ renderStudentDash(); goto('page-student-dash'); startAutoRefresh(); });
     } else {
       renderStudentDash();
       goto('page-student-dash');
+      startAutoRefresh();
     }
   }
   // Try API first, fallback to localStorage
@@ -1619,6 +1669,7 @@ function trainerLogin(){
     loadFromAPI(function(){
       renderOverview();
       goto('page-trainer');
+      startAutoRefresh();
     });
   }
   if(apiReady()){
