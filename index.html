@@ -563,7 +563,24 @@ tbody tr:hover td{background:var(--cream)}
           <div><div class="t-page-title">Students</div><div class="t-page-sub">Manage registered students</div></div>
           <button class="btn btn-primary" onclick="openAddStudentModal()">+ Add Student</button>
         </div>
-        <div class="card-table"><table><thead><tr><th>Code</th><th>Name</th><th>Course</th><th>Registered</th><th>Exams</th><th>Del</th></tr></thead><tbody id="students-tbody"></tbody></table></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;cursor:pointer"><input id="student-select-all" type="checkbox" onchange="toggleAllStudentSelection(this.checked)"> Select all students</label>
+            <span id="student-selection-count" style="font-size:12px;color:var(--text-muted)">0 selected</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <select id="bulk-transfer-course" aria-label="Programme to move selected students to" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;background:#fff">
+              <option value="">Move selected to...</option>
+              <option>Basic Computer Literacy</option>
+              <option>MS Office Suite</option>
+              <option>Data Analytics with Excel</option>
+              <option>Business Applications &amp; Automations</option>
+            </select>
+            <button class="btn btn-primary" id="bulk-transfer-btn" onclick="moveSelectedStudents()">Move Selected</button>
+          </div>
+          <div id="bulk-transfer-alert" role="status" aria-live="polite" style="flex-basis:100%"></div>
+        </div>
+        <div class="card-table"><table><thead><tr><th>Select</th><th>Code</th><th>Name</th><th>Course</th><th>Registered</th><th>Exams</th><th>Actions</th></tr></thead><tbody id="students-tbody"></tbody></table></div>
       </div>
       <!-- RESULTS -->
       <div class="t-panel" id="tab-results">
@@ -705,7 +722,7 @@ tbody tr:hover td{background:var(--cream)}
         <div class="settings-section">
           <h3>&#128272; Exam Access Passwords</h3>
           <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.6">
-            Set a password students must enter before starting each exam. Leave blank for open access.
+            Set or change the password students must enter before starting each exam. Leave blank for open access. Passwords are checked when the student starts the selected exam.
             Click &#127922; to auto-generate a random code.
           </p>
           <div id="pass-list"></div>
@@ -729,6 +746,13 @@ tbody tr:hover td{background:var(--cream)}
           <div class="two-col">
             <div class="field"><label>Main Exam questions</label><input type="number" id="s-main-q" min="10" max="100"></div>
             <div class="field"></div>
+          </div>
+          <div class="settings-section" style="margin-top:16px;background:#fffbeb">
+            <h3>&#9201; Adjust Time for Active Exams</h3>
+            <p style="font-size:13px;color:#6b7280;margin-bottom:12px;line-height:1.6">Add or subtract the number of minutes entered from every student currently taking an exam or mock. Use a negative number to reduce time. This is a one-time adjustment; the time limits above apply to future exam starts.</p>
+            <div class="field"><label>Minutes to add or subtract</label><input type="number" id="s-time-adjustment" min="-180" max="180" step="1" placeholder="e.g. 5 or -3"></div>
+            <div id="time-adjustment-alert" role="status" aria-live="polite"></div>
+            <button class="btn btn-gold" id="apply-time-adjustment-btn" onclick="applyTimeAdjustment()">Apply to Active Exams</button>
           </div>
           <div class="toggle-row">
             <label for="s-autorelease">Auto-release results immediately after submission</label>
@@ -771,7 +795,7 @@ tbody tr:hover td{background:var(--cream)}
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #fecaca;border-radius:8px;flex-wrap:wrap">
               <div style="flex:1;min-width:200px">
                 <div style="font-weight:600;font-size:13px;color:#0F2744">Delete All Students &amp; Reset ID Counter</div>
-                <div style="font-size:12px;color:#6b7280">Removes all students. Next student code starts fresh from NTA-2026-001.</div>
+                <div style="font-size:12px;color:#6b7280">Removes all students. Student codes become available for reuse.</div>
               </div>
               <button class="btn btn-danger" onclick="adminResetStudents()">Delete All Students</button>
             </div>
@@ -824,6 +848,29 @@ tbody tr:hover td{background:var(--cream)}
     </div>
   </div>
 </div>
+<div class="modal-overlay hidden" id="modal-transfer-student">
+  <div class="modal-box">
+    <h3>Move Student to Another Programme</h3>
+    <p>Keep this student’s ID and exam history while changing their current programme.</p>
+    <div style="background:#f7f3e8;border-radius:8px;padding:12px 14px;margin-bottom:16px">
+      <strong id="transfer-student-name"></strong>
+      <div style="font-size:12px;color:#6b7280;margin-top:3px">Current programme: <span id="transfer-current-course"></span></div>
+    </div>
+    <div class="field"><label>New Programme</label>
+      <select id="transfer-course">
+        <option>Basic Computer Literacy</option>
+        <option>MS Office Suite</option>
+        <option>Data Analytics with Excel</option>
+        <option>Business Applications &amp; Automations</option>
+      </select>
+    </div>
+    <div id="transfer-alert" style="margin-bottom:8px"></div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="transfer-save-btn" onclick="saveProgramTransfer()">Move Student</button>
+      <button class="btn" onclick="closeModal('modal-transfer-student')">Cancel</button>
+    </div>
+  </div>
+</div>
 <div class="modal-overlay hidden" id="modal-confirm-submit">
   <div class="modal-box">
     <h3>Submit Exam?</h3>
@@ -858,7 +905,7 @@ function apiReady() {
 }
 const DEFAULT={
   trainer:{username:'trainer',password:'NkaySolutions2025'},
-  settings:{gradeDist:80,gradeMerit:70,gradePass:60,mockTime:20,mainTime:50,mockQCount:20,mainQCount:50,autoRelease:true},
+  settings:{gradeDist:80,gradeMerit:70,gradePass:60,mockTime:20,mainTime:50,mockQCount:20,mainQCount:50,autoRelease:true,examPasswords:{},timeAdjustmentTotalSeconds:0,timeAdjustmentId:''},
   students:[
     {code:'NTA-2025-001',name:'Kwame Mensah',course:'Basic Computer Literacy',registered:'01/05/2025'},
     {code:'NTA-2025-002',name:'Abena Asante',course:'MS Office Suite',registered:'03/05/2025'},
@@ -1240,7 +1287,9 @@ const DEFAULT={
     {id:'dm50',course:'Data Analytics with Excel',exam:'Main Exam',type:'word',scenario:'Nana is presenting data analysis findings to a board of directors who are not data experts. He has complex statistical outputs that are technically correct but difficult for non-analysts to understand.',question:'What is the MOST important principle Nana should follow when presenting to this audience?',options:['Show all raw data tables and formulas so they can verify accuracy','Translate insights into clear, visual, business-relevant language that tells a story and drives decisions','Use the most technically advanced charts available','Present everything in one very detailed chart'],correct:1,marks:2},
   ]
 };
-let S={}, currentUser=null, currentExam=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200;
+let S={}, currentUser=null, currentExam=null, currentExamCourse=null, examQs=[], answers={}, currentQ=0, timerInterval=null, timeLeft=1200, examDeadline=0, transferStudentCode=null;
+var examTimeAdjustmentTotal=0;
+var selectedStudentCodes=new Set();
 function loadState(){
   try{
     var r=localStorage.getItem(STORE_KEY);
@@ -1274,7 +1323,7 @@ function saveState(){
 }
 // ── LOAD FROM API (called after login) ──
 function loadFromAPI(cb){
-  if(!apiReady()){ cb(); return; }
+  if(!apiReady()){ cb(false); return; }
   api('/api/load').then(function(data){
     if(data.students)  S.students  = data.students;
     if(data.results)   S.results   = data.results;
@@ -1285,15 +1334,15 @@ function loadFromAPI(cb){
       });
     }
     if(data.settings){
-      S.settings = Object.assign({}, S.settings, data.settings);
+      mergeIncomingSettings(data.settings);
       if(!S.settings.mockQCount) S.settings.mockQCount=20;
       if(!S.settings.mainQCount) S.settings.mainQCount=50;
     }
     saveState();
-    cb();
+    cb(true);
   }).catch(function(e){
     console.warn('[API] loadFromAPI failed, using localStorage:', e.message);
-    cb();
+    cb(false);
   });
 }
 function goto(id){
@@ -1308,7 +1357,7 @@ function switchLoginTab(tab){
   document.getElementById('tab-btn-'+tab).classList.add('active');
   document.getElementById('form-'+tab).classList.add('active');
 }
-function logout(){ currentUser=null; clearTimer(); stopAutoRefresh(); document.getElementById('nav-user').classList.add('hidden'); document.getElementById('nav-logout-btn').classList.add('hidden'); goto('page-landing'); }
+function logout(){ saveActiveExamSession(); currentUser=null; clearTimer(); stopAutoRefresh(); document.getElementById('nav-user').classList.add('hidden'); document.getElementById('nav-logout-btn').classList.add('hidden'); goto('page-landing'); }
 function showNav(name){ document.getElementById('nav-user').textContent=name; document.getElementById('nav-user').classList.remove('hidden'); document.getElementById('nav-logout-btn').classList.remove('hidden'); }
 // ── AUTO-REFRESH — keeps results up to date without manual page refresh ──
 var autoRefreshTimer=null;
@@ -1320,20 +1369,44 @@ function startAutoRefresh(){
 function stopAutoRefresh(){
   if(autoRefreshTimer){ clearInterval(autoRefreshTimer); autoRefreshTimer=null; }
 }
+function mergeIncomingSettings(settings){
+  if(!settings) return false;
+  var oldJson=JSON.stringify(S.settings);
+  S.settings=Object.assign({},S.settings,settings);
+  var newAdjustment=Number(S.settings.timeAdjustmentTotalSeconds)||0;
+  if(currentExam && document.getElementById('page-exam').classList.contains('active')){
+    var adjustment=newAdjustment-examTimeAdjustmentTotal;
+    examTimeAdjustmentTotal=newAdjustment;
+    if(adjustment){
+      examDeadline+=adjustment*1000;
+      syncTimeLeft();
+      updateTimerDisplay();
+      saveActiveExamSession();
+      if(timeLeft<=0){
+        timeLeft=0;
+        clearTimer();
+        submitExam();
+      }
+    }
+  }else{
+    examTimeAdjustmentTotal=newAdjustment;
+  }
+  return oldJson!==JSON.stringify(S.settings);
+}
 function autoRefreshTick(){
   if(!apiReady()) return;
   api('/api/load').then(function(data){
     var changed=false;
     if(data.results && JSON.stringify(data.results)!==JSON.stringify(S.results)){ S.results=data.results; changed=true; }
     if(data.students && JSON.stringify(data.students)!==JSON.stringify(S.students)){ S.students=data.students; changed=true; }
-    if(data.settings){ S.settings=Object.assign({},S.settings,data.settings); }
+    if(data.settings && mergeIncomingSettings(data.settings)) changed=true;
     if(data.questions && data.questions.length){
       data.questions.forEach(function(q){
         if(!S.questions.find(function(x){ return x.id===q.id; })){ S.questions.push(q); changed=true; }
       });
     }
     if(changed){ saveState(); refreshVisiblePanels(); }
-  }).catch(function(){ /* stay silent on network errors, keep last known data */ });
+  }).catch(function(e){ console.warn('[API] settings and student refresh failed; keeping last known data:',e.message); });
 }
 function refreshVisiblePanels(){
   var trainer=document.getElementById('page-trainer');
@@ -1353,7 +1426,7 @@ window.addEventListener('storage', function(e){
     var saved=JSON.parse(e.newValue);
     if(saved.results) S.results=saved.results;
     if(saved.students) S.students=saved.students;
-    if(saved.settings) S.settings=Object.assign({},S.settings,saved.settings);
+    if(saved.settings) mergeIncomingSettings(saved.settings);
     refreshVisiblePanels();
   }catch(err){}
 });
@@ -1366,24 +1439,48 @@ function studentLogin(){
   if(!code){ err.style.display='block'; return; }
   function doLogin(student){
     if(!student){ err.style.display='block'; return; }
-    currentUser=Object.assign({},student);
-    showNav(currentUser.name);
-    // Load this student's results from API
-    if(apiReady()){
-      api('/api/results/student/'+code).then(function(results){
-        // Merge into S.results
-        results.forEach(function(r){
-          if(!S.results.find(function(x){ return x.id===r.id; })) S.results.push(r);
-        });
-        saveState();
+    function finishLogin(){
+      var latestStudent=S.students.find(function(s){ return s.code===code; });
+      currentUser=Object.assign({},student,latestStudent||{});
+      showNav(currentUser.name);
+      function showDashboard(){
+        if(restoreActiveExamSession()){
+          goto('page-exam');
+          startTimer();
+          startAutoRefresh();
+          if(timeLeft<=0) submitExam();
+          return;
+        }
         renderStudentDash();
         goto('page-student-dash');
         startAutoRefresh();
-      }).catch(function(){ renderStudentDash(); goto('page-student-dash'); startAutoRefresh(); });
-    } else {
-      renderStudentDash();
-      goto('page-student-dash');
-      startAutoRefresh();
+      }
+      if(apiReady()){
+        api('/api/results/student/'+encodeURIComponent(code)).then(function(results){
+          results.forEach(function(r){
+            if(!S.results.find(function(x){ return x.id===r.id; })) S.results.push(r);
+          });
+          saveState();
+          showDashboard();
+        }).catch(function(e){
+          console.warn('[API] student results could not be loaded:',e.message);
+          showDashboard();
+        });
+      }else{
+        showDashboard();
+      }
+    }
+    if(apiReady()){
+      loadFromAPI(function(loaded){
+        if(!loaded){
+          err.textContent='Unable to load the latest shared exam settings. Check your connection and try again.';
+          err.style.display='block';
+          return;
+        }
+        finishLogin();
+      });
+    }else{
+      finishLogin();
     }
   }
   // Try API first, fallback to localStorage
@@ -1402,7 +1499,7 @@ function studentLogin(){
 function renderStudentDash(){
   const u=currentUser;
   document.getElementById('dash-greeting').textContent='Welcome back, '+u.name.split(' ')[0];
-  document.getElementById('dash-sub').textContent='Complete Mock 1 before the Main Exam. Mocks: 20 questions, 20 mins. Main Exam: 50 questions, 50 mins.';
+  document.getElementById('dash-sub').textContent='Complete Mock 1 before the Main Exam. Mocks: '+S.settings.mockQCount+' questions, '+S.settings.mockTime+' mins. Main Exam: '+S.settings.mainQCount+' questions, '+S.settings.mainTime+' mins.';
   document.getElementById('m-course').textContent=u.course;
   document.getElementById('m-code').textContent=u.code;
   const myR=S.results.filter(r=>r.studentCode===u.code);
@@ -1454,8 +1551,7 @@ function viewScript(resultId){
 var pendingExam=null; var passAttempts=0;
 function startExam(examName){
   var passKey=currentUser.course+'|'+examName;
-  var passwords=S.settings.examPasswords||{};
-  var required=passwords[passKey]||'';
+  var required=String((S.settings.examPasswords||{})[passKey]||'').trim();
   if(required){
     pendingExam=examName; passAttempts=0;
     document.getElementById('ep-input').value='';
@@ -1469,8 +1565,9 @@ function startExam(examName){
 }
 function verifyPass(){
   var input=document.getElementById('ep-input').value.trim().toUpperCase();
+  if(!currentUser || !pendingExam) return;
   var passKey=currentUser.course+'|'+pendingExam;
-  var correct=((S.settings.examPasswords||{})[passKey]||'').toUpperCase();
+  var correct=String((S.settings.examPasswords||{})[passKey]||'').trim().toUpperCase();
   passAttempts++;
   var errEl=document.getElementById('ep-err');
   if(input===correct){
@@ -1492,25 +1589,115 @@ function launchExam(examName){
   const shuffled=[...allQs].sort(()=>Math.random()-0.5);
   examQs=shuffled.slice(0,Math.min(qCount,shuffled.length));
   if(!examQs.length){alert('No questions available for this exam.');return;}
-  currentExam=examName; answers={}; currentQ=0;
+  currentExam=examName; currentExamCourse=currentUser.course; answers={}; currentQ=0;
   timeLeft=(isMain?S.settings.mainTime:S.settings.mockTime)*60;
+  examDeadline=Date.now()+timeLeft*1000;
+  examTimeAdjustmentTotal=Number(S.settings.timeAdjustmentTotalSeconds)||0;
   document.getElementById('ex-name').textContent=examName;
-  document.getElementById('ex-course').textContent=currentUser.course;
-  renderDots(); renderQ(); startTimer();
+  document.getElementById('ex-course').textContent=currentExamCourse;
+  renderDots(); renderQ(); saveActiveExamSession(); startTimer();
   goto('page-exam');
+}
+function activeExamStorageKey(code){
+  return STORE_KEY+'_active_exam_'+encodeURIComponent(code);
+}
+function saveActiveExamSession(){
+  if(!currentUser || !currentExam || !examDeadline) return;
+  var session={
+    studentCode:currentUser.code,
+    studentName:currentUser.name,
+    course:currentExamCourse||currentUser.course,
+    exam:currentExam,
+    questions:examQs,
+    answers:answers,
+    currentQuestion:currentQ,
+    deadline:examDeadline,
+    timeAdjustmentTotal:examTimeAdjustmentTotal
+  };
+  try{
+    localStorage.setItem(activeExamStorageKey(currentUser.code),JSON.stringify(session));
+  }catch(error){
+    console.warn('[Exam] Could not save in-progress exam locally:',error.message);
+  }
+}
+function restoreActiveExamSession(){
+  if(!currentUser) return false;
+  var saved;
+  try{
+    var raw=localStorage.getItem(activeExamStorageKey(currentUser.code));
+    if(!raw) return false;
+    saved=JSON.parse(raw);
+  }catch(error){
+    console.warn('[Exam] Could not read in-progress exam:',error.message);
+    return false;
+  }
+  if(!saved || saved.studentCode!==currentUser.code || String(saved.studentName||'').trim().toLowerCase()!==String(currentUser.name||'').trim().toLowerCase() || !Array.isArray(saved.questions) || !saved.questions.length || !Number.isFinite(Number(saved.deadline))){
+    console.warn('[Exam] Ignoring invalid in-progress exam record for',currentUser.code);
+    return false;
+  }
+  currentExam=saved.exam;
+  currentExamCourse=saved.course||currentUser.course;
+  examQs=saved.questions;
+  answers=saved.answers&&typeof saved.answers==='object'?saved.answers:{};
+  currentQ=Math.max(0,Math.min(Number(saved.currentQuestion)||0,examQs.length-1));
+  examDeadline=Number(saved.deadline);
+  examTimeAdjustmentTotal=Number(saved.timeAdjustmentTotal)||0;
+  var currentAdjustmentTotal=Number(S.settings.timeAdjustmentTotalSeconds)||0;
+  examDeadline+=(currentAdjustmentTotal-examTimeAdjustmentTotal)*1000;
+  examTimeAdjustmentTotal=currentAdjustmentTotal;
+  timeLeft=0;
+  document.getElementById('ex-name').textContent=currentExam;
+  document.getElementById('ex-course').textContent=currentExamCourse;
+  renderDots();
+  renderQ();
+  syncTimeLeft();
+  updateTimerDisplay();
+  return true;
+}
+function syncTimeLeft(){
+  timeLeft=examDeadline?Math.max(0,Math.ceil((examDeadline-Date.now())/1000)):0;
 }
 function startTimer(){
   clearInterval(timerInterval);
+  syncTimeLeft();
+  updateTimerDisplay();
+  if(timeLeft<=0) return;
   timerInterval=setInterval(()=>{
-    timeLeft--;
-    const m=Math.floor(timeLeft/60),s=timeLeft%60;
-    const el=document.getElementById('ex-timer');
-    el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-    el.className='timer-box'+(timeLeft<120?' urgent':'');
-    if(timeLeft<=0){clearInterval(timerInterval);submitExam();}
+    syncTimeLeft();
+    updateTimerDisplay();
+    if(timeLeft<=0){clearTimer();submitExam();}
   },1000);
 }
-function clearTimer(){clearInterval(timerInterval);}
+function updateTimerDisplay(){
+  const displayTime=Math.max(0,timeLeft);
+  const m=Math.floor(displayTime/60),s=displayTime%60;
+  const el=document.getElementById('ex-timer');
+  if(!el) return;
+  el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  el.className='timer-box'+(displayTime<120?' urgent':'');
+}
+function clearTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}}
+window.addEventListener('pagehide',saveActiveExamSession);
+window.addEventListener('pageshow',function(){
+  if(!currentExam || !currentUser || !document.getElementById('page-exam').classList.contains('active')) return;
+  syncTimeLeft();
+  updateTimerDisplay();
+  if(timeLeft<=0){
+    clearTimer();
+    submitExam();
+  }else{
+    startTimer();
+  }
+});
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState!=='visible' || !currentExam || !currentUser) return;
+  syncTimeLeft();
+  updateTimerDisplay();
+  if(timeLeft<=0 && document.getElementById('page-exam').classList.contains('active')){
+    clearTimer();
+    submitExam();
+  }
+});
 function renderDots(){
   const cont=document.getElementById('q-dots');
   cont.innerHTML='';
@@ -1542,12 +1729,13 @@ function renderQ(){
   }
   html+=`</div>`;
   document.getElementById('q-container').innerHTML=html;
-  if(q.type==='short'){ document.getElementById('short-ta').addEventListener('input',e=>{answers[currentQ]=e.target.value;renderDots();}); }
+  if(q.type==='short'){ document.getElementById('short-ta').addEventListener('input',e=>{answers[currentQ]=e.target.value;renderDots();saveActiveExamSession();}); }
   const isLast=currentQ===examQs.length-1;
   document.getElementById('btn-next').style.display=isLast?'none':'inline-flex';
   document.getElementById('btn-submit').style.display=isLast?'inline-flex':'none';
   document.getElementById('btn-prev').disabled=currentQ===0;
   renderDots();
+  saveActiveExamSession();
 }
 function pickMCQ(i){answers[currentQ]=i;renderQ();}
 function pickTF(v){answers[currentQ]=v;renderQ();}
@@ -1580,12 +1768,14 @@ function submitExam(){
   const result={
     id:'r'+Date.now(),
     studentCode:currentUser.code,studentName:currentUser.name,
-    course:currentUser.course,exam:currentExam,
+    course:currentExamCourse||currentUser.course,exam:currentExam,
     pct,earned,total,grade:grade.letter,gradeLabel:grade.label,
     breakdown,hasShort,
     released:S.settings.autoRelease&&!hasShort,
     date:new Date().toLocaleDateString('en-GB')
   };
+  try{localStorage.removeItem(activeExamStorageKey(currentUser.code));}
+  catch(error){console.warn('[Exam] Could not clear completed exam session:',error.message);}
   S.results.push(result); saveState();
   // POST result to API
   if(apiReady()){
@@ -1719,10 +1909,39 @@ function renderOverview(){
   </tr>`).join('')||`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">No results yet</td></tr>`;
 }
 function renderStudentsTable(){
+  selectedStudentCodes.forEach(function(code){
+    if(!S.students.some(function(student){ return student.code===code; })) selectedStudentCodes.delete(code);
+  });
   document.getElementById('students-tbody').innerHTML=S.students.map(s=>{
     const ec=S.results.filter(r=>r.studentCode===s.code).length;
-    return`<tr><td><code class="td-code">${s.code}</code></td><td>${s.name}</td><td style="font-size:12px">${s.course}</td><td style="font-size:12px">${s.registered}</td><td>${ec}</td><td><button class="btn btn-danger btn-icon" onclick="delStudent('${s.code}')">✕</button></td></tr>`;
-  }).join('')||`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">No students yet.</td></tr>`;
+    return`<tr><td><input type="checkbox" aria-label="Select ${s.name}" ${selectedStudentCodes.has(s.code)?'checked':''} onchange="toggleStudentSelection('${s.code}',this.checked)"></td><td><code class="td-code">${s.code}</code></td><td>${s.name}</td><td style="font-size:12px">${s.course}</td><td style="font-size:12px">${s.registered}</td><td>${ec}</td><td><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-sm" onclick="openTransferStudentModal('${s.code}')">Move</button><button class="btn btn-danger btn-icon" onclick="delStudent('${s.code}')" aria-label="Delete ${s.name}">✕</button></div></td></tr>`;
+  }).join('')||`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">No students yet.</td></tr>`;
+  updateStudentSelectionControls();
+}
+function updateStudentSelectionControls(){
+  var count=selectedStudentCodes.size;
+  var countEl=document.getElementById('student-selection-count');
+  var selectAll=document.getElementById('student-select-all');
+  if(countEl) countEl.textContent=count+' selected';
+  if(selectAll){
+    selectAll.checked=S.students.length>0 && count===S.students.length;
+    selectAll.indeterminate=count>0 && count<S.students.length;
+  }
+}
+function toggleStudentSelection(code,selected){
+  if(selected) selectedStudentCodes.add(code);
+  else selectedStudentCodes.delete(code);
+  updateStudentSelectionControls();
+}
+function toggleAllStudentSelection(selected){
+  if(selected) S.students.forEach(function(student){ selectedStudentCodes.add(student.code); });
+  else selectedStudentCodes.clear();
+  renderStudentsTable();
+}
+function setBulkTransferAlert(message,type){
+  var alertEl=document.getElementById('bulk-transfer-alert');
+  alertEl.className=message?'alert alert-'+type:'';
+  alertEl.textContent=message;
 }
 function renderResultsTable(){
   const fc=document.getElementById('rf-course')?.value||'',fe=document.getElementById('rf-exam')?.value||'',fs=document.getElementById('rf-status')?.value||'';
@@ -1801,12 +2020,20 @@ function delQuestion(id){
   saveState(); renderReviewQ();
 }
 function delStudent(code){
-  if(!confirm('Delete this student? This permanently removes their record, results and payments. The ID will NOT be reused.')) return;
+  if(!confirm('Delete this student? This permanently removes their record, results and payments. Their ID will be available for reuse.')) return;
   if(apiReady()){
-    api('/api/students/'+code,{method:'DELETE'}).catch(function(){});
+    api('/api/students/'+encodeURIComponent(code),{method:'DELETE'})
+      .then(function(){ removeStudentLocally(code); })
+      .catch(function(e){ alert('Could not delete the student: '+e.message+'. The ID has not been made available for reuse.'); });
+  } else {
+    removeStudentLocally(code);
   }
+}
+function removeStudentLocally(code){
   // Remove student AND all their results/payments locally so a
   // future student never inherits stale data under a shared code
+  try{localStorage.removeItem(activeExamStorageKey(code));}
+  catch(error){console.warn('[Student] Could not clear the deleted student exam session:',error.message);}
   S.students=S.students.filter(function(s){ return s.code!==code; });
   S.results=S.results.filter(function(r){ return (r.studentCode||r.sc)!==code; });
   saveState();
@@ -1889,6 +2116,17 @@ function handleCSV(input){
 }
 function openModal(id){document.getElementById(id).classList.remove('hidden');}
 function closeModal(id){document.getElementById(id).classList.add('hidden');}
+function nextAvailableStudentCode(){
+  var year=new Date().getFullYear();
+  var used={};
+  S.students.forEach(function(student){
+    var match=(student.code||'').match(new RegExp('^NTA-'+year+'-(\\d+)$','i'));
+    if(match) used[Number(match[1])]=true;
+  });
+  var number=1;
+  while(used[number]) number++;
+  return 'NTA-'+year+'-'+String(number).padStart(3,'0');
+}
 function openAddStudentModal(){
   document.getElementById('ns-name').value='';
   document.getElementById('ns-phone').value='';
@@ -1896,24 +2134,9 @@ function openAddStudentModal(){
   document.getElementById('ns-code-display').textContent='Generating...';
   document.getElementById('ns-code').value='';
   openModal('modal-add-student');
-  // Get next code from API or generate locally
-  function setCode(code){
-    document.getElementById('ns-code').value=code;
-    document.getElementById('ns-code-display').textContent=code;
-  }
-  if(apiReady()){
-    api('/api/students/next-code')
-      .then(function(r){ setCode(r.code); })
-      .catch(function(){
-        var yr=new Date().getFullYear();
-        var num=String(S.students.length+1).padStart(3,'0');
-        setCode('NTA-'+yr+'-'+num);
-      });
-  } else {
-    var yr=new Date().getFullYear();
-    var num=String(S.students.length+1).padStart(3,'0');
-    setCode('NTA-'+yr+'-'+num);
-  }
+  var code=nextAvailableStudentCode();
+  document.getElementById('ns-code').value=code;
+  document.getElementById('ns-code-display').textContent=code;
 }
 function saveStudent(){
   var name=document.getElementById('ns-name').value.trim();
@@ -1925,6 +2148,11 @@ function saveStudent(){
   if(!courses.length) courses=[course];
   var alertEl=document.getElementById('ns-alert');
   if(!name){alertEl.innerHTML='<div class="alert alert-danger">Please enter the student name.</div>';return;}
+  if(!code){alertEl.innerHTML='<div class="alert alert-danger">A student code could not be generated. Please close and reopen this form.</div>';return;}
+  if(S.students.some(function(student){ return (student.code||'').toUpperCase()===code; })){
+    alertEl.innerHTML='<div class="alert alert-danger">This student code is already assigned. Close and reopen the form to generate an available code.</div>';
+    return;
+  }
   var studentData={code:code,name:name,phone:phone,course:courses[0],courses:courses,registered:new Date().toLocaleDateString('en-GB')};
   function onSaved(rec){
     // Use the record the backend actually stored (with its assigned code)
@@ -1941,6 +2169,144 @@ function saveStudent(){
         alertEl.innerHTML='<div class="alert alert-danger">Error: '+e.message+'</div>';
       });
   } else { onSaved(); }
+}
+function openTransferStudentModal(code){
+  var student=S.students.find(function(s){ return s.code===code; });
+  if(!student){
+    alert('Student record could not be found. Refresh the student list and try again.');
+    renderStudentsTable();
+    return;
+  }
+  transferStudentCode=code;
+  document.getElementById('transfer-student-name').textContent=student.name;
+  document.getElementById('transfer-current-course').textContent=student.course||'Not assigned';
+  var courseSelect=document.getElementById('transfer-course');
+  if(student.course && !Array.from(courseSelect.options).some(function(option){ return option.value===student.course; })){
+    var currentOption=document.createElement('option');
+    currentOption.value=student.course;
+    currentOption.textContent=student.course+' (current)';
+    courseSelect.insertBefore(currentOption,courseSelect.firstChild);
+  }
+  courseSelect.value=student.course||'';
+  document.getElementById('transfer-alert').innerHTML='';
+  document.getElementById('transfer-save-btn').disabled=false;
+  openModal('modal-transfer-student');
+}
+function buildProgramTransferRecord(student,course){
+  var updated=Object.assign({},student,{course:course});
+  if(Array.isArray(student.courses) && student.courses.indexOf(course)===-1){
+    updated.courses=student.courses.concat(course);
+  }
+  return updated;
+}
+function applyProgramTransfer(code,course,record){
+  var studentIndex=S.students.findIndex(function(student){ return student.code===code; });
+  if(studentIndex<0) return false;
+  var updated=buildProgramTransferRecord(S.students[studentIndex],course);
+  S.students[studentIndex]=Object.assign({},updated,record||{},{course:course});
+  if(currentUser && currentUser.code===code) currentUser=Object.assign({},currentUser,S.students[studentIndex]);
+  selectedStudentCodes.delete(code);
+  saveState();
+  return true;
+}
+async function moveSelectedStudents(){
+  var alertEl=document.getElementById('bulk-transfer-alert');
+  var button=document.getElementById('bulk-transfer-btn');
+  var course=document.getElementById('bulk-transfer-course').value;
+  var selected=S.students.filter(function(student){ return selectedStudentCodes.has(student.code); });
+  if(!selected.length){
+    setBulkTransferAlert('Select one or more students to move.','danger');
+    return;
+  }
+  if(!course){
+    setBulkTransferAlert('Choose the destination programme first.','danger');
+    return;
+  }
+  var toMove=selected.filter(function(student){ return student.course!==course; });
+  selected.forEach(function(student){
+    if(student.course===course) selectedStudentCodes.delete(student.code);
+  });
+  if(!toMove.length){
+    updateStudentSelectionControls();
+    setBulkTransferAlert('All selected students are already enrolled in '+course+'.','info');
+    return;
+  }
+  if(!confirm('Move '+toMove.length+' selected student'+(toMove.length===1?'':'s')+' to '+course+'? Their IDs and exam history will be kept.')) return;
+  button.disabled=true;
+  setBulkTransferAlert('Moving '+toMove.length+' student'+(toMove.length===1?'':'s')+'...','info');
+  var moved=[];
+  var failed=[];
+  for(var i=0;i<toMove.length;i++){
+    var student=toMove[i];
+    var updated=buildProgramTransferRecord(student,course);
+    try{
+      var response=apiReady()
+        ?await api('/api/students/'+encodeURIComponent(student.code),{method:'PUT',body:JSON.stringify(updated)})
+        :null;
+      var savedRecord=response&&(response.student||response);
+      if(!applyProgramTransfer(student.code,course,savedRecord)){
+        throw new Error('Student is no longer in the roster');
+      }
+      moved.push(student);
+    }catch(error){
+      failed.push(student.code+': '+error.message);
+    }
+  }
+  button.disabled=false;
+  document.getElementById('bulk-transfer-course').value='';
+  renderStudentsTable();
+  renderOverview();
+  if(currentUser && document.getElementById('page-student-dash').classList.contains('active')) renderStudentDash();
+  if(failed.length){
+    var message='Moved '+moved.length+' student'+(moved.length===1?'':'s')+'. '+failed.length+' failed and remain selected: '+failed.join('; ');
+    setBulkTransferAlert(message,'danger');
+  }else{
+    setBulkTransferAlert('Successfully moved '+moved.length+' student'+(moved.length===1?'':'s')+' to '+course+'.','success');
+  }
+}
+function saveProgramTransfer(){
+  var studentIndex=S.students.findIndex(function(s){ return s.code===transferStudentCode; });
+  var alertEl=document.getElementById('transfer-alert');
+  if(studentIndex<0){
+    alertEl.innerHTML='<div class="alert alert-danger">Student record could not be found. Refresh the student list and try again.</div>';
+    return;
+  }
+  var student=S.students[studentIndex];
+  var course=document.getElementById('transfer-course').value;
+  if(!course){
+    alertEl.innerHTML='<div class="alert alert-danger">Please select a programme.</div>';
+    return;
+  }
+  if(course===student.course){
+    alertEl.innerHTML='<div class="alert alert-info">This student is already enrolled in that programme.</div>';
+    return;
+  }
+  var updated=buildProgramTransferRecord(student,course);
+  var saveButton=document.getElementById('transfer-save-btn');
+  saveButton.disabled=true;
+  alertEl.innerHTML='';
+  function onSaved(record){
+    if(!applyProgramTransfer(student.code,course,record)){
+      saveButton.disabled=false;
+      alertEl.innerHTML='<div class="alert alert-danger">Student record could not be found. No changes were saved.</div>';
+      return;
+    }
+    renderStudentsTable();
+    if(typeof renderOverview==='function') renderOverview();
+    if(currentUser && currentUser.code===student.code && document.getElementById('page-student-dash').classList.contains('active')) renderStudentDash();
+    alertEl.innerHTML='<div class="alert alert-success">&#10003; Programme updated. The student ID and exam history are unchanged.</div>';
+    setTimeout(function(){ closeModal('modal-transfer-student'); },1500);
+  }
+  if(apiReady()){
+    api('/api/students/'+encodeURIComponent(student.code),{method:'PUT',body:JSON.stringify(updated)})
+      .then(function(record){ onSaved(record && (record.student||record)); })
+      .catch(function(e){
+        saveButton.disabled=false;
+        alertEl.innerHTML='<div class="alert alert-danger">Could not update the programme: '+e.message+'. No changes were saved.</div>';
+      });
+  } else {
+    onSaved();
+  }
 }
 // ── EXAM PASSWORD FUNCTIONS ──
 function renderPassList(){
@@ -1971,29 +2337,37 @@ function genCode(key){
   var inp=document.querySelector('input[data-key="'+key+'"]');
   if(inp) inp.value=code;
 }
+function persistSettingsChange(settings,alertEl,successMessage){
+  if(apiReady()){
+    alertEl.innerHTML='<div class="alert alert-info">Saving to the shared backend...</div>';
+    return api('/api/settings',{method:'PUT',body:JSON.stringify(settings)})
+      .then(function(){
+        mergeIncomingSettings(settings);
+        saveState();
+        alertEl.innerHTML='<div class="alert alert-success">&#10003; '+successMessage+'</div>';
+        return true;
+      })
+      .catch(function(e){
+        alertEl.innerHTML='<div class="alert alert-danger">Could not save settings to the shared backend: '+e.message+'. No changes were applied.</div>';
+        return false;
+      });
+  }else{
+    mergeIncomingSettings(settings);
+    saveState();
+    alertEl.innerHTML='<div class="alert alert-warning">Saved on this browser only. Connect the backend for changes to reach all students.</div>';
+    return Promise.resolve(true);
+  }
+}
 function savePasswords(){
   var inputs=document.querySelectorAll('#pass-list input[data-key]');
-  if(!S.settings.examPasswords) S.settings.examPasswords={};
+  var settings=Object.assign({},S.settings,{examPasswords:Object.assign({},S.settings.examPasswords||{})});
   inputs.forEach(function(inp){
     var key=inp.getAttribute('data-key');
     var val=inp.value.trim().toUpperCase();
-    if(val) S.settings.examPasswords[key]=val;
-    else delete S.settings.examPasswords[key];
+    if(val) settings.examPasswords[key]=val;
+    else delete settings.examPasswords[key];
   });
-  saveState();
-  if(apiReady()){
-    api('/api/settings',{method:'PUT',body:JSON.stringify(S.settings)})
-      .then(function(){
-        document.getElementById('pass-alert').innerHTML='<div class="alert alert-success">&#10003; Passwords saved.</div>';
-        setTimeout(function(){ document.getElementById('pass-alert').innerHTML=''; },2500);
-      }).catch(function(){
-        document.getElementById('pass-alert').innerHTML='<div class="alert alert-success">&#10003; Passwords saved locally.</div>';
-        setTimeout(function(){ document.getElementById('pass-alert').innerHTML=''; },2500);
-      });
-  } else {
-    document.getElementById('pass-alert').innerHTML='<div class="alert alert-success">&#10003; Passwords saved.</div>';
-    setTimeout(function(){ document.getElementById('pass-alert').innerHTML=''; },2500);
-  }
+  persistSettingsChange(settings,document.getElementById('pass-alert'),'Exam passwords saved.');
 }
 function loadSettingsForm(){
   renderPassList();
@@ -2010,26 +2384,63 @@ function loadSettingsForm(){
   document.getElementById('s-mock-q').value=s.mockQCount;
   document.getElementById('s-main-q').value=s.mainQCount;
   document.getElementById('s-autorelease').checked=s.autoRelease;
+  document.getElementById('s-time-adjustment').value='';
+  document.getElementById('time-adjustment-alert').innerHTML='';
 }
 function saveSettings(){
-  S.settings.gradeDist=parseInt(document.getElementById('s-dist').value)||80;
-  S.settings.gradeMerit=parseInt(document.getElementById('s-merit').value)||70;
-  S.settings.gradePass=parseInt(document.getElementById('s-pass').value)||60;
-  S.settings.mockTime=parseInt(document.getElementById('s-mock-time').value)||20;
-  S.settings.mainTime=parseInt(document.getElementById('s-main-time').value)||50;
-  S.settings.mockQCount=parseInt(document.getElementById('s-mock-q').value)||20;
-  S.settings.mainQCount=parseInt(document.getElementById('s-main-q').value)||50;
-  S.settings.autoRelease=document.getElementById('s-autorelease').checked;
-  saveState();
   var alertEl=document.getElementById('settings-alert');
-  if(apiReady()){
-    api('/api/settings',{method:'PUT',body:JSON.stringify(S.settings)})
-      .then(function(){ alertEl.innerHTML='<div class="alert alert-success">&#10003; Settings saved.</div>'; setTimeout(function(){alertEl.innerHTML='';},2500); })
-      .catch(function(){ alertEl.innerHTML='<div class="alert alert-success">&#10003; Settings saved locally.</div>'; setTimeout(function(){alertEl.innerHTML='';},2500); });
-  } else {
-    alertEl.innerHTML='<div class="alert alert-success">&#10003; Settings saved.</div>';
-    setTimeout(function(){alertEl.innerHTML='';},2500);
+  var values={
+    gradeDist:Number(document.getElementById('s-dist').value),
+    gradeMerit:Number(document.getElementById('s-merit').value),
+    gradePass:Number(document.getElementById('s-pass').value),
+    mockTime:Number(document.getElementById('s-mock-time').value),
+    mainTime:Number(document.getElementById('s-main-time').value),
+    mockQCount:Number(document.getElementById('s-mock-q').value),
+    mainQCount:Number(document.getElementById('s-main-q').value),
+    autoRelease:document.getElementById('s-autorelease').checked
+  };
+  var ranges={
+    gradeDist:[0,100,'Distinction threshold'],
+    gradeMerit:[0,100,'Merit threshold'],
+    gradePass:[0,100,'Pass threshold'],
+    mockTime:[5,60,'Mock time limit'],
+    mainTime:[10,180,'Main Exam time limit'],
+    mockQCount:[5,50,'Mock question count'],
+    mainQCount:[10,100,'Main Exam question count']
+  };
+  for(var key in ranges){
+    var range=ranges[key];
+    if(!Number.isInteger(values[key]) || values[key]<range[0] || values[key]>range[1]){
+      alertEl.innerHTML='<div class="alert alert-danger">'+range[2]+' must be a whole number between '+range[0]+' and '+range[1]+'.</div>';
+      return;
+    }
   }
+  if(values.gradeDist<values.gradeMerit || values.gradeMerit<values.gradePass){
+    alertEl.innerHTML='<div class="alert alert-danger">Grade thresholds must be ordered: Distinction, then Merit, then Pass.</div>';
+    return;
+  }
+  var settings=Object.assign({},S.settings,values);
+  persistSettingsChange(settings,alertEl,'Settings saved. Updated time limits will be used by all students when they start their next exam.');
+}
+function applyTimeAdjustment(){
+  var input=document.getElementById('s-time-adjustment');
+  var alertEl=document.getElementById('time-adjustment-alert');
+  var minutes=Number(input.value);
+  if(!Number.isInteger(minutes) || minutes===0 || minutes < -180 || minutes > 180){
+    alertEl.innerHTML='<div class="alert alert-danger">Enter a non-zero whole number of minutes between -180 and 180. Use a negative number to reduce time.</div>';
+    return;
+  }
+  var settings=Object.assign({},S.settings,{
+    timeAdjustmentTotalSeconds:(Number(S.settings.timeAdjustmentTotalSeconds)||0)+(minutes*60),
+    timeAdjustmentId:Date.now()+'-'+Math.random().toString(36).slice(2)
+  });
+  var button=document.getElementById('apply-time-adjustment-btn');
+  button.disabled=true;
+  persistSettingsChange(settings,alertEl,'Applied '+(minutes>0?'+':'')+minutes+' minute'+(Math.abs(minutes)===1?'':'s')+' to students currently taking an exam or mock.')
+    .then(function(saved){
+      button.disabled=false;
+      if(saved) input.value='';
+    });
 }
 // ── SET API URL (trainer calls this once after deployment) ──
 function setAPIUrl(){
