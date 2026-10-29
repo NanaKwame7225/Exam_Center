@@ -722,7 +722,7 @@ tbody tr:hover td{background:var(--cream)}
         <div class="settings-section">
           <h3>&#128272; Exam Access Passwords</h3>
           <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.6">
-            Set or change the password students must enter before starting each exam. Leave blank for open access. Passwords are checked when the student starts the selected exam.
+            Set or change the password students must enter before starting each exam. Exams with no password set remain locked until you add one.
             Click &#127922; to auto-generate a random code.
           </p>
           <div id="pass-list"></div>
@@ -1552,36 +1552,54 @@ var pendingExam=null; var passAttempts=0;
 function startExam(examName){
   var passKey=currentUser.course+'|'+examName;
   var required=String((S.settings.examPasswords||{})[passKey]||'').trim();
+  pendingExam=examName;
+  passAttempts=0;
+  document.getElementById('ep-input').value='';
+  var errEl=document.getElementById('ep-err');
   if(required){
-    pendingExam=examName; passAttempts=0;
-    document.getElementById('ep-input').value='';
-    var errEl=document.getElementById('ep-err');
     errEl.classList.add('hidden');
-    openModal('modal-exampass');
-    setTimeout(function(){ document.getElementById('ep-input').focus(); },100);
-  } else {
-    launchExam(examName);
+  }else{
+    errEl.textContent='The trainer has not set a password for this exam yet. Please contact your trainer.';
+    errEl.classList.remove('hidden');
   }
+  openModal('modal-exampass');
+  setTimeout(function(){ document.getElementById('ep-input').focus(); },100);
 }
 function verifyPass(){
   var input=document.getElementById('ep-input').value.trim().toUpperCase();
   if(!currentUser || !pendingExam) return;
   var passKey=currentUser.course+'|'+pendingExam;
   var correct=String((S.settings.examPasswords||{})[passKey]||'').trim().toUpperCase();
-  passAttempts++;
   var errEl=document.getElementById('ep-err');
+  if(!correct){
+    errEl.textContent='The trainer has not set a password for this exam yet. Please contact your trainer.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  if(passAttempts>=3){
+    errEl.textContent='Too many attempts. Contact your trainer.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  passAttempts++;
   if(input===correct){
+    var examToLaunch=pendingExam;
+    pendingExam=null;
     closeModal('modal-exampass');
-    launchExam(pendingExam);
+    launchExam(examToLaunch,true);
   } else {
     errEl.textContent=passAttempts>=3
       ? 'Too many attempts. Contact your trainer.'
       : 'Incorrect code. '+(3-passAttempts)+' attempt(s) left.';
     errEl.classList.remove('hidden');
-    if(passAttempts>=3) setTimeout(function(){ closeModal('modal-exampass'); },2000);
+    if(passAttempts>=3) setTimeout(function(){ pendingExam=null; closeModal('modal-exampass'); },2000);
   }
 }
-function launchExam(examName){
+function launchExam(examName,passwordVerified){
+  if(!passwordVerified){
+    console.warn('[Exam] Blocked an exam start without password verification.');
+    return;
+  }
   const isMain=examName==='Main Exam';
   const allQs=S.questions.filter(q=>q.course===currentUser.course&&q.exam===examName);
   const qCount=isMain?S.settings.mainQCount:S.settings.mockQCount;
@@ -2907,7 +2925,7 @@ function sendReceiptSMS(){
   <div class="modal-box" style="max-width:380px">
     <h3>&#128272; Exam Access Code</h3>
     <p style="font-size:13px;color:#6b7280;margin-bottom:16px;line-height:1.6">
-      Your trainer has set an access code for this exam. Enter it below to begin.
+      A password is required before you can begin this exam. Enter the code provided by your trainer.
     </p>
     <div class="field">
       <label>Access Code</label>
